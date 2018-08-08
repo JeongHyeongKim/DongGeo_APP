@@ -130,7 +130,8 @@ public class Main2Activity extends AppCompatActivity
         if (id == R.id.nav_main) {
             // Handle the camera action
         } else if (id == R.id.nav_exchange) {
-
+            Intent intent = new Intent(Main2Activity.this, KakaoInputActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);

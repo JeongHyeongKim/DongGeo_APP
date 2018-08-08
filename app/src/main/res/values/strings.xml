@@ -11,4 +11,5 @@
     <string name="Google_Map_Key">AIzaSyARebqQmqxvDqD5lXUzAUSIrCUtG1bjJIw</string>
     <string name="title_activity_write_content"> </string>
     <string name="title_activity_mypage"></string>
+    <string name="title_activity_kakao_input">KakaoInputActivity</string>
 </resources>

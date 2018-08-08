@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="AIzaSyARebqQmqxvDqD5lXUzAUSIrCUtG1bjJIw" />
 
         <activity android:name=".MainActivity" />
         <activity android:name=".Exchange.Exchange_Query_manana" />
@@ -37,16 +37,19 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="" />
+            android:value="@string/Kakao_Key" />
 
         <activity
             android:name=".WriteContentActivity"
             android:label="@string/title_activity_write_content"
-            android:theme="@style/AppTheme"></activity>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MypageActivity"
             android:label="@string/title_activity_mypage"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".KakaoInputActivity"
+            android:label=""
             android:theme="@style/AppTheme"></activity>
     </application>
 
