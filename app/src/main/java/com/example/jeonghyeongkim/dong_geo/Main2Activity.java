@@ -37,6 +37,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -134,7 +135,8 @@ public class Main2Activity extends AppCompatActivity
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mypage) {
-
+            Intent intent = new Intent(Main2Activity.this, MypageActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -154,9 +156,15 @@ public class Main2Activity extends AppCompatActivity
         //포지션-> 마커의 위치
         markerOptions.position(SEOUL);
         //마커의 해당 제목
-        markerOptions.title("서울");
-        //title 아래 추가되는 텍스트
-        markerOptions.snippet("KOR");
+        markerOptions.title("동아시아");
+        //title 아래 추가되는 텍스트 (snippet은 하나만 가능)
+        markerOptions.snippet("총 10개의 글");
+        /*
+        markerOptions.snippet("한국 KOR");
+        markerOptions.snippet("일본 JPY");
+        markerOptions.snippet("중국 CNY");
+        markerOptions.snippet("홍콩 HKD");
+        */
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         //마커 표시
         map.addMarker(markerOptions);
@@ -164,23 +172,67 @@ public class Main2Activity extends AppCompatActivity
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(1));
 
-        LatLng USA = new LatLng(40.6643, 73.9385);
+        LatLng BTN = new LatLng(21, 105);
         MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(USA);
-        markerOptions1.title("미국");
-        markerOptions1.snippet("USD");
+        markerOptions1.position(BTN);
+        markerOptions1.title("동남아시아");
+        markerOptions1.snippet("총 5개의 글");
+        /*
+        markerOptions1.snippet("베트남 VND");
+        markerOptions1.snippet("필리핀 PHP");
+        markerOptions1.snippet("브루나이 BND");
+        markerOptions1.snippet("싱가포르 SGD");
+        markerOptions1.snippet("말레이시아 MYR");
+        markerOptions1.snippet("인도네시아 IDR");
+        */
         markerOptions1.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         map.addMarker(markerOptions1);
 
-        LatLng EUR = new LatLng(52.5234051, 14.411399);
+        LatLng USA = new LatLng(40.6643, 73.9385);
         MarkerOptions markerOptions2 = new MarkerOptions();
-        markerOptions2.position(EUR);
-        markerOptions2.title("유럽연합");
-        markerOptions2.snippet("EUR");
+        markerOptions2.position(USA);
+        markerOptions2.title("북아메리카");
+        markerOptions2.snippet("총 3개의 글");
+        /*
+        markerOptions2.snippet("미국 USD");
+        markerOptions2.snippet("캐나다 CAD");
+        */
         markerOptions2.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         map.addMarker(markerOptions2);
-        Log.i("asdf", "asdf");
 
+        LatLng EUR = new LatLng(52.5234051, 14.411399);
+        MarkerOptions markerOptions3 = new MarkerOptions();
+        markerOptions3.position(EUR);
+        markerOptions3.title("유럽");
+        markerOptions3.snippet("총 11개의 글");
+        /*
+        markerOptions3.snippet("유럽연합 EUR");
+        markerOptions3.snippet("러시아 RUB");
+        markerOptions3.snippet("스위스 CHF");
+        */
+        markerOptions3.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
+        map.addMarker(markerOptions3);
+
+        LatLng AUS = new LatLng(-35.3069444, 149.1242972);
+        MarkerOptions markerOptions4 = new MarkerOptions();
+        markerOptions4.position(AUS);
+        markerOptions4.title("오세아니아");
+        markerOptions4.snippet("총 4개의 글");
+        /*
+        markerOptions4.snippet("호주 AUD");
+        markerOptions4.snippet("뉴질랜드 NZD");
+        */
+        markerOptions4.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
+        map.addMarker(markerOptions4);
+
+        //마커의 말풍선 클릭시 다른 액티비티로 넘어감 (임시페이지 -> 수정필요!)
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(Main2Activity.this, MypageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

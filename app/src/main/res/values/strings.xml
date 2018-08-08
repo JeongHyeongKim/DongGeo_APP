@@ -10,4 +10,5 @@
     <string name="Kakao_Key">3d111167c9b3333d1e28314fff07f1bf</string>
     <string name="Google_Map_Key">AIzaSyARebqQmqxvDqD5lXUzAUSIrCUtG1bjJIw</string>
     <string name="title_activity_write_content"> </string>
+    <string name="title_activity_mypage"></string>
 </resources>
