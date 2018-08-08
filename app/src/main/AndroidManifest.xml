@@ -20,7 +20,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyARebqQmqxvDqD5lXUzAUSIrCUtG1bjJIw" />
 
-        <activity android:name=".MainActivity" />
         <activity android:name=".Exchange.Exchange_Query_manana" />
         <activity
             android:name=".Main2Activity"
