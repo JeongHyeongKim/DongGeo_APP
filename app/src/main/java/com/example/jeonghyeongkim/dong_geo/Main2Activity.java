@@ -263,35 +263,6 @@ public class Main2Activity extends AppCompatActivity
 //        view.setVisibility(View.GONE);
 //    }
 
-<<<<<<< Updated upstream
-=======
-
-
-
-
-
-
-    private void showResult(){
-        try{
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("result");
-
-            JSONObject item = jsonArray.getJSONObject(0);
-            String buffer_world_count=item.getString("world");
-            String buffer_user_count=item.getString("user");
-            String buffer_request_count=item.getString("request"); //json파싱 결과를 각 임시 변수에 삽입
-
-            user_count.setText(buffer_user_count+"명의 사용자");
-            world_count.setText(buffer_world_count+"개국");
-            request_count.setText(buffer_request_count+"개의 게시글");
-
-
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-    }
-
->>>>>>> Stashed changes
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this);
         getData.execute("http://beaconplus.co.kr/dong_geo/overlay_query.php");
@@ -301,83 +272,6 @@ public class Main2Activity extends AppCompatActivity
     public static Context getContext() {
         return context;
     }
-
-
-<<<<<<< Updated upstream
-=======
-    private class GetData extends AsyncTask<String, Void, String> {
-        String errorString = null;
-        ProgressDialog progressDialog;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(Main2Activity.this,
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            progressDialog.dismiss();
-            //one.setText(s);
-            Log.d("overlay", "response  - " + s);
-
-            if (s == null) {
-
-                Toast.makeText(Main2Activity.this, "Fail", Toast.LENGTH_LONG);
-
-            } else {
-
-                mJsonString = s;
-                showResult();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String serverURL = strings[0];
-
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.connect();
-
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d("phptest_request_overlay", "response code - " + responseStatusCode);
-
-                InputStream inputStream;
-                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                } else {
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
-                }
-
-
-                bufferedReader.close();
-                return sb.toString().trim();
-
-
-            } catch (Exception e) {
-                Log.d("overlay_query", "InsertData: Error ", e);
-                errorString = e.toString();
-                return null;
-            }
-        }
-    }
->>>>>>> Stashed changes
-
 
 
 }
