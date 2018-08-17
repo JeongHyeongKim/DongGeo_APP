@@ -1,92 +1,173 @@
 package com.example.jeonghyeongkim.dong_geo;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
-import java.io.InputStream;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Iterator;
 
-import retrofit.http.POST;
+import javax.net.ssl.HttpsURLConnection;
 
-public class PostData extends AsyncTask<String, Void, String>{
-
-        String errorString = null;
-        ProgressDialog progressDialog;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(Main2Activity.this,
-                    "Please Wait", null, true, true);
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            progressDialog.dismiss();
-            //one.setText(s);
-            Log.d("overlay", "response  - " + s);
-
-            if (s == null) {
-
-                Toast.makeText(Main2Activity.this, "Fail", Toast.LENGTH_LONG);
-
-            } else {
-
-                mJsonString = s;
-                showResult();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String serverURL = strings[0];
-
-            try {
-                URL url = new URL(serverURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setReadTimeout(5000);
-                httpURLConnection.setConnectTimeout(5000);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.connect();
+public class PostData extends AsyncTask<String, Void, String> {
 
 
-                int responseStatusCode = httpURLConnection.getResponseCode();
-                Log.d("phptest_request_overlay", "response code - " + responseStatusCode);
+    String mJsonString;
+    String errorString = null;
+    ProgressDialog progressDialog;
+    Context mcontext;
 
-                InputStream inputStream;
-                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                    inputStream = httpURLConnection.getInputStream();
-                } else {
-                    inputStream = httpURLConnection.getErrorStream();
-                }
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                StringBuilder sb = new StringBuilder();
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    sb.append(line);
-                }
-
-
-                bufferedReader.close();
-                return sb.toString().trim();
-
-
-            } catch (Exception e) {
-                Log.d("overlay_query", "InsertData: Error ", e);
-                errorString = e.toString();
-                return null;
-            }
-        }
+    public PostData(Context context) {
+        this.mJsonString = mJsonString;
+        this.errorString = errorString;
+        this.progressDialog = progressDialog;
+        this.mcontext = context;
     }
 
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progressDialog = ProgressDialog.show(mcontext,
+                "Please Wait", null, true, true);
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        progressDialog.dismiss();
+
+        Log.d("check", "response  - " + s);
+
+        if (s == null) {
+
+            Toast.makeText(mcontext, "Fail", Toast.LENGTH_LONG);
+
+        } else {
+
+            mJsonString = s;
+            Log.e("post_text",mJsonString);
+
+            if(mcontext == Main2Activity.getContext())
+            {
+                showResult(Main2Activity.getContext());
+            }
+
+        }
+
+    }
+
+    @Override
+    protected String doInBackground(String... strings) {
+        String serverURL = strings[0];
+        try{
+            URL url = new URL(serverURL);
+            JSONObject postDataParams = new JSONObject();
+            if(mcontext== Main2Activity.getContext()) {
+                postDataParams.put("id", strings[1]);
+            }
+            //else if ~~~~~~~~~~~
+            Log.e("params",postDataParams.toString());
+
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setReadTimeout(5000);
+            httpURLConnection.setConnectTimeout(5000);
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            bufferedWriter.write(getPostDataString(postDataParams));
+            Log.e("asdf", getPostDataString(postDataParams));
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
+            int responseCode=httpURLConnection.getResponseCode();
+            Log.e("post_response", String.valueOf(responseCode));
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                BufferedReader in=new BufferedReader(
+                        new InputStreamReader(
+                                httpURLConnection.getInputStream()));
+
+                StringBuffer sb = new StringBuffer("");
+                String line="";
+
+                while((line = in.readLine()) != null) {
+                    Log.e("input", line);
+                    sb.append(line);
+                    break;
+                }
+
+                in.close();
+                return sb.toString();
+
+            }
+            else {
+                return new String("false : "+responseCode);
+            }
+        }
+        catch(Exception e){
+            return new String("Exception: " + e.getMessage());
+        }
+
+
+    }
+
+    public String getPostDataString(JSONObject params) throws Exception {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        Iterator<String> itr = params.keys();
+
+        while(itr.hasNext()){
+
+            String key= itr.next();
+            Object value = params.get(key);
+
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(key, "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+        }
+        return result.toString();
+    }
+
+    private void showResult(Context context){
+        try{
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("result");
+            JSONObject item = jsonArray.getJSONObject(0);
+
+            String buffer_request_count=item.getString("status"); //json파싱 결과를 각 임시 변수에 삽입
+            Log.e("asdff",buffer_request_count);
+            //Toast.makeText(mcontext, buffer_request_count, Toast.LENGTH_LONG);
+
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+    }
+}

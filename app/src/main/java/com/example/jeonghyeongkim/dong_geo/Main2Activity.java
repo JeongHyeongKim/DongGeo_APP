@@ -101,7 +101,7 @@ public class Main2Activity extends AppCompatActivity
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         get_query();
-
+        post_query();
         context = Main2Activity.this;
     }
 
@@ -266,6 +266,11 @@ public class Main2Activity extends AppCompatActivity
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this);
         getData.execute("http://beaconplus.co.kr/dong_geo/overlay_query.php");
+    }
+
+    public void post_query(){
+        PostData postData = new PostData(Main2Activity.this);
+        postData.execute("http://beaconplus.co.kr/dong_geo/check_permission.php", "3");
     }
 
 
