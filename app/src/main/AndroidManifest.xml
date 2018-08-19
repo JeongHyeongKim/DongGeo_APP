@@ -49,6 +49,14 @@
         <activity
             android:name=".KakaoInputActivity"
             android:label=""
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme"></activity>
     </application>
 

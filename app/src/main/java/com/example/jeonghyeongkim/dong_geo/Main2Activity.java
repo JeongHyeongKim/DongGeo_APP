@@ -63,6 +63,7 @@ public class Main2Activity extends AppCompatActivity
     LinearLayout linear;
     //시작 창
     Window win = getWindow();
+    static boolean isStart = true;  //앱 시작시에만 오버레이 뜨게하는 변수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +77,9 @@ public class Main2Activity extends AppCompatActivity
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
 
-
-        win.addContentView(linear, paramlinear);
-
+       // if(isStart) {
+            win.addContentView(linear, paramlinear);
+       // }
         kakaonic=(TextView) findViewById(R.id.kakao_nick);
         user_count=(TextView)findViewById(R.id.user_count);
         world_count=(TextView)findViewById(R.id.world_count);
@@ -100,8 +101,11 @@ public class Main2Activity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        get_query();
-        post_query();
+    //    if(isStart) {
+            get_query();
+            post_query();
+        //    isStart = false;
+      //  }
         context = Main2Activity.this;
     }
 
@@ -250,6 +254,11 @@ public class Main2Activity extends AppCompatActivity
                 linear.startAnimation(anim);
                 //시작 뷰 종료
                 ((ViewManager)linear.getParent()).removeView(linear);
+                break;
+            case R.id.detailSearch:
+                //검색 페이지로 이동
+                Intent intent = new Intent(Main2Activity.this, SearchActivity.class);
+                startActivity(intent);
         }
     }
 

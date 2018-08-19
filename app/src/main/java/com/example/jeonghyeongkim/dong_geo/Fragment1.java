@@ -44,7 +44,7 @@ public class Fragment1 extends Fragment {
         }
        // mLayoutManager = new LinearLayoutManager(getContext());
         mCardview.setLayoutManager(mStaggeredGridLayoutManager);
-        mAdapter = new CardviewAdapter();
+        mAdapter = new CardviewAdapter(getContext(), data);
         mAdapter.setData(data);
         mCardview.setAdapter(mAdapter);
 

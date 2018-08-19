@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,16 +17,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
 
-public class KakaoInputActivity extends AppCompatActivity
+import java.util.ArrayList;
+
+public class SearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kakao_input);
+        setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,6 +40,35 @@ public class KakaoInputActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        tabLayout = (TabLayout)findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setText("거래전"));
+        tabLayout.addTab(tabLayout.newTab().setText("거래중"));
+        tabLayout.addTab(tabLayout.newTab().setText("거래끝"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //Initializing ViewPager
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
+
+        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        //Set TabSelectedListener
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -51,25 +86,22 @@ public class KakaoInputActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        //햄버거바 메뉴 아이디 수정
+
         if (id == R.id.nav_main) {
-            Intent intent = new Intent(KakaoInputActivity.this, Main2Activity.class);
-            startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(KakaoInputActivity.this, KakaoInputActivity.class);
+            Intent intent = new Intent(SearchActivity.this, KakaoInputActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(KakaoInputActivity.this, WriteContentActivity.class);
+            Intent intent = new Intent(SearchActivity.this, WriteContentActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(KakaoInputActivity.this, MypageActivity.class);
+            Intent intent = new Intent(SearchActivity.this, MypageActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(KakaoInputActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SearchActivity.this, LoginActivity.class);
             startActivity(intent);
         }
 
@@ -77,17 +109,4 @@ public class KakaoInputActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void onClick(View v){
-        EditText kakaoInput = (EditText)findViewById(R.id.kakaoInput);
-
-        switch (v.getId()){
-            case R.id.writeButton:
-                String kakao = kakaoInput.getText().toString();
-                Toast.makeText(this, "카카오 아이디 : " + kakao, Toast.LENGTH_LONG).show();
-
-                break;
-        }
-    }
-
 }
