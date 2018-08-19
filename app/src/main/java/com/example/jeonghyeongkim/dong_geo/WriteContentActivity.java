@@ -74,8 +74,9 @@ public class WriteContentActivity extends AppCompatActivity
                 String school =  schoolInput.getText().toString(); //지금은 한개지만, 향후 여러개로 수정해야할듯
 
 
-                JSONObject jsonObject=MakeJson( exchange, amount, school, "0"); // 인증값은 0으로 테스트함
+                JSONObject jsonObject=MakeJson( exchange, amount, school, "1"); // 인증값은 0으로 테스트함
                 PostData postData = new PostData(WriteContentActivity.this, jsonObject);
+                postData.execute("http://beaconplus.co.kr/dong_geo/upload_request.php");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
@@ -146,7 +147,7 @@ public class WriteContentActivity extends AppCompatActivity
         return true;
     } //
 
-    public JSONObject MakeJson(String exchange, int amount,  String school, String kakao_email){
+    private JSONObject MakeJson(String exchange, int amount,  String school, String kakao_email){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
 
         long now = System.currentTimeMillis();

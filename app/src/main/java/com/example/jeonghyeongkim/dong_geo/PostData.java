@@ -63,10 +63,11 @@ public class PostData extends AsyncTask<String, Void, String> {
             mJsonString = s;
             Log.e("post_text",mJsonString);
 
-            if(mcontext == Main2Activity.getContext())
+            /*if(mcontext == Main2Activity.getContext())
             {
                 showResult(Main2Activity.getContext());
-            }
+            }*/
+
 
         }
 
@@ -79,7 +80,6 @@ public class PostData extends AsyncTask<String, Void, String> {
             URL url = new URL(serverURL);
             JSONObject postDataParams = get_object;
 
-            //else if ~~~~~~~~~~~
             Log.e("params",postDataParams.toString());
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
