@@ -172,16 +172,6 @@ public class Main2Activity extends AppCompatActivity
         }
     }
 
-//    public void onClick(View v){
-//        Intent intent;
-//        switch (v.getId()){
-//            case R.id.kakao_login_button:
-//                Intent intent = new Intent(Main2Activity.this, LoginActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

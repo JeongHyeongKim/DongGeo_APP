@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -18,6 +19,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+//        Toast.makeText(this, "this", Toast.LENGTH_SHORT).show();
         /*try { sdk사용시 해쉬 필요함! 이거 했으니 그냥 주석 놔두시면 될듯
             PackageInfo info = getPackageManager().getPackageInfo(
                     getPackageName(), PackageManager.GET_SIGNATURES);
