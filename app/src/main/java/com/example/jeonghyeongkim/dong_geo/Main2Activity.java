@@ -77,9 +77,9 @@ public class Main2Activity extends AppCompatActivity
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
 
-        if(isStart) {
+       // if(isStart) {
             win.addContentView(linear, paramlinear);
-        }
+       // }
         kakaonic=(TextView) findViewById(R.id.kakao_nick);
         user_count=(TextView)findViewById(R.id.user_count);
         world_count=(TextView)findViewById(R.id.world_count);
@@ -101,11 +101,11 @@ public class Main2Activity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        if(isStart) {
+    //    if(isStart) {
             get_query();
             post_query();
-            isStart = false;
-        }
+        //    isStart = false;
+      //  }
         context = Main2Activity.this;
     }
 
