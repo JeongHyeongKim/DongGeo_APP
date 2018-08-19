@@ -74,9 +74,7 @@ public class Main2Activity extends AppCompatActivity
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
 
-
         win.addContentView(linear, paramlinear);
-
 
         user_count=(TextView)findViewById(R.id.user_count);
         world_count=(TextView)findViewById(R.id.world_count);
@@ -245,6 +243,11 @@ public class Main2Activity extends AppCompatActivity
                 linear.startAnimation(anim);
                 //시작 뷰 종료
                 ((ViewManager)linear.getParent()).removeView(linear);
+                break;
+            case R.id.detailSearch:
+                //검색 페이지로 이동
+                Intent intent = new Intent(Main2Activity.this, SearchActivity.class);
+                startActivity(intent);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ public class CardviewViewHolder extends RecyclerView.ViewHolder{
     public TextView amount;
     public TextView converted;
     public TextView univertisty;
+    public CardView cvItem;
 
 
     public CardviewViewHolder(View itemView) {
@@ -18,6 +20,7 @@ public class CardviewViewHolder extends RecyclerView.ViewHolder{
         amount = (TextView) itemView.findViewById(R.id.amount);
         converted = (TextView) itemView.findViewById(R.id.converted);
         univertisty = (TextView) itemView.findViewById(R.id.university);
+        cvItem = (CardView) itemView.findViewById(R.id.cardview);
     }
 
 }

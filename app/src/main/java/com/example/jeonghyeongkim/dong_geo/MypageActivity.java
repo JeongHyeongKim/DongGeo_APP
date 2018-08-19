@@ -74,11 +74,14 @@ public class MypageActivity extends AppCompatActivity
         if (id == R.id.nav_main) {
             // Handle the camera action
         } else if (id == R.id.nav_exchange) {
-
+            Intent intent = new Intent(MypageActivity.this, KakaoInputActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_write_content) {
-
+            Intent intent = new Intent(MypageActivity.this, WriteContentActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_mypage) {
-
+            Intent intent = new Intent(MypageActivity.this, MypageActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

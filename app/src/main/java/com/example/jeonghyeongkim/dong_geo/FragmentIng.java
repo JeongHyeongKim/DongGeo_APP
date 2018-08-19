@@ -10,19 +10,13 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-
-public class Fragment1 extends Fragment {
-
+public class FragmentIng extends Fragment {
     private RecyclerView mCardview;
     private CardviewAdapter mAdapter;
-   // private LinearLayoutManager mLayoutManager;
-    private  StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private int MAX_ITEM_COUNT = 10;
 
-    private int MAX_ITEM_COUNT = 50;
-
-
-    public Fragment1() {
-        // Required empty public constructor
+    public FragmentIng() {
         super();
     }
 
@@ -30,7 +24,7 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
+        View view = inflater.inflate(R.layout.ing_fragment, container, false);
 
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
         mCardview = (RecyclerView)view.findViewById(R.id.recyclerview);
@@ -42,12 +36,11 @@ public class Fragment1 extends Fragment {
             data.add(new DonggeoData( "USD", i , i, "동덕여자대학교"));
             i++;
         }
-       // mLayoutManager = new LinearLayoutManager(getContext());
+
         mCardview.setLayoutManager(mStaggeredGridLayoutManager);
         mAdapter = new CardviewAdapter(getContext(), data);
         mAdapter.setData(data);
         mCardview.setAdapter(mAdapter);
-
 
         return view;
 
