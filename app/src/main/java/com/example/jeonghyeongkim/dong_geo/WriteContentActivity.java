@@ -121,10 +121,14 @@ public class WriteContentActivity extends AppCompatActivity
             Intent intent = new Intent(WriteContentActivity.this, Main2Activity.class);
             startActivity(intent);
         } else if (id == R.id.nav_exchange) {
-
+            Intent intent = new Intent(WriteContentActivity.this, KakaoInputActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_write_content) {
-
+//            Intent intent = new Intent(WriteContentActivity.this, WriteContentActivity.class);
+//            startActivity(intent);
         } else if (id == R.id.nav_mypage) {
+            Intent intent = new Intent(WriteContentActivity.this, MypageActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 

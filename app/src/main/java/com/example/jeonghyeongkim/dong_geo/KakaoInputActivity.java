@@ -53,13 +53,18 @@ public class KakaoInputActivity extends AppCompatActivity
         int id = item.getItemId();
         //햄버거바 메뉴 아이디 수정
         if (id == R.id.nav_main) {
+            Intent intent = new Intent(KakaoInputActivity.this, Main2Activity.class);
+            startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_exchange) {
-
+            Intent intent = new Intent(KakaoInputActivity.this, KakaoInputActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(KakaoInputActivity.this, WriteContentActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mypage) {
+            Intent intent = new Intent(KakaoInputActivity.this, MypageActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 

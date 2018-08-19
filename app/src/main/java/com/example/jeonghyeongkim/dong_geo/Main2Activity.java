@@ -63,6 +63,7 @@ public class Main2Activity extends AppCompatActivity
     LinearLayout linear;
     //시작 창
     Window win = getWindow();
+    static boolean isStart = true;  //앱 시작시에만 오버레이 뜨게하는 변수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +77,10 @@ public class Main2Activity extends AppCompatActivity
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
 
-        win.addContentView(linear, paramlinear);
-
-<<<<<<< HEAD
-=======
+        if(isStart) {
+            win.addContentView(linear, paramlinear);
+        }
         kakaonic=(TextView) findViewById(R.id.kakao_nick);
->>>>>>> 091b3269181fffd53fda324002b405a763536e86
         user_count=(TextView)findViewById(R.id.user_count);
         world_count=(TextView)findViewById(R.id.world_count);
         request_count=(TextView)findViewById(R.id.request_count);
@@ -102,8 +101,11 @@ public class Main2Activity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        get_query();
-        post_query();
+        if(isStart) {
+            get_query();
+            post_query();
+            isStart = false;
+        }
         context = Main2Activity.this;
     }
 

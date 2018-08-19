@@ -70,9 +70,10 @@ public class MypageActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        //햄버거바 메뉴 아이디 수정
         if (id == R.id.nav_main) {
-            // Handle the camera action
+            Intent intent = new Intent(MypageActivity.this, Main2Activity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_exchange) {
             Intent intent = new Intent(MypageActivity.this, KakaoInputActivity.class);
             startActivity(intent);
@@ -80,15 +81,14 @@ public class MypageActivity extends AppCompatActivity
             Intent intent = new Intent(MypageActivity.this, WriteContentActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(MypageActivity.this, MypageActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MypageActivity.this, MypageActivity.class);
+//            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
             Intent intent = new Intent(MypageActivity.this, LoginActivity.class);
             startActivity(intent);
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
