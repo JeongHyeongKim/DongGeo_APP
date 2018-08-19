@@ -20,9 +20,6 @@ public class KakaoSignupActivity extends Activity {
         requestMe();
     }
 
-    /**
-     * 사용자의 상태를 알아 보기 위해 me API 호출을 한다.
-     */
     protected void requestMe() { //유저의 정보를 받아오는 함수
         Log.e("login", "user request called");
         UserManagement.requestMe(new MeResponseCallback() {
@@ -67,7 +64,6 @@ public class KakaoSignupActivity extends Activity {
         startActivity(intent);
         finish();
     }
-
 }
 
 
