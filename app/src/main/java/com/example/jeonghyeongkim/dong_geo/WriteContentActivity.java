@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -32,13 +33,23 @@ public class WriteContentActivity extends AppCompatActivity
     private static Context context;
     String[] exchangeRate = {"미국 USD", "일본 JPY", "중국 CNY", "유로 EUR", "영국 GBP", "캐나다 CAD", "홍콩 HKD", "스위스 CHF", "대만 TWD"};
     String[] school_item = { "동덕여자대학교", "충북대학교", "서울대학교", "연세대학교", "고려대학교", "경희대학교", "한양대학교", "이화여자대학교" };
-    
+    EditText exchangeInput;
+    EditText priceInput;
+    EditText schoolInput;
+    InputMethodManager im;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_content);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        exchangeInput = (EditText)findViewById(R.id.exchangeInput);
+        priceInput = (EditText)findViewById(R.id.priceInput);
+        schoolInput = (EditText)findViewById(R.id.schoolInput);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,13 +71,10 @@ public class WriteContentActivity extends AppCompatActivity
         schoolView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, school_item));
         context = WriteContentActivity.this;
+        im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public void onClick(View v){
-        EditText exchangeInput = (EditText)findViewById(R.id.exchangeInput);
-        EditText priceInput = (EditText)findViewById(R.id.priceInput);
-        EditText schoolInput = (EditText)findViewById(R.id.schoolInput);
-
         switch (v.getId()){
             case R.id.writeButton:
                 String exchange = exchangeInput.getText().toString();
@@ -171,5 +179,14 @@ public class WriteContentActivity extends AppCompatActivity
         return context;
     }
 
+    public void onClickLinear(View view) {
+        switch (view.getId()) {
+            case R.id.linear:
+                im.hideSoftInputFromWindow(schoolInput.getWindowToken(), 0);
+                im.hideSoftInputFromWindow(exchangeInput.getWindowToken(), 0);
+                im.hideSoftInputFromWindow(priceInput.getWindowToken(), 0);
+                break;
+        }
+    }
 
 } //class 중괄호
