@@ -61,14 +61,17 @@ public class Main2Activity extends AppCompatActivity
     TextView kakaonic;
     android.support.v7.widget.Toolbar toolbar;
     LinearLayout linear;
+
+    TextView kakaoNickView;
+    String kakaoNickName;
     //시작 창
-    Window win = getWindow();
-    static boolean isStart = true;  //앱 시작시에만 오버레이 뜨게하는 변수
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window win = getWindow();
         win.setContentView(R.layout.activity_main2);
+
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         linear = (LinearLayout)inflater.inflate(R.layout.overlay, null);
         //파라미터를 세팅해줌
@@ -97,6 +100,23 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //네비게이션 헤더 아이디 표시
+        View heaerView = navigationView.getHeaderView(0);
+        kakaoNickView = (TextView) heaerView.findViewById(R.id.kakao_nick);
+
+        Intent intent = getIntent();
+        kakaoNickName = intent.getStringExtra("nickname");
+        if(kakaoNickName != null) {
+            Log.d("nickName", kakaoNickName);
+            Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
+            kakaoNickView.setText(kakaoNickName);
+        }
+        else{
+            kakaoNickView.setText("로그인을 해주세요");
+        }
+
+
 
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
@@ -146,6 +166,7 @@ public class Main2Activity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_mypage) {
             Intent intent = new Intent(Main2Activity.this, MypageActivity.class);
+            intent.putExtra("nickname", kakaoNickName);
             startActivity(intent);
         } else if (id == R.id.nav_share) {
 

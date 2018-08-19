@@ -52,7 +52,11 @@ public class KakaoSignupActivity extends Activity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환되며, 사용자 정보 저장되어있으면 자동으로 넘어감!
                 Log.e("login", "success");
                 Logger.d("UserProfile : " + userProfile);
-                redirectMainActivity(); // 로그인 성공시 MainActivity로 전환
+                Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
+                intent.putExtra("nickname", userProfile.getNickname());
+                startActivity(intent);
+                finish();
+//                redirectMainActivity(); // 로그인 성공시 MainActivity로 전환
             }
         });
     }

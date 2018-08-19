@@ -24,6 +24,8 @@ public class MypageActivity extends AppCompatActivity
 
     private Button bt_tab1, bt_tab2, bt_tab3, bt_tab4;
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
