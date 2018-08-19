@@ -324,7 +324,7 @@ public class Main2Activity extends AppCompatActivity
     }
 
     public void post_query(){
-        //PostData postData = new PostData(Main2Activity.this);
+       // PostData postData = new PostData(Main2Activity.this, null);
        // postData.execute("http://beaconplus.co.kr/dong_geo/check_permission.php", "3");
     }
 

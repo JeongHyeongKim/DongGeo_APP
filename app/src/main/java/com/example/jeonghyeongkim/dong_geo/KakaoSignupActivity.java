@@ -12,6 +12,12 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class KakaoSignupActivity extends Activity {
 
     @Override
@@ -51,7 +57,12 @@ public class KakaoSignupActivity extends Activity {
                 Logger.d("UserProfile : " + userProfile);
                 Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
                 intent.putExtra("nickname", userProfile.getNickname());
+<<<<<<< HEAD
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
+=======
+                JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
+                PostData postData =new PostData(null,jsonObject); // 유저 정보 데이터베이스 등록
+>>>>>>> 80ea9f570729fb5a7f316dab0298373d93e10f7c
                 startActivity(intent);
                 finish();
             }
@@ -64,6 +75,28 @@ public class KakaoSignupActivity extends Activity {
         startActivity(intent);
         finish();
     }
+<<<<<<< HEAD
+=======
+
+    private JSONObject MakeJson(long id, String nickname){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String getTime = sdf.format(date); // 현재 날짜 가져오기
+
+        try {
+            jsonObject.put("kakao_id", id);
+            jsonObject.put("user_nickname", nickname);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+>>>>>>> 80ea9f570729fb5a7f316dab0298373d93e10f7c
 }
 
 
