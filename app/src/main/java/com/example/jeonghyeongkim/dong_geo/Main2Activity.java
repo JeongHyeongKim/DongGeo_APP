@@ -6,10 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -27,6 +30,7 @@ import android.view.ViewManager;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,9 +66,10 @@ public class Main2Activity extends AppCompatActivity
     android.support.v7.widget.Toolbar toolbar;
     LinearLayout linear;
 
-    TextView kakaoNickView;
     String kakaoNickName;
-    //시작 창
+    String kakaoimage;
+    Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,15 +107,42 @@ public class Main2Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //네비게이션 헤더 아이디 표시
-        View heaerView = navigationView.getHeaderView(0);
-        kakaoNickView = (TextView) heaerView.findViewById(R.id.kakao_nick);
+        final View headerView = navigationView.getHeaderView(0);
+        TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
 
         Intent intent = getIntent();
         kakaoNickName = intent.getStringExtra("nickname");
+        kakaoimage = intent.getStringExtra("kakaoimage");
         if(kakaoNickName != null) {
             Log.d("nickName", kakaoNickName);
+            Log.d("nickName", kakaoimage);
             Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
             kakaoNickView.setText(kakaoNickName);
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+                        URL url = new URL(kakaoimage);
+                        InputStream is = url.openStream();
+                        final Bitmap bm = BitmapFactory.decodeStream(is);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bm);
+                            }
+                        });
+                        imageView.setImageBitmap(bm);
+                    } catch(Exception e){
+
+                    }
+
+                }
+            });
+
+            t.start();
         }
         else{
             kakaoNickView.setText("로그인을 해주세요");

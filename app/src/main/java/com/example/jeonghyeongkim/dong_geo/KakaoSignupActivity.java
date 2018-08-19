@@ -54,18 +54,13 @@ public class KakaoSignupActivity extends Activity {
                 Logger.d("UserProfile : " + userProfile);
                 Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
                 intent.putExtra("nickname", userProfile.getNickname());
+                intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
                 startActivity(intent);
                 finish();
-//                redirectMainActivity(); // 로그인 성공시 MainActivity로 전환
             }
         });
     }
 
-    private void redirectMainActivity() {
-        Log.e("login", "maincall");
-        startActivity(new Intent(this, Main2Activity.class));
-        finish();
-    }
     protected void redirectLoginActivity() {
         final Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
