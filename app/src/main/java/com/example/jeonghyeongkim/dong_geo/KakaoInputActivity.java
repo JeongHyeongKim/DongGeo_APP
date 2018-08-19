@@ -62,6 +62,10 @@ public class KakaoInputActivity extends AppCompatActivity
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(KakaoInputActivity.this, WriteContentActivity.class);
             startActivity(intent);
+        } else if (id ==  R.id.nav_search_content){
+                Intent intent = new Intent(KakaoInputActivity.this, SearchPostActivity.class);
+                startActivity(intent);
+
         } else if (id == R.id.nav_mypage) {
             Intent intent = new Intent(KakaoInputActivity.this, MypageActivity.class);
             startActivity(intent);
