@@ -1,5 +1,6 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,13 +21,16 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WriteContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    String [] exchangeRate = {"미국 USD", "일본 JPY", "중국 CNY", "유로 EUR", "영국 GBP", "캐나다 CAD", "홍콩 HKD", "스위스 CHF", "대만 TWD"};
+    private static Context context;
+    String[] exchangeRate = {"미국 USD", "일본 JPY", "중국 CNY", "유로 EUR", "영국 GBP", "캐나다 CAD", "홍콩 HKD", "스위스 CHF", "대만 TWD"};
     String[] school_item = { "동덕여자대학교", "충북대학교", "서울대학교", "연세대학교", "고려대학교", "경희대학교", "한양대학교", "이화여자대학교" };
     
     @Override
@@ -55,6 +59,7 @@ public class WriteContentActivity extends AppCompatActivity
         schoolView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         schoolView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, school_item));
+        context = WriteContentActivity.this;
     }
 
     public void onClick(View v){
@@ -65,15 +70,14 @@ public class WriteContentActivity extends AppCompatActivity
         switch (v.getId()){
             case R.id.writeButton:
                 String exchange = exchangeInput.getText().toString();
-                int price = Integer.parseInt(priceInput.getText().toString());
-                String school =  schoolInput.getText().toString();
+                int amount = Integer.parseInt(priceInput.getText().toString());
+                String school =  schoolInput.getText().toString(); //지금은 한개지만, 향후 여러개로 수정해야할듯
 
-                long now = System.currentTimeMillis();
-                Date date = new Date(now);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                final String getTime = sdf.format(date); // 현재 날짜 가져오기
 
-                Toast.makeText(this, "통화 " + exchange + " 금액 " + price + " 학교 " + school, Toast.LENGTH_LONG).show();
+                JSONObject jsonObject=MakeJson( exchange, amount, school, "0"); // 인증값은 0으로 테스트함
+                PostData postData = new PostData(WriteContentActivity.this, jsonObject);
+
+                Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
                 break;
         }
@@ -136,5 +140,32 @@ public class WriteContentActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    } //
+
+    public JSONObject MakeJson(String exchange, int amount,  String school, String kakao_email){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        final String getTime = sdf.format(date); // 현재 날짜 가져오기
+
+        try {
+            jsonObject.put("currency", exchange);
+            jsonObject.put("amount", amount);
+            jsonObject.put("university1", school);
+            jsonObject.put("date", getTime);
+            jsonObject.put("kakao_email", kakao_email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
-}
+
+    public static Context getContext() {
+        return context;
+    }
+
+
+} //class 중괄호

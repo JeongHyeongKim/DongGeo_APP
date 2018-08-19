@@ -29,12 +29,15 @@ public class PostData extends AsyncTask<String, Void, String> {
     String errorString = null;
     ProgressDialog progressDialog;
     Context mcontext;
+    JSONObject get_object;
 
-    public PostData(Context context) {
+
+    public PostData(Context context, JSONObject object) {
         this.mJsonString = mJsonString;
         this.errorString = errorString;
         this.progressDialog = progressDialog;
         this.mcontext = context;
+        this.get_object = object;
     }
 
     @Override
@@ -74,10 +77,8 @@ public class PostData extends AsyncTask<String, Void, String> {
         String serverURL = strings[0];
         try{
             URL url = new URL(serverURL);
-            JSONObject postDataParams = new JSONObject();
-            if(mcontext== Main2Activity.getContext()) {
-                postDataParams.put("id", strings[1]);
-            }
+            JSONObject postDataParams = get_object;
+
             //else if ~~~~~~~~~~~
             Log.e("params",postDataParams.toString());
 
@@ -89,11 +90,10 @@ public class PostData extends AsyncTask<String, Void, String> {
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             bufferedWriter.write(getPostDataString(postDataParams));
-            Log.e("asdf", getPostDataString(postDataParams));
+            //Log.e("asdf", getPostDataString(postDataParams));
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
@@ -163,11 +163,11 @@ public class PostData extends AsyncTask<String, Void, String> {
 
             String buffer_request_count=item.getString("status"); //json파싱 결과를 각 임시 변수에 삽입
             Log.e("asdff",buffer_request_count);
-            //Toast.makeText(mcontext, buffer_request_count, Toast.LENGTH_LONG);
 
         } catch (JSONException e){
             e.printStackTrace();
         }
 
     }
+
 }
