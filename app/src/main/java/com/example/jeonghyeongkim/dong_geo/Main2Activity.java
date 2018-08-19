@@ -196,6 +196,9 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
+        }else if (id ==  R.id.nav_search_content){
+                Intent intent = new Intent(Main2Activity.this, SearchPostActivity.class);
+                startActivity(intent);
         } else if (id == R.id.nav_mypage) {
             Intent intent = new Intent(Main2Activity.this, MypageActivity.class);
             intent.putExtra("nickname", kakaoNickName);

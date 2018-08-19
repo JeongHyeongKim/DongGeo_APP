@@ -57,6 +57,10 @@
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SearchPostActivity"
+            android:label="@string/title_activity_search_post_actitity"
             android:theme="@style/AppTheme"></activity>
     </application>
 

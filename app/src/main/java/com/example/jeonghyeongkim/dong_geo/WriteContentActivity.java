@@ -130,6 +130,9 @@ public class WriteContentActivity extends AppCompatActivity
         } else if (id == R.id.nav_write_content) {
 //            Intent intent = new Intent(WriteContentActivity.this, WriteContentActivity.class);
 //            startActivity(intent);
+        } else if (id ==  R.id.nav_search_content){
+            Intent intent = new Intent(WriteContentActivity.this, SearchPostActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_mypage) {
             Intent intent = new Intent(WriteContentActivity.this, MypageActivity.class);
             startActivity(intent);

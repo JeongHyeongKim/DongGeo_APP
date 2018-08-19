@@ -95,6 +95,9 @@ public class SearchActivity extends AppCompatActivity
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(SearchActivity.this, WriteContentActivity.class);
             startActivity(intent);
+        } else if (id ==  R.id.nav_search_content){
+                Intent intent = new Intent(SearchActivity.this, SearchPostActivity.class);
+                startActivity(intent);
         } else if (id == R.id.nav_mypage) {
             Intent intent = new Intent(SearchActivity.this, MypageActivity.class);
             startActivity(intent);

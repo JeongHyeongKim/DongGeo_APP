@@ -16,6 +16,7 @@
             android:id="@+id/nav_write_content"
             android:icon="@drawable/ic_stat_create"
             android:title="거래글 올리기" />
+
         <item
             android:id="@+id/nav_search_content"
             android:icon="@drawable/ic_stat_search"
