@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,6 +14,8 @@
         android:layout_margin="15dp"
         android:orientation="vertical"
         android:padding="15dp"
+        android:onClick="onClickLinear"
+        android:id="@+id/linear"
         tools:layout_editor_absoluteX="10dp"
         tools:layout_editor_absoluteY="10dp">
 
@@ -24,25 +26,40 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:text="통화"
+            android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <AutoCompleteTextView
-            android:id="@+id/exchangeInput"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:completionHint="통화를 선택해주세요"
-            android:completionThreshold="1" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/money_edit" />
+
+            <AutoCompleteTextView
+                android:id="@+id/exchangeInput"
+                android:layout_width="263dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:completionHint="통화를 선택해주세요"
+                android:completionThreshold="1"
+                android:background ="@null"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:text="금액"
+            android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -60,8 +77,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:text="학교"
+            android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -81,4 +99,4 @@
             android:onClick="onClick"
             android:text="등록하기" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
