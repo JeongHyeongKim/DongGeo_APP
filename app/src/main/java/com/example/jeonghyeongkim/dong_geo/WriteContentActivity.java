@@ -20,6 +20,9 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WriteContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -64,6 +67,11 @@ public class WriteContentActivity extends AppCompatActivity
                 String exchange = exchangeInput.getText().toString();
                 int price = Integer.parseInt(priceInput.getText().toString());
                 String school =  schoolInput.getText().toString();
+
+                long now = System.currentTimeMillis();
+                Date date = new Date(now);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                final String getTime = sdf.format(date); // 현재 날짜 가져오기
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + price + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
