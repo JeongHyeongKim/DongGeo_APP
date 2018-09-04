@@ -117,12 +117,12 @@ public class GetData extends AsyncTask<String, Void, String> {
     private void showResult(Context context){
         try{
             JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("result");
+            JSONObject jsonObject1 = jsonObject.getJSONObject("result");
 
-            JSONObject item = jsonArray.getJSONObject(0);
-            String buffer_world_count=item.getString("world");
-            String buffer_user_count=item.getString("user");
-            String buffer_request_count=item.getString("request"); //json파싱 결과를 각 임시 변수에 삽입
+
+            String buffer_world_count=jsonObject1.getString("world");
+            String buffer_user_count=jsonObject1.getString("user");
+            String buffer_request_count=jsonObject1.getString("request"); //json파싱 결과를 각 임시 변수에 삽입
 
             ((Main2Activity) context).user_count.setText(buffer_user_count+"명의 사용자");
             ((Main2Activity) context).world_count.setText(buffer_world_count+"개국");
