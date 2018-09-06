@@ -320,7 +320,7 @@ public class Main2Activity extends AppCompatActivity
 
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this);
-        getData.execute("http://13.124.152.254/dong_geo/overlay.php");
+        getData.execute("overlay.php");
     }
 
     public void post_query(){
