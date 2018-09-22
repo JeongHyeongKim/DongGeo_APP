@@ -111,25 +111,20 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //네비게이션 헤더 아이디 표시
+        //네비게이션 헤더 kakao start
         final View headerView = navigationView.getHeaderView(0);
         TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
 
-        Intent intent = getIntent();
-        kakaoNickName = intent.getStringExtra("nickname");
-        kakaoimage = intent.getStringExtra("kakaoimage");
-        if(kakaoNickName != null) {
-            Log.d("nickName", kakaoNickName);
-            Log.d("nickName", kakaoimage);
-            Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
+        if(KakaoSignupActivity.get_kakao_nickname() != null) {
             kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+            Toast.makeText(this, KakaoSignupActivity.get_kakao_nickname() + "님 환영합니다.", Toast.LENGTH_LONG).show();
 
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try{
                         final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
-                        URL url = new URL(kakaoimage);
+                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
                         InputStream is = url.openStream();
                         final Bitmap bm = BitmapFactory.decodeStream(is);
                         handler.post(new Runnable() {
@@ -152,7 +147,7 @@ public class Main2Activity extends AppCompatActivity
         else{
             kakaoNickView.setText("로그인을 해주세요");
         }
-
+        //네비게이션 헤더 kakao end
 
 
         FragmentManager fragmentManager = getFragmentManager();

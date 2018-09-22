@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
@@ -23,8 +24,7 @@ import java.util.Date;
 public class KakaoSignupActivity extends Activity {
     private static UserProfile buffer;
 
-
-    @Override
+     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestMe();
@@ -102,11 +102,19 @@ public class KakaoSignupActivity extends Activity {
         return buffer.getId();
     }
 
-    public static String get_kakao_nickname(){
-        return buffer.getNickname();
+    public static String get_kakao_nickname() {
+        if (buffer != null)
+            return buffer.getNickname();
+        else
+            return null;
     }
 
-
+    public static String get_kakao_image(){
+         if (buffer != null)
+             return  buffer.getThumbnailImagePath();
+         else
+             return null;
+    }
 
 }
 
