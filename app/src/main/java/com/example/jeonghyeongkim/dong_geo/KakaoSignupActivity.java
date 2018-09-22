@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KakaoSignupActivity extends Activity {
+    private static Context context;
     private static UserProfile buffer;
     long id;
 
@@ -122,6 +123,20 @@ public class KakaoSignupActivity extends Activity {
              return  buffer.getThumbnailImagePath();
          else
              return null;
+    }
+
+
+    //카카오 이메일 불러오기
+    public void post_query() {
+        long kakao_id = get_kakao_id();
+        String user_nickname = get_kakao_nickname();
+
+        PostData postData = new PostData(KakaoSignupActivity.this, MakeJson(kakao_id,user_nickname));
+        postData.execute("login.php");
+    }
+
+    public static Context getContext() {
+        return context;
     }
 
 }
