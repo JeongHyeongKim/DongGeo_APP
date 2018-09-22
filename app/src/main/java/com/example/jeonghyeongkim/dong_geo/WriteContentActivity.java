@@ -134,7 +134,7 @@ public class WriteContentActivity extends AppCompatActivity
 
                 JSONObject jsonObject=MakeJson( exchange, amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
                 PostData postData = new PostData(WriteContentActivity.this, jsonObject);
-                postData.execute("http://beaconplus.co.kr/dong_geo/upload_request.php");
+                postData.execute("write_content.php");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
@@ -220,8 +220,10 @@ public class WriteContentActivity extends AppCompatActivity
             jsonObject.put("currency", exchange);
             jsonObject.put("amount", amount);
             jsonObject.put("university1", school);
+            jsonObject.put("university2","NULL");
+            jsonObject.put("university3","NULL");
             jsonObject.put("date", getTime);
-            jsonObject.put("kakao_id", kakao_id);
+            jsonObject.put("kakao_id", kakao_id); //대학 2,3은 현재 NULL로 테스트,
         } catch (JSONException e) {
             e.printStackTrace();
         }
