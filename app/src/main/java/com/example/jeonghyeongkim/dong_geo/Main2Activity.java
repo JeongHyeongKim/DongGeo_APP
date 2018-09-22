@@ -113,36 +113,36 @@ public class Main2Activity extends AppCompatActivity
         Intent intent = getIntent();
         kakaoNickName = intent.getStringExtra("nickname");
         kakaoimage = intent.getStringExtra("kakaoimage");
-        if(kakaoNickName != null) {
-            Log.d("nickName", kakaoNickName);
-            Log.d("nickName", kakaoimage);
-            Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
-            kakaoNickView.setText(kakaoNickName);
+        if(KakaoSignupActivity.get_kakao_nickname() != null) {
+//            Log.d("nickName", kakaoNickName);
+//            Log.d("nickName", kakaoimage);
+//            Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
+            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
 
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
-                        URL url = new URL(kakaoimage);
-                        InputStream is = url.openStream();
-                        final Bitmap bm = BitmapFactory.decodeStream(is);
-                        handler.post(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(bm);
-                            }
-                        });
-                        imageView.setImageBitmap(bm);
-                    } catch(Exception e){
-
-                    }
-
-                }
-            });
-
-            t.start();
+//            Thread t = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try{
+//                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+//                        URL url = new URL(kakaoimage);
+//                        InputStream is = url.openStream();
+//                        final Bitmap bm = BitmapFactory.decodeStream(is);
+//                        handler.post(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                imageView.setImageBitmap(bm);
+//                            }
+//                        });
+//                        imageView.setImageBitmap(bm);
+//                    } catch(Exception e){
+//
+//                    }
+//
+//                }
+//            });
+//
+//            t.start();
         }
         else{
             kakaoNickView.setText("로그인을 해주세요");
