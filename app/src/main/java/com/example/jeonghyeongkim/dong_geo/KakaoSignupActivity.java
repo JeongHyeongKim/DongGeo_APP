@@ -102,7 +102,10 @@ public class KakaoSignupActivity extends Activity {
     }
 
     public static long get_kakao_id() {
-        return buffer.getId();
+         if(buffer != null)
+             return buffer.getId();
+         else
+             return 0;
     }
 
     public static String get_kakao_nickname() {
