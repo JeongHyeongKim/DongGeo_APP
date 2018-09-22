@@ -38,7 +38,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/money_edit" />
+                app:srcCompat="@drawable/exchange_edit" />
 
             <AutoCompleteTextView
                 android:id="@+id/exchangeInput"
@@ -63,14 +63,28 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/priceInput"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:inputType="number" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/amount_edit"/>
+
+            <EditText
+                android:id="@+id/priceInput"
+                android:layout_width="263dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:inputType="number"
+                android:background ="@null"/>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView4"
@@ -82,15 +96,28 @@
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
-
-        <MultiAutoCompleteTextView
-            android:id="@+id/schoolInput"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:completionHint="학교를 선택해주세요."
-            android:completionThreshold="1" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/school_edit" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/schoolInput"
+                android:layout_width="263dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background ="@null"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:completionHint="학교를 선택해주세요."
+                android:completionThreshold="1" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/writeButton"
