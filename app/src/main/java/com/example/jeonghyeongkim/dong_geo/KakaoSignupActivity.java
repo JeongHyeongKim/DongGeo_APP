@@ -22,6 +22,7 @@ import java.util.Date;
 
 public class KakaoSignupActivity extends Activity {
     private static UserProfile buffer;
+    long id;
 
 
     @Override
@@ -60,7 +61,11 @@ public class KakaoSignupActivity extends Activity {
                 Log.e("login", "success");
                 Logger.d("UserProfile : " + userProfile);
                 buffer=userProfile;
+
+                id = userProfile.getId();
+
                 Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
+                intent.putExtra("id", userProfile.getId()); //세션 id
                 intent.putExtra("nickname", userProfile.getNickname());
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
 

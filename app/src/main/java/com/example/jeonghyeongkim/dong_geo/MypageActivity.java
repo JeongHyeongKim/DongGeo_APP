@@ -1,5 +1,6 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,9 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MypageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+
+    private static Context context;
+    long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
+    TextView search_id;
 
 
     private final int FRAGMENT1 = 1;
@@ -160,5 +169,29 @@ public class MypageActivity extends AppCompatActivity
                 break;
         }
 
+    }
+
+    private JSONObject MakeJson(long kakao_id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            //jsonObject.put("kakao_nickname", kakao_nickname);
+            jsonObject.put("kakao_id", kakao_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+
+    //카카오 이메일 불러오기
+    public void post_query() {
+        PostData postData = new PostData(MypageActivity.this, MakeJson(kakao_id));
+        postData.execute("load_id.php");
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }
