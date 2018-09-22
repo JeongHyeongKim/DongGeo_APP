@@ -14,7 +14,7 @@
 
 
     <string name="title_activity_search"></string>
-    <string name="title_activity_detail"></string>
+    <string name="title_activity_detail"></string >
 
     <string name="title_activity_kakao_input">KakaoInputActivity</string>
     <string name="kakaNickName"></string>

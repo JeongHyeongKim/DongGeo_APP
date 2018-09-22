@@ -2,7 +2,10 @@ package com.example.jeonghyeongkim.dong_geo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -19,7 +22,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kakao.usermgmt.response.model.UserProfile;
@@ -27,6 +32,8 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +46,8 @@ public class WriteContentActivity extends AppCompatActivity
     EditText priceInput;
     EditText schoolInput;
     InputMethodManager im;
+    TextView kakaonic;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +70,43 @@ public class WriteContentActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //네비게이션 헤더 kakao start
+        kakaonic=(TextView) findViewById(R.id.kakao_nick);
+        final View headerView = navigationView.getHeaderView(0);
+        TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
+
+        if(KakaoSignupActivity.get_kakao_nickname() != null) {
+            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
+                        InputStream is = url.openStream();
+                        final Bitmap bm = BitmapFactory.decodeStream(is);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bm);
+                            }
+                        });
+                        imageView.setImageBitmap(bm);
+                    } catch(Exception e){
+
+                    }
+
+                }
+            });
+
+            t.start();
+        }
+        else{
+            kakaoNickView.setText("로그인을 해주세요");
+        }
+        //네비게이션 헤더 kakao end
 
         AutoCompleteTextView exchangeView = (AutoCompleteTextView) findViewById(R.id.exchangeInput);
 

@@ -6,6 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +58,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
@@ -106,48 +111,43 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //네비게이션 헤더 아이디 표시
+        //네비게이션 헤더 kakao start
         final View headerView = navigationView.getHeaderView(0);
         TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
 
-        Intent intent = getIntent();
-        kakaoNickName = intent.getStringExtra("nickname");
-        kakaoimage = intent.getStringExtra("kakaoimage");
         if(KakaoSignupActivity.get_kakao_nickname() != null) {
-//            Log.d("nickName", kakaoNickName);
-//            Log.d("nickName", kakaoimage);
-//            Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
             kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+            Toast.makeText(this, KakaoSignupActivity.get_kakao_nickname() + "님 환영합니다.", Toast.LENGTH_LONG).show();
 
-//            Thread t = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try{
-//                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
-//                        URL url = new URL(kakaoimage);
-//                        InputStream is = url.openStream();
-//                        final Bitmap bm = BitmapFactory.decodeStream(is);
-//                        handler.post(new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-//                                imageView.setImageBitmap(bm);
-//                            }
-//                        });
-//                        imageView.setImageBitmap(bm);
-//                    } catch(Exception e){
-//
-//                    }
-//
-//                }
-//            });
-//
-//            t.start();
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
+                        InputStream is = url.openStream();
+                        final Bitmap bm = BitmapFactory.decodeStream(is);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bm);
+                            }
+                        });
+                        imageView.setImageBitmap(bm);
+                    } catch(Exception e){
+
+                    }
+
+                }
+            });
+
+            t.start();
         }
         else{
             kakaoNickView.setText("로그인을 해주세요");
         }
-
+        //네비게이션 헤더 kakao end
 
 
         FragmentManager fragmentManager = getFragmentManager();

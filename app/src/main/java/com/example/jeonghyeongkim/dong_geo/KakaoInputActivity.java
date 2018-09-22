@@ -122,7 +122,7 @@ public class KakaoInputActivity extends AppCompatActivity
     //카카오 이메일 불러오기
     public void post_query() {
         PostData postData = new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id));
-        postData.execute("http://13.124.152.254/dong_geo/update_id.php");
+        postData.execute("update_id.php");
     }
 
     public static Context getContext() {
