@@ -25,7 +25,6 @@ public class MypageActivity extends AppCompatActivity
     long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
     TextView search_id;
 
-
     private final int FRAGMENT1 = 1;
     private final int FRAGMENT2 = 2;
     private final int FRAGMENT3 = 3;
@@ -188,7 +187,7 @@ public class MypageActivity extends AppCompatActivity
     //카카오 이메일 불러오기
     public void post_query() {
         PostData postData = new PostData(MypageActivity.this, MakeJson(kakao_id));
-        postData.execute("load_id.php");
+        postData.execute("http://13.124.152.254/dong_geo/load_id.php");
     }
 
     public static Context getContext() {
