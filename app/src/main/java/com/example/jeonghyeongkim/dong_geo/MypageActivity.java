@@ -1,7 +1,11 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +16,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.net.URL;
 
 public class MypageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+
+    private static Context context;
+    long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
+    TextView search_id;
 
 
     private final int FRAGMENT1 = 1;
@@ -25,6 +41,9 @@ public class MypageActivity extends AppCompatActivity
     private Button bt_tab1, bt_tab2, bt_tab3, bt_tab4;
 
     Intent intent;
+
+    TextView kakaonic;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +60,44 @@ public class MypageActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //네비게이션 헤더 kakao start
+        kakaonic=(TextView) findViewById(R.id.kakao_nick);
+        final View headerView = navigationView.getHeaderView(0);
+        TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
+
+        if(KakaoSignupActivity.get_kakao_nickname() != null) {
+            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
+                        InputStream is = url.openStream();
+                        final Bitmap bm = BitmapFactory.decodeStream(is);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bm);
+                            }
+                        });
+                        imageView.setImageBitmap(bm);
+                    } catch(Exception e){
+
+                    }
+
+                }
+            });
+
+            t.start();
+        }
+        else{
+            kakaoNickView.setText("로그인을 해주세요");
+        }
+        //네비게이션 헤더 kakao end
 
         // 위젯에 대한 참조
         bt_tab1 = (Button)findViewById(R.id.bt_tab1_sell);
@@ -160,5 +217,29 @@ public class MypageActivity extends AppCompatActivity
                 break;
         }
 
+    }
+
+    private JSONObject MakeJson(long kakao_id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            //jsonObject.put("kakao_nickname", kakao_nickname);
+            jsonObject.put("kakao_id", kakao_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+
+    //카카오 이메일 불러오기
+    public void post_query() {
+        PostData postData = new PostData(MypageActivity.this, MakeJson(kakao_id));
+        postData.execute("load_id.php");
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }
