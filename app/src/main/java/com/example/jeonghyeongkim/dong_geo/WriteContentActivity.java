@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
+import com.kakao.usermgmt.response.model.UserProfile;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -82,7 +84,9 @@ public class WriteContentActivity extends AppCompatActivity
                 String school =  schoolInput.getText().toString(); //지금은 한개지만, 향후 여러개로 수정해야할듯
 
 
-                JSONObject jsonObject=MakeJson( exchange, amount, school, "1"); // 인증값은 0으로 테스트함
+                long kakao_id=KakaoSignupActivity.get_kakao_id();
+
+                JSONObject jsonObject=MakeJson( exchange, amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
                 PostData postData = new PostData(WriteContentActivity.this, jsonObject);
                 postData.execute("http://beaconplus.co.kr/dong_geo/upload_request.php");
 
@@ -158,7 +162,7 @@ public class WriteContentActivity extends AppCompatActivity
         return true;
     } //
 
-    private JSONObject MakeJson(String exchange, int amount,  String school, String kakao_email){
+    private JSONObject MakeJson(String exchange, int amount,  String school, String kakao_id){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
 
         long now = System.currentTimeMillis();
@@ -171,7 +175,7 @@ public class WriteContentActivity extends AppCompatActivity
             jsonObject.put("amount", amount);
             jsonObject.put("university1", school);
             jsonObject.put("date", getTime);
-            jsonObject.put("kakao_email", kakao_email);
+            jsonObject.put("kakao_id", kakao_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }

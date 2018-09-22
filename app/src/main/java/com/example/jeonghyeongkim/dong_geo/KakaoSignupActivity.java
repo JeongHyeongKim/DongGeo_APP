@@ -1,6 +1,7 @@
 package com.example.jeonghyeongkim.dong_geo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.User;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
@@ -19,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KakaoSignupActivity extends Activity {
+    private static UserProfile buffer;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,9 +59,11 @@ public class KakaoSignupActivity extends Activity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환되며, 사용자 정보 저장되어있으면 자동으로 넘어감!
                 Log.e("login", "success");
                 Logger.d("UserProfile : " + userProfile);
+                buffer=userProfile;
                 Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
                 intent.putExtra("nickname", userProfile.getNickname());
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
+
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
                 PostData postData =new PostData(null,jsonObject); // 유저 정보 데이터베이스 등록
                 startActivity(intent);
@@ -91,6 +97,11 @@ public class KakaoSignupActivity extends Activity {
 
         return jsonObject;
     }
+    public static long get_kakao_id() {
+        return buffer.getId();
+    }
+
+
 
 }
 
