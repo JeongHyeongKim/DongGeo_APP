@@ -5,21 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_stat_home"
+            android:title="메인" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_exchange"
+            android:icon="@drawable/ic_stat_global"
+            android:title="대륙별 거래" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_write_content"
+            android:icon="@drawable/ic_stat_create"
+            android:title="거래글 올리기" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_search_content"
+            android:icon="@drawable/ic_stat_search"
+            android:title="거래글 검색하기" />
+        <item
+            android:id="@+id/nav_mypage"
+            android:icon="@drawable/ic_stat_page"
+            android:title="마이페이지" />
     </group>
 
     <item android:title="Communicate">

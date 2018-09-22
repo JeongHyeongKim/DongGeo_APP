@@ -99,6 +99,8 @@ public class KakaoInputActivity extends AppCompatActivity
                 String search_id = kakaoInput.getText().toString();
                 Toast.makeText(this, "카카오 아이디 : " + search_id, Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(KakaoInputActivity.this, ContinentActivity.class);
+                startActivity(intent);
                 break;
         }
     }
