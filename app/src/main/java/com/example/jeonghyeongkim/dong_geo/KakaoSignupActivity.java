@@ -59,13 +59,13 @@ public class KakaoSignupActivity extends Activity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환되며, 사용자 정보 저장되어있으면 자동으로 넘어감!
                 Log.e("login", "success");
                 Logger.d("UserProfile : " + userProfile);
-                buffer=userProfile;
+                buffer = userProfile;
                 Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
                 intent.putExtra("nickname", userProfile.getNickname());
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
 
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
-                PostData postData =new PostData(null,jsonObject); // 유저 정보 데이터베이스 등록
+                PostData postData = new PostData(null,jsonObject); // 유저 정보 데이터베이스 등록
                 startActivity(intent);
                 finish();
             }
@@ -97,8 +97,13 @@ public class KakaoSignupActivity extends Activity {
 
         return jsonObject;
     }
+
     public static long get_kakao_id() {
         return buffer.getId();
+    }
+
+    public static String get_kakao_nickname(){
+        return buffer.getNickname();
     }
 
 
