@@ -16,9 +16,9 @@
     <string name="title_activity_search"></string>
     <string name="title_activity_detail"></string>
 
-    <string name="title_activity_kakao_input">KakaoInputActivity</string>
+    <string name="title_activity_kakao_input"></string>
     <string name="kakaNickName"></string>
-    <string name="title_activity_search_post_actitity">SearchPostActitity</string>
-    <string name="title_activity_continent">ContinentActivity</string>
+    <string name="title_activity_search_post_actitity"></string>
+    <string name="title_activity_continent"></string>
 
 </resources>
