@@ -1,5 +1,6 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,8 +17,16 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class KakaoInputActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private static Context context;
+    long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
+    String search_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +96,37 @@ public class KakaoInputActivity extends AppCompatActivity
 
         switch (v.getId()){
             case R.id.writeButton:
-                String kakao = kakaoInput.getText().toString();
-                Toast.makeText(this, "카카오 아이디 : " + kakao, Toast.LENGTH_LONG).show();
+                String search_id = kakaoInput.getText().toString();
+                Toast.makeText(this, "카카오 아이디 : " + search_id, Toast.LENGTH_LONG).show();
 
                 break;
         }
+    }
+
+    private JSONObject MakeJson(long kakao_id, String id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        id = search_id;
+
+        try {
+            //jsonObject.put("kakao_nickname", kakao_nickname);
+            jsonObject.put("kakao_id", kakao_id);
+            jsonObject.put("search_id", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+    //카카오 이메일 불러오기
+    public void post_query() {
+        PostData postData = new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id));
+        postData.execute("update_id.php");
+    }
+
+    public static Context getContext() {
+        return context;
     }
 
 }

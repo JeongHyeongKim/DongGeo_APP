@@ -157,11 +157,20 @@ public class PostData extends AsyncTask<String, Void, String> {
 
     private void showResult(Context context){
         try{
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("result");
-            JSONObject item = jsonArray.getJSONObject(0);
+//            JSONObject jsonObject = new JSONObject(mJsonString);
+//            JSONArray jsonArray = jsonObject.getJSONArray("result");
+//            JSONObject item = jsonArray.getJSONObject(0);
+//
 
-            String buffer_request_count=item.getString("status"); //json파싱 결과를 각 임시 변수에 삽입
+
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+
+
+            String buffer_search_id = jsonObject1.getString("search_id");
+            ((MypageActivity) context).search_id.setText(buffer_search_id);
+
+            String buffer_request_count=jsonObject1.getString("request");
             Log.e("asdff",buffer_request_count);
 
         } catch (JSONException e){
