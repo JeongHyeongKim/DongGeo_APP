@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class SearchActivity extends AppCompatActivity
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    TextView kakaonic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,18 @@ public class SearchActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        kakaonic=(TextView) findViewById(R.id.kakao_nick);
+
+        //네비게이션 헤더 아이디 표시
+        final View headerView = navigationView.getHeaderView(0);
+        TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
+
+        if(KakaoSignupActivity.get_kakao_nickname() != null) {
+//            Log.d("nickName", kakaoNickName);
+//            Log.d("nickName", kakaoimage);
+//            Toast.makeText(this, kakaoNickName + "님 환영합니다", Toast.LENGTH_SHORT).show();
+            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+        }
 
         tabLayout = (TabLayout)findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("거래전"));

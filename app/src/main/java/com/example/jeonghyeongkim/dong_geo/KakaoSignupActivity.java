@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class KakaoSignupActivity extends Activity {
+    private static UserProfile buffer;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class KakaoSignupActivity extends Activity {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환되며, 사용자 정보 저장되어있으면 자동으로 넘어감!
                 Log.e("login", "success");
                 Logger.d("UserProfile : " + userProfile);
+                buffer = userProfile;
                 Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
                 intent.putExtra("nickname", userProfile.getNickname());
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
@@ -92,6 +95,16 @@ public class KakaoSignupActivity extends Activity {
         return jsonObject;
     }
 
+    public static long get_kakao_id() {
+        return buffer.getId();
+    }
+    public static String get_kakao_nickname(){
+//        Log.e("kakao_buffer", buffer.getNickname());
+        if(buffer != null)
+            return buffer.getNickname();
+        else
+            return "";
+    }
 }
 
 
