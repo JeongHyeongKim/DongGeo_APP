@@ -136,17 +136,17 @@ public class WriteContentActivity extends AppCompatActivity
             case R.id.writeButton:
                 String exchange = exchangeInput.getText().toString();
                 //선택한 국가 대륙판단하기
-                int state = checkState(exchange);
-                Log.d("state", String.valueOf(state));
+                int continent = checkState(exchange);
+                Log.d("continent", String.valueOf(continent));
                 int amount = Integer.parseInt(priceInput.getText().toString());
                 String school =  schoolInput.getText().toString(); //지금은 한개지만, 향후 여러개로 수정해야할듯
 
 
                 long kakao_id=KakaoSignupActivity.get_kakao_id();
 
-                JSONObject jsonObject=MakeJson( exchange, state ,amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
+                JSONObject jsonObject=MakeJson( exchange, continent ,amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
                 PostData postData = new PostData(WriteContentActivity.this, jsonObject);
-                postData.execute("http://write_content.php");
+                postData.execute("http://13.124.152.254/dong_geo/write_content.php");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
@@ -243,7 +243,7 @@ public class WriteContentActivity extends AppCompatActivity
         return true;
     } //
 
-    private JSONObject MakeJson(String exchange, int state, int amount,  String school, String kakao_id){
+    private JSONObject MakeJson(String exchange, int continent, int amount,  String school, String kakao_id){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
 
         long now = System.currentTimeMillis();
@@ -253,7 +253,7 @@ public class WriteContentActivity extends AppCompatActivity
 
         try {
             jsonObject.put("currency", exchange);
-            jsonObject.put("state",state);
+            jsonObject.put("continent", continent);
             jsonObject.put("amount", amount);
             jsonObject.put("university1", school);
             jsonObject.put("university2","NULL");
