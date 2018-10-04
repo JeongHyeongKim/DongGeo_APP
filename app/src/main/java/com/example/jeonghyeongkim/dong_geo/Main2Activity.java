@@ -208,78 +208,108 @@ public class Main2Activity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng SEOUL = new LatLng(37.56, 126.97);
-        MarkerOptions markerOptions = new MarkerOptions();
+        MarkerOptions markerOptions2 = new MarkerOptions();
         //포지션-> 마커의 위치
-        markerOptions.position(SEOUL);
-        //마커의 해당 제목
-        markerOptions.title("동아시아");
-        //title 아래 추가되는 텍스트 (snippet은 하나만 가능)
-        markerOptions.snippet("총 10개의 글");
-        /*
-        markerOptions.snippet("한국 KOR");
-        markerOptions.snippet("일본 JPY");
-        markerOptions.snippet("중국 CNY");
-        markerOptions.snippet("홍콩 HKD");
-        */
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
-        //마커 표시
-        map.addMarker(markerOptions);
+        markerOptions2.position(SEOUL);
         //카메라 마커위치로 옮김
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(1));
 
-        LatLng BTN = new LatLng(21, 105);
+
+        LatLng EUR = new LatLng(52.5234051, 14.411399);
         MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(BTN);
-        markerOptions1.title("동남아시아");
-        markerOptions1.snippet("총 5개의 글");
+        markerOptions1.position(EUR);
+        markerOptions1.title("유럽");
+        markerOptions1.snippet("총 11개의 글");
         /*
-        markerOptions1.snippet("베트남 VND");
-        markerOptions1.snippet("필리핀 PHP");
-        markerOptions1.snippet("브루나이 BND");
-        markerOptions1.snippet("싱가포르 SGD");
-        markerOptions1.snippet("말레이시아 MYR");
-        markerOptions1.snippet("인도네시아 IDR");
+        유럽 =1  "유럽연합 EUR",  "영국 GBP",  "스위스 CHF", "스웨덴 SEK", "체코 CZK", "덴마크 DKK", "노르웨이 NOK", "러시아 RUB", "폴란드 PLN"
         */
         markerOptions1.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         map.addMarker(markerOptions1);
 
-        LatLng USA = new LatLng(40.6643, 73.9385);
-        MarkerOptions markerOptions2 = new MarkerOptions();
-        markerOptions2.position(USA);
-        markerOptions2.title("북아메리카");
-        markerOptions2.snippet("총 3개의 글");
+
+        markerOptions2.title("동아시아");
+        //title 아래 추가되는 텍스트 (snippet은 하나만 가능)
+        markerOptions2.snippet("총 10개의 글");
         /*
-        markerOptions2.snippet("미국 USD");
-        markerOptions2.snippet("캐나다 CAD");
+        동아시아 = 2   "일본 JPY", "중국 CNY", "홍콩 HKD", "대만 TWD",  "몽골 MNT", "카자흐스탄 KZT", "인도 INR","파키스탄 PKR",
         */
         markerOptions2.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         map.addMarker(markerOptions2);
 
-        LatLng EUR = new LatLng(52.5234051, 14.411399);
+
+        LatLng BTN = new LatLng(21, 105);
         MarkerOptions markerOptions3 = new MarkerOptions();
-        markerOptions3.position(EUR);
-        markerOptions3.title("유럽");
-        markerOptions3.snippet("총 11개의 글");
+        markerOptions3.position(BTN);
+        markerOptions3.title("동남아시아");
+        markerOptions3.snippet("총 5개의 글");
         /*
-        markerOptions3.snippet("유럽연합 EUR");
-        markerOptions3.snippet("러시아 RUB");
-        markerOptions3.snippet("스위스 CHF");
+        동남아시아 =3  "태국 THB", "싱가포르 SGD", "말레이시아 MYR", "인도네시아 IDR",  "브루나이 BND", "베트남 VND",
         */
         markerOptions3.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         map.addMarker(markerOptions3);
 
-        LatLng AUS = new LatLng(-35.3069444, 149.1242972);
+
+        LatLng TRY = new LatLng(41, 28);
         MarkerOptions markerOptions4 = new MarkerOptions();
-        markerOptions4.position(AUS);
-        markerOptions4.title("오세아니아");
-        markerOptions4.snippet("총 4개의 글");
+        markerOptions4.position(TRY);
+        markerOptions4.title("중동아시아");
+        markerOptions4.snippet("총 1개의 글");
         /*
-        markerOptions4.snippet("호주 AUD");
-        markerOptions4.snippet("뉴질랜드 NZD");
+        중동아시아 = 4 "오만 OMR",  "터키 TRY", "이스라엘 ILS", "사우디아라비아 SAR", "쿠웨이트 KWD", "바레 BHD",  "아랍에미리트 AED", "요르단 JOD",  "카타르 QAR"
         */
         markerOptions4.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
         map.addMarker(markerOptions4);
+
+
+        LatLng AUS = new LatLng(-35.3069444, 149.1242972);
+        MarkerOptions markerOptions5 = new MarkerOptions();
+        markerOptions5.position(AUS);
+        markerOptions5.title("오세아니아");
+        markerOptions5.snippet("총 4개의 글");
+        /*
+        오세아니아 = 5      "호주 AUD", "뉴질랜드 NZD",
+        */
+        markerOptions5.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
+        map.addMarker(markerOptions5);
+
+
+        LatLng USA = new LatLng(40.6643, 73.9385);
+        MarkerOptions markerOptions6 = new MarkerOptions();
+        markerOptions6.position(USA);
+        markerOptions6.title("북아메리카");
+        markerOptions6.snippet("총 3개의 글");
+        /*
+        markerOptions6.snippet("미국 USD");
+        markerOptions6.snippet("캐나다 CAD");
+        */
+        markerOptions6.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
+        map.addMarker(markerOptions6);
+
+
+        LatLng BRL = new LatLng(-15.78, -48);
+        MarkerOptions markerOptions7 = new MarkerOptions();
+        markerOptions7.position(BRL);
+        markerOptions7.title("남아메리카");
+        markerOptions7.snippet("총 3개의 글");
+        /*
+        남아메리카 = 7       "칠레 CLP", "브라질 BRL",
+        */
+        markerOptions7.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
+        map.addMarker(markerOptions7);
+
+
+        LatLng ZAR = new LatLng(29, 24);
+        MarkerOptions markerOptions8 = new MarkerOptions();
+        markerOptions8.position(ZAR);
+        markerOptions8.title("아프리카");
+        markerOptions8.snippet("총 3개의 글");
+        /*
+        아프리카 = 8          "이집트 EGP", "남아공 ZAR"
+        */
+        markerOptions8.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin));
+        map.addMarker(markerOptions8);
+
 
         //마커의 말풍선 클릭시 다른 액티비티로 넘어감 (임시페이지 -> 수정필요!)
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {

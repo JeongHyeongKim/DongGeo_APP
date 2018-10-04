@@ -25,6 +25,9 @@ public class ContinentActivity extends AppCompatActivity
     CheckBox check3;
     CheckBox check4;
     CheckBox check5;
+    CheckBox check6;
+    CheckBox check7;
+    CheckBox check8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class ContinentActivity extends AppCompatActivity
         check3 = (CheckBox)findViewById(R.id.check3);
         check4 = (CheckBox)findViewById(R.id.check4);
         check5 = (CheckBox)findViewById(R.id.check5);
+        check6 = (CheckBox)findViewById(R.id.check6);
+        check7 = (CheckBox)findViewById(R.id.check7);
+        check8 = (CheckBox)findViewById(R.id.check8);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,6 +74,18 @@ public class ContinentActivity extends AppCompatActivity
 
         if (check5.isChecked()) {
             conti_num += 5;
+        }
+
+        if (check6.isChecked()) {
+            conti_num += 6;
+        }
+
+        if (check7.isChecked()) {
+            conti_num += 7;
+        }
+
+        if (check8.isChecked()) {
+            conti_num += 8;
         }
     }
 
