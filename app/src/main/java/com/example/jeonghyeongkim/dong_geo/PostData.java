@@ -30,6 +30,7 @@ public class PostData extends AsyncTask<String, Void, String> {
     ProgressDialog progressDialog;
     Context mcontext;
     JSONObject get_object;
+    static String buffer_response = "";
 
 
     public PostData(Context context, JSONObject object) {
@@ -63,10 +64,10 @@ public class PostData extends AsyncTask<String, Void, String> {
             mJsonString = s;
             Log.e("post_text",mJsonString);
 
-            /*if(mcontext == Main2Activity.getContext())
+            if(mcontext == Main2Activity.getContext())
             {
                 showResult(Main2Activity.getContext());
-            }*/
+            }
 
 
         }
@@ -167,16 +168,23 @@ public class PostData extends AsyncTask<String, Void, String> {
             JSONObject jsonObject1 = jsonObject.getJSONObject("result");
 
 
-            String buffer_search_id = jsonObject1.getString("search_id");
-            ((MypageActivity) context).search_id.setText(buffer_search_id);
+            //String buffer_search_id = jsonObject1.getString("search_id");
+            //((MypageActivity) context).search_id.setText(buffer_search_id);
 
-            String buffer_request_count=jsonObject1.getString("request");
-            Log.e("asdff",buffer_request_count);
+//            String buffer_request_count=jsonObject1.getString("response");
+//            Log.e("asdff",buffer_request_count);
+
+            buffer_response = jsonObject1.getString("response");
+            Log.e("abc", buffer_response);
+//            ((Main2Activity) context).result = buffer_response;
 
         } catch (JSONException e){
             e.printStackTrace();
         }
 
+    }
+    public static String get_buffer_response(){
+        return buffer_response;
     }
 
 }

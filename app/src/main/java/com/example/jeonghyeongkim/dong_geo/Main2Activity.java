@@ -59,6 +59,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
@@ -75,6 +77,9 @@ public class Main2Activity extends AppCompatActivity
     String kakaoimage;
     Handler handler = new Handler();
 
+    long kakao_id = KakaoSignupActivity.get_kakao_id();
+    String search_id;
+    public String result="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,8 +186,23 @@ public class Main2Activity extends AppCompatActivity
         if (id == R.id.nav_main) {
             // Handle the camera action
         } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(Main2Activity.this, KakaoInputActivity.class);
-            startActivity(intent);
+            JSONObject jsonObject=MakeJson( String.valueOf(kakao_id));
+            PostData postData = new PostData(Main2Activity.this, jsonObject);
+            postData.execute("http://13.124.152.254/dong_geo/load_id.php");
+            result = postData.get_buffer_response();
+            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+//            Log.d("abcd", result);
+//            Log.e("여기까지", result);
+
+            if(result.equals("success")) {
+                Intent intent = new Intent(Main2Activity.this, ContinentActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(Main2Activity.this, KakaoInputActivity.class);
+                startActivity(intent);
+            }
+
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
@@ -348,6 +368,19 @@ public class Main2Activity extends AppCompatActivity
 //        view.setVisibility(View.GONE);
 //    }
 
+
+    private JSONObject MakeJson(String kakao_id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            jsonObject.put("kakao_id", kakao_id); //대학 2,3은 현재 NULL로 테스트,
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this);
         getData.execute("http://overlay.php");
@@ -362,7 +395,6 @@ public class Main2Activity extends AppCompatActivity
     public static Context getContext() {
         return context;
     }
-
 
 }
 

@@ -73,7 +73,7 @@ public class KakaoSignupActivity extends Activity {
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
 
                 PostData postData = new PostData(KakaoSignupActivity.this, jsonObject);
-                postData.execute("login.php");
+                postData.execute("http://13.124.152.254/dong_geo/login.php");
                 startActivity(intent);
                 finish();
             }
