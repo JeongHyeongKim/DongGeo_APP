@@ -71,7 +71,9 @@ public class KakaoSignupActivity extends Activity {
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
 
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
-                PostData postData = new PostData(null,jsonObject); // 유저 정보 데이터베이스 등록
+
+                PostData postData = new PostData(KakaoSignupActivity.this, jsonObject);
+                postData.execute("login.php");
                 startActivity(intent);
                 finish();
             }
@@ -88,11 +90,6 @@ public class KakaoSignupActivity extends Activity {
 
     private JSONObject MakeJson(long id, String nickname){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
-
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        final String getTime = sdf.format(date); // 현재 날짜 가져오기
 
         try {
             jsonObject.put("kakao_id", id);
@@ -125,15 +122,6 @@ public class KakaoSignupActivity extends Activity {
              return null;
     }
 
-
-    //카카오 이메일 불러오기
-    public void post_query() {
-        long kakao_id = get_kakao_id();
-        String user_nickname = get_kakao_nickname();
-
-        PostData postData = new PostData(KakaoSignupActivity.this, MakeJson(kakao_id,user_nickname));
-        postData.execute("login.php");
-    }
 
     public static Context getContext() {
         return context;

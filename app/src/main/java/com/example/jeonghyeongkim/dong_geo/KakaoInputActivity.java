@@ -26,7 +26,6 @@ public class KakaoInputActivity extends AppCompatActivity
 
     private static Context context;
     long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
-    String search_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +99,8 @@ public class KakaoInputActivity extends AppCompatActivity
                 Toast.makeText(this, "카카오 아이디 : " + search_id, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(KakaoInputActivity.this, ContinentActivity.class);
+                PostData postData = new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id));
+                postData.execute("update_id.php");
                 startActivity(intent);
                 break;
         }
@@ -107,8 +108,6 @@ public class KakaoInputActivity extends AppCompatActivity
 
     private JSONObject MakeJson(long kakao_id, String id){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
-
-        id = search_id;
 
         try {
             //jsonObject.put("kakao_nickname", kakao_nickname);
@@ -119,12 +118,6 @@ public class KakaoInputActivity extends AppCompatActivity
         }
 
         return jsonObject;
-    }
-
-    //카카오 이메일 불러오기
-    public void post_query() {
-        PostData postData = new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id));
-        postData.execute("update_id.php");
     }
 
     public static Context getContext() {
