@@ -58,37 +58,37 @@ public class SearchActivity extends AppCompatActivity
         final View headerView = navigationView.getHeaderView(0);
         TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
 
-//        if(KakaoSignupActivity.get_kakao_nickname() != null) {
-//            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
-//
-//            Thread t = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try{
-//                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
-//                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
-//                        InputStream is = url.openStream();
-//                        final Bitmap bm = BitmapFactory.decodeStream(is);
-//                        handler.post(new Runnable() {
-//
-//                            @Override
-//                            public void run() {
-//                                imageView.setImageBitmap(bm);
-//                            }
-//                        });
-//                        imageView.setImageBitmap(bm);
-//                    } catch(Exception e){
-//
-//                    }
-//
-//                }
-//            });
-//
-//            t.start();
-//        }
-//        else{
-//            kakaoNickView.setText("로그인을 해주세요");
-//        }
+        if(KakaoSignupActivity.get_kakao_nickname() != null) {
+            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.kakao_image);
+                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
+                        InputStream is = url.openStream();
+                        final Bitmap bm = BitmapFactory.decodeStream(is);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bm);
+                            }
+                        });
+                        imageView.setImageBitmap(bm);
+                    } catch(Exception e){
+
+                    }
+
+                }
+            });
+
+            t.start();
+        }
+        else{
+            kakaoNickView.setText("로그인을 해주세요");
+        }
         //네비게이션 헤더 kakao end
 
         tabLayout = (TabLayout)findViewById(R.id.tablayout);
