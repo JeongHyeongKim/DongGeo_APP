@@ -31,6 +31,7 @@ public class PostData extends AsyncTask<String, Void, String> {
     Context mcontext;
     JSONObject get_object;
     static String buffer_response = "";
+    static String buffer_result ="";
 
 
     public PostData(Context context, JSONObject object) {

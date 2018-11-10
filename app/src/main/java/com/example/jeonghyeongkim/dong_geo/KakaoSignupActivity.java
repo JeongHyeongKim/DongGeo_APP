@@ -73,7 +73,7 @@ public class KakaoSignupActivity extends Activity {
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
 
                 PostData postData = new PostData(KakaoSignupActivity.this, jsonObject);
-                postData.execute("http://13.124.152.254/dong_geo/login.php");
+                postData.execute("http://13.124.152.254/dong_geo/login2.php");
                 startActivity(intent);
                 finish();
             }
@@ -90,7 +90,7 @@ public class KakaoSignupActivity extends Activity {
 
     private JSONObject MakeJson(long id, String nickname){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
-
+//        String value = new String(nickname, "UTF-8");
         try {
             jsonObject.put("kakao_id", id);
             jsonObject.put("user_nickname", nickname);

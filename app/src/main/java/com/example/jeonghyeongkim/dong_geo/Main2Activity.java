@@ -79,7 +79,7 @@ public class Main2Activity extends AppCompatActivity
 
     long kakao_id = KakaoSignupActivity.get_kakao_id();
     String search_id;
-    public String result="";
+    //public String result="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,12 +184,17 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
         //햄버거바 메뉴 아이디 수정
         if (id == R.id.nav_main) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_exchange) {
-            JSONObject jsonObject=MakeJson( String.valueOf(kakao_id));
+            Log.d("kakao", String.valueOf(kakao_id));
+            JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
+            Log.d("aaaaa","aaa");
             PostData postData = new PostData(Main2Activity.this, jsonObject);
+            Log.d("aaaaa","aaaaa");
             postData.execute("http://13.124.152.254/dong_geo/load_id.php");
-            result = postData.get_buffer_response();
+            Log.d("aaaaa","aaaaaa");
+            String result = postData.get_buffer_response();
+
             Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 //            Log.d("abcd", result);
 //            Log.e("여기까지", result);
@@ -383,7 +388,7 @@ public class Main2Activity extends AppCompatActivity
 
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this);
-        getData.execute("http://overlay.php");
+        getData.execute("http://13.124.152.254/dong_geo/overlay.php");
     }
 
     public void post_query(){

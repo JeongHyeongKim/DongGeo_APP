@@ -235,7 +235,7 @@ public class MypageActivity extends AppCompatActivity
     //카카오 이메일 불러오기
     public void post_query() {
         PostData postData = new PostData(MypageActivity.this, MakeJson(kakao_id));
-        postData.execute("load_id.php");
+        postData.execute("http://13.124.152.254/dong_geo/load_id.php");
     }
 
     public static Context getContext() {
