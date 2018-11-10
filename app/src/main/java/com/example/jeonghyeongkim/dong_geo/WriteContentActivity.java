@@ -151,7 +151,7 @@ public class WriteContentActivity extends AppCompatActivity
 
                 JSONObject jsonObject=MakeJson( exchange, continent ,amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
                 PostData postData = new PostData(WriteContentActivity.this, jsonObject);
-                postData.execute("http://13.124.152.254/dong_geo/write_content.php");
+                postData.execute("/write_content.php");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
