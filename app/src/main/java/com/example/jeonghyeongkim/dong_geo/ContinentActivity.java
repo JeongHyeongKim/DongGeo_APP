@@ -1,9 +1,11 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,12 +20,18 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ContinentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static Context context;
     RadioGroup radioGroup;
     int conti_num = 0;
+    String result = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +139,28 @@ public class ContinentActivity extends AppCompatActivity
                 Intent intent = new Intent(ContinentActivity.this, SearchActivity.class);
                 //db에 대륙번호를 보내는부분 추가하기
                 //intent.putExtra("conti_num", conti_num);
+
+                context = ContinentActivity.this;
+                GetData getData = new GetData(ContinentActivity.this);
+                getData.execute("jione.php?request_state=0&request_continent=" + String.valueOf(conti_num));
                 startActivity(intent);
         }
     }
 
+    private JSONObject MakeJson(String continent){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            jsonObject.put("request_state", "0");
+            jsonObject.put("request_continent", continent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
 }

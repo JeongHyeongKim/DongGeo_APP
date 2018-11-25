@@ -42,21 +42,20 @@ public class GetData extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         progressDialog.dismiss();
-        //one.setText(s);
         Log.d("overlay", "response  - " + s);
 
         if (s == null) {
-
             Toast.makeText(mcontext, "Fail", Toast.LENGTH_LONG);
-
         } else {
-
             mJsonString = s;
-
-           if(mcontext == Main2Activity.getContext())
-           {
+            Log.d("continent_result", "s" + s);
+            if(mcontext == Main2Activity.getContext()){
                showResult(Main2Activity.getContext());
-           }
+            }
+            else if(mcontext == ContinentActivity.getContext()){
+                Log.d("continent_result", "continent_onPost");
+                showResult(ContinentActivity.getContext());
+            }
 
         }
     }
@@ -117,19 +116,29 @@ public class GetData extends AsyncTask<String, Void, String> {
     private void showResult(Context context){
         try{
             JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+            if(context == Main2Activity.getContext()) {
+                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+                String buffer_world_count = jsonObject1.getString("world");
+                String buffer_user_count = jsonObject1.getString("user");
+                String buffer_request_count = jsonObject1.getString("request"); //json파싱 결과를 각 임시 변수에 삽입
 
+                ((Main2Activity) context).user_count.setText(buffer_user_count + "명의 사용자");
+                ((Main2Activity) context).world_count.setText(buffer_world_count + "개국");
+                ((Main2Activity) context).request_count.setText(buffer_request_count + "개의 게시글");
+            }else if(context == ContinentActivity.getContext()){
+                JSONArray jsonArray = jsonObject.getJSONArray("result");
+                for(int i = 0; i< jsonArray.length(); i++){
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    String continent_currency = jsonObject1.getString("currency");
+                    String continent_amount = jsonObject1.getString("amount");
+                    String continent_uni1 = jsonObject1.getString("uni1");
 
-            String buffer_world_count=jsonObject1.getString("world");
-            String buffer_user_count=jsonObject1.getString("user");
-            String buffer_request_count=jsonObject1.getString("request"); //json파싱 결과를 각 임시 변수에 삽입
+                    Log.d("continent_result", continent_currency);
+                    Log.d("continent_result", continent_amount);
+                    Log.d("continent_result", continent_uni1);
+                }
 
-            ((Main2Activity) context).user_count.setText(buffer_user_count+"명의 사용자");
-            ((Main2Activity) context).world_count.setText(buffer_world_count+"개국");
-            ((Main2Activity) context).request_count.setText(buffer_request_count+"개의 게시글");
-
-
-
+            }
 
         } catch (JSONException e){
             e.printStackTrace();
