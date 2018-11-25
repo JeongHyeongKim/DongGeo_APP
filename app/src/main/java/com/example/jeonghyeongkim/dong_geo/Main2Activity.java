@@ -75,6 +75,7 @@ public class Main2Activity extends AppCompatActivity
 
     String kakaoNickName;
     String kakaoimage;
+    String result = "";
     Handler handler = new Handler();
 
     long kakao_id = KakaoSignupActivity.get_kakao_id();
@@ -193,10 +194,12 @@ public class Main2Activity extends AppCompatActivity
             Log.d("aaaaa","aaaaa");
             postData.execute("http://13.124.152.254/dong_geo/load_id.php");
             Log.d("aaaaa","aaaaaa");
-            String result = postData.get_buffer_response();
+            result = postData.get_buffer_response();
 
             Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-//            Log.d("abcd", result);
+            Log.d("abcd", result);
+            Log.d("abcde", PostData.get_buffer_response());
+            Log.d("abcdef", postData.get_buffer_response());
 //            Log.e("여기까지", result);
 
             if(result.equals("success")) {

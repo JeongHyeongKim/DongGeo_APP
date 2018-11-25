@@ -22,15 +22,16 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class PostData extends AsyncTask<String, Void, String> {
+import static java.lang.Thread.sleep;
 
+public class PostData extends AsyncTask<String, Void, String> {
 
     String mJsonString;
     String errorString = null;
     ProgressDialog progressDialog;
     Context mcontext;
     JSONObject get_object;
-    static String buffer_response = "";
+    public static String buffer_response = "";
     static String buffer_result ="";
 
 
@@ -68,6 +69,7 @@ public class PostData extends AsyncTask<String, Void, String> {
             if(mcontext == Main2Activity.getContext())
             {
                 showResult(Main2Activity.getContext());
+                get_buffer_response();
             }
 
 
@@ -162,8 +164,6 @@ public class PostData extends AsyncTask<String, Void, String> {
 //            JSONObject jsonObject = new JSONObject(mJsonString);
 //            JSONArray jsonArray = jsonObject.getJSONArray("result");
 //            JSONObject item = jsonArray.getJSONObject(0);
-//
-
 
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONObject jsonObject1 = jsonObject.getJSONObject("result");
@@ -177,14 +177,16 @@ public class PostData extends AsyncTask<String, Void, String> {
 
             buffer_response = jsonObject1.getString("response");
             Log.e("abc", buffer_response);
-//            ((Main2Activity) context).result = buffer_response;
+            //((Main2Activity) context).result = buffer_response;
+
 
         } catch (JSONException e){
             e.printStackTrace();
         }
 
     }
-    public static String get_buffer_response(){
+
+    public static String get_buffer_response() {
         return buffer_response;
     }
 

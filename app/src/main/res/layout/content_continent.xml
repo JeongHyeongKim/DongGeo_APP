@@ -21,69 +21,75 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <CheckBox
-        android:id="@+id/check1"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="유럽"
-        android:textAlignment="center" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup">
 
-    <CheckBox
-        android:id="@+id/check2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="동아시아"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="유럽"
+            android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/check3"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="동남아시아"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="동아시아"
+            android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/check4"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="중동아시아"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio3"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="동남아시아"
+            android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/check5"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="오세아니아"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio4"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="중동아시아"
+            android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/check6"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="북아메리카"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio5"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="오세아니아"
+            android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/check7"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="남아메리카"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio6"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="북아메리카"
+            android:textAlignment="center" />
 
-    <CheckBox
-        android:id="@+id/check8"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:text="아프리카"
-        android:textAlignment="center" />
+        <RadioButton
+            android:id="@+id/radio7"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="남아메리카"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/radio8"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="아프리카"
+            android:textAlignment="center" />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -15,19 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class ContinentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    CheckBox check1;
-    CheckBox check2;
-    CheckBox check3;
-    CheckBox check4;
-    CheckBox check5;
-    CheckBox check6;
-    CheckBox check7;
-    CheckBox check8;
+    RadioGroup radioGroup;
+    int conti_num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +31,6 @@ public class ContinentActivity extends AppCompatActivity
         setContentView(R.layout.activity_continent);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        String conti_num = "";
-
-        check1 = (CheckBox)findViewById(R.id.check1);
-        check2 = (CheckBox)findViewById(R.id.check2);
-        check3 = (CheckBox)findViewById(R.id.check3);
-        check4 = (CheckBox)findViewById(R.id.check4);
-        check5 = (CheckBox)findViewById(R.id.check5);
-        check6 = (CheckBox)findViewById(R.id.check6);
-        check7 = (CheckBox)findViewById(R.id.check7);
-        check8 = (CheckBox)findViewById(R.id.check8);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,38 +41,47 @@ public class ContinentActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (check1.isChecked()) {
-            conti_num += 1;
-        }
-
-        if (check2.isChecked()) {
-            conti_num += 2;
-        }
-
-        if (check3.isChecked()) {
-            conti_num += 3;
-        }
-
-        if (check4.isChecked()) {
-            conti_num += 4;
-        }
-
-        if (check5.isChecked()) {
-            conti_num += 5;
-        }
-
-        if (check6.isChecked()) {
-            conti_num += 6;
-        }
-
-        if (check7.isChecked()) {
-            conti_num += 7;
-        }
-
-        if (check8.isChecked()) {
-            conti_num += 8;
-        }
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
     }
+
+    RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            if (i == R.id.radio1) {
+                conti_num = 1;
+
+            }
+            else if (i == R.id.radio2) {
+                conti_num = 2;
+
+            }
+            else if (i == R.id.radio3) {
+                conti_num = 3;
+
+            }
+            else if (i == R.id.radio4) {
+                conti_num = 4;
+
+            }
+            else if (i == R.id.radio5) {
+                conti_num = 5;
+
+            }
+            else if (i == R.id.radio6) {
+                conti_num = 6;
+
+            }
+            else if (i == R.id.radio7) {
+                conti_num = 7;
+
+            }
+            else if (i == R.id.radio8) {
+                conti_num = 8;
+
+            }
+        }
+    };
 
     @Override
     public void onBackPressed() {
@@ -140,4 +134,5 @@ public class ContinentActivity extends AppCompatActivity
                 startActivity(intent);
         }
     }
+
 }
