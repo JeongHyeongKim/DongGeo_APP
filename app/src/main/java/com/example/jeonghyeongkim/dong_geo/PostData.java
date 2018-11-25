@@ -2,6 +2,7 @@ package com.example.jeonghyeongkim.dong_geo;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -32,8 +33,6 @@ public class PostData extends AsyncTask<String, Void, String> {
     Context mcontext;
     JSONObject get_object;
     public static String buffer_response = "";
-    static String buffer_result ="";
-
 
     public PostData(Context context, JSONObject object) {
         this.mJsonString = mJsonString;
@@ -66,20 +65,12 @@ public class PostData extends AsyncTask<String, Void, String> {
         } else {
 
             mJsonString = s;
-            Log.e("post_text",mJsonString);
+            Log.d("kakao_load", "s" + s);
 
             if(mcontext == Main2Activity.getContext())
             {
                 showResult(Main2Activity.getContext());
-                get_buffer_response();
             }
-            if(mcontext == ContinentActivity.getContext()){
-                Log.d("continent_result", "onPost");
-                showResult(ContinentActivity.getContext());
-                get_buffer_response();
-            }
-
-
         }
 
     }
@@ -166,36 +157,26 @@ public class PostData extends AsyncTask<String, Void, String> {
         return result.toString();
     }
 
-    private void showResult(Context context){
+    public void showResult(Context context){
         Log.d("continent_result", "showResult before try");
         try{
-//            JSONObject jsonObject = new JSONObject(mJsonString);
-//            JSONArray jsonArray = jsonObject.getJSONArray("result");
-//            JSONObject item = jsonArray.getJSONObject(0);
+            if(mcontext == Main2Activity.getContext()) {
+                JSONObject jsonObject = new JSONObject(mJsonString);
+                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
 
-            JSONObject jsonObject = new JSONObject(mJsonString);
-            JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-
-            //String buffer_search_id = jsonObject1.getString("search_id");
-            //((MypageActivity) context).search_id.setText(buffer_search_id);
-
-//            String buffer_request_count=jsonObject1.getString("response");
-//            Log.e("asdff",buffer_request_count);
-
-            buffer_response = jsonObject1.getString("response");
-            Log.e("abc", buffer_response);
-            //((Main2Activity) context).result = buffer_response;
-
-
+                buffer_response = jsonObject1.getString("search_id");
+                Log.d("kakao_load", buffer_response);
+                if (!buffer_response.equals("null")) {
+                    Intent intent = new Intent(mcontext, ContinentActivity.class);
+                    mcontext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mcontext, KakaoInputActivity.class);
+                    mcontext.startActivity(intent);
+                }
+            }
         } catch (JSONException e){
             e.printStackTrace();
         }
 
     }
-
-    public static String get_buffer_response() {
-        Log.d("continent_result", buffer_response);
-        return buffer_response;
-    }
-
 }

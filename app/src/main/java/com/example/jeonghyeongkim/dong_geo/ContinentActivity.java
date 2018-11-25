@@ -142,23 +142,23 @@ public class ContinentActivity extends AppCompatActivity
 
                 context = ContinentActivity.this;
                 GetData getData = new GetData(ContinentActivity.this);
-                getData.execute("jione.php?request_state=0&request_continent=" + String.valueOf(conti_num));
+                getData.execute("/search_continent.php?request_state=0&request_continent=" + String.valueOf(conti_num));
                 startActivity(intent);
         }
     }
 
-    private JSONObject MakeJson(String continent){
-        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
-
-        try {
-            jsonObject.put("request_state", "0");
-            jsonObject.put("request_continent", continent);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return jsonObject;
-    }
+//    private JSONObject MakeJson(String continent){
+//        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+//
+//        try {
+//            jsonObject.put("request_state", "0");
+//            jsonObject.put("request_continent", continent);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return jsonObject;
+//    }
 
     public static Context getContext() {
         return context;

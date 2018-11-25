@@ -75,7 +75,6 @@ public class Main2Activity extends AppCompatActivity
 
     String kakaoNickName;
     String kakaoimage;
-    String result = "";
     Handler handler = new Handler();
 
     long kakao_id = KakaoSignupActivity.get_kakao_id();
@@ -187,30 +186,9 @@ public class Main2Activity extends AppCompatActivity
         if (id == R.id.nav_main) {
 
         } else if (id == R.id.nav_exchange) {
-            Log.d("kakao", String.valueOf(kakao_id));
             JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
-            Log.d("aaaaa","aaa");
             PostData postData = new PostData(Main2Activity.this, jsonObject);
-            Log.d("aaaaa","aaaaa");
             postData.execute("/load_id.php");
-            Log.d("aaaaa","aaaaaa");
-            result = postData.get_buffer_response();
-
-            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-            Log.d("abcd", result);
-            Log.d("abcde", PostData.get_buffer_response());
-            Log.d("abcdef", postData.get_buffer_response());
-//            Log.e("여기까지", result);
-
-            if(result.equals("success")) {
-                Intent intent = new Intent(Main2Activity.this, ContinentActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Intent intent = new Intent(Main2Activity.this, KakaoInputActivity.class);
-                startActivity(intent);
-            }
-
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
