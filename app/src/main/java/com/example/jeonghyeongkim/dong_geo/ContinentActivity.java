@@ -18,6 +18,10 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ContinentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -130,9 +134,24 @@ public class ContinentActivity extends AppCompatActivity
             case R.id.select_conti:
                 Intent intent = new Intent(ContinentActivity.this, SearchActivity.class);
                 //db에 대륙번호를 보내는부분 추가하기
-                //intent.putExtra("conti_num", conti_num);
+                PostData postData = new PostData(ContinentActivity.this, MakeJson(0, conti_num));
+                postData.execute("http://13.124.152.254/dong_geo/search_continent.php");
+                Toast.makeText(this, String.valueOf(conti_num), Toast.LENGTH_LONG).show();
                 startActivity(intent);
         }
+    }
+
+    private JSONObject MakeJson(int request_state, int request_continent){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            jsonObject.put("request_state", request_state);
+            jsonObject.put("request_continent", request_continent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
 }

@@ -192,7 +192,7 @@ public class Main2Activity extends AppCompatActivity
             Log.d("aaaaa","aaa");
             PostData postData = new PostData(Main2Activity.this, jsonObject);
             Log.d("aaaaa","aaaaa");
-            postData.execute("/load_id.php");
+            postData.execute("http://13.124.152.254/dong_geo/load_id.php");
             Log.d("aaaaa","aaaaaa");
             result = postData.get_buffer_response();
 

@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private boolean isDragged;
     TextView kakaonic;
     Handler handler = new Handler();
 
@@ -99,14 +100,24 @@ public class SearchActivity extends AppCompatActivity
         //Initializing ViewPager
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), SearchActivity.this, tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
         //Set TabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            public void onPageScrollStateChanged(int state) {
+                if (state == ViewPager.SCROLL_STATE_DRAGGING)
+                    isDragged= true;
+            }
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                if (!isDragged) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+
+                isDragged = false;
             }
 
             @Override
@@ -116,7 +127,9 @@ public class SearchActivity extends AppCompatActivity
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                if (tab.getPosition() != viewPager.getCurrentItem()) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
             }
         });
     }
