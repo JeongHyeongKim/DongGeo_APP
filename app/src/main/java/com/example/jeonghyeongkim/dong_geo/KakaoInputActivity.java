@@ -100,7 +100,7 @@ public class KakaoInputActivity extends AppCompatActivity
 
                 Intent intent = new Intent(KakaoInputActivity.this, ContinentActivity.class);
                 PostData postData = new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id));
-                postData.execute("http://13.124.152.254/dong_geo/update_id.php");
+                postData.execute("/update_id.php");
                 startActivity(intent);
                 break;
         }
