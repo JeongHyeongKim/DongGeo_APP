@@ -147,12 +147,8 @@ public class ContinentActivity extends AppCompatActivity
 //                jsonObject.put("request_state", "0");
 //                jsonObject.put("request_continent", conti_num);
                 GetData getData = new GetData(ContinentActivity.this);
-<<<<<<< HEAD
-                getData.execute("http://13.124.152.254/dong_geo/search_continent.php?request_state=0&request_continent=" + conti_num);
-=======
                 getData.execute("/search_continent.php?request_state=0&request_continent=" + String.valueOf(conti_num));
                 startActivity(intent);
->>>>>>> 73c3be4f9e3eedd4fec1157a61f7c8c561e29217
         }
     }
 

@@ -79,7 +79,6 @@ public class Main2Activity extends AppCompatActivity
 
     long kakao_id = KakaoSignupActivity.get_kakao_id();
     String search_id;
-    //public String result="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,30 +187,7 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_exchange) {
             JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
             PostData postData = new PostData(Main2Activity.this, jsonObject);
-<<<<<<< HEAD
-            Log.d("aaaaa","aaaaa");
-            postData.execute("http://13.124.152.254/dong_geo/load_id.php");
-            Log.d("aaaaa","aaaaaa");
-            result = postData.get_buffer_response();
-
-            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-            Log.d("abcd", result);
-            Log.d("abcde", PostData.get_buffer_response());
-            Log.d("abcdef", postData.get_buffer_response());
-//            Log.e("여기까지", result);
-
-            if(result.equals("success")) {
-                Intent intent = new Intent(Main2Activity.this, ContinentActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Intent intent = new Intent(Main2Activity.this, KakaoInputActivity.class);
-                startActivity(intent);
-            }
-
-=======
             postData.execute("/load_id.php");
->>>>>>> 73c3be4f9e3eedd4fec1157a61f7c8c561e29217
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
