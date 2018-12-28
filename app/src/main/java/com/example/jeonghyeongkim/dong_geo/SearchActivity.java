@@ -1,5 +1,6 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -37,6 +43,11 @@ public class SearchActivity extends AppCompatActivity
     private boolean isDragged;
     TextView kakaonic;
     Handler handler = new Handler();
+//    public static JSONObject jsonObject;
+    public String state = "";
+    public String continent = "";
+    public JSONArray jsonArray;
+    TabPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +111,17 @@ public class SearchActivity extends AppCompatActivity
         //Initializing ViewPager
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
-        TabPagerAdapter pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), SearchActivity.this, tabLayout.getTabCount());
+        Intent intent = getIntent();
+        String  temp= intent.getStringExtra("jsonArray");
+
+        pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), SearchActivity.this, tabLayout.getTabCount());
+        try {
+            jsonArray = new JSONArray(temp);
+            Log.d("Tab", String.valueOf(jsonArray));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        pagerAdapter.setJsonArray(jsonArray);
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -174,5 +195,13 @@ public class SearchActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setJsonArray(JSONArray jsonArray){
+        this.jsonArray = jsonArray;
+    }
+
+    public JSONArray getJsonArray() {
+        return jsonArray;
     }
 }

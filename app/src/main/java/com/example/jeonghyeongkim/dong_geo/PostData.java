@@ -41,6 +41,8 @@ public class PostData extends AsyncTask<String, Void, String> {
         this.progressDialog = progressDialog;
         this.mcontext = context;
         this.get_object = object;
+
+        //Log.d("continent_result", String.valueOf(this.get_object));
     }
 
     @Override
@@ -69,6 +71,11 @@ public class PostData extends AsyncTask<String, Void, String> {
             if(mcontext == Main2Activity.getContext())
             {
                 showResult(Main2Activity.getContext());
+                get_buffer_response();
+            }
+            if(mcontext == ContinentActivity.getContext()){
+                Log.d("continent_result", "onPost");
+                showResult(ContinentActivity.getContext());
                 get_buffer_response();
             }
 
@@ -160,6 +167,7 @@ public class PostData extends AsyncTask<String, Void, String> {
     }
 
     private void showResult(Context context){
+        Log.d("continent_result", "showResult before try");
         try{
 //            JSONObject jsonObject = new JSONObject(mJsonString);
 //            JSONArray jsonArray = jsonObject.getJSONArray("result");
@@ -167,7 +175,6 @@ public class PostData extends AsyncTask<String, Void, String> {
 
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-
 
             //String buffer_search_id = jsonObject1.getString("search_id");
             //((MypageActivity) context).search_id.setText(buffer_search_id);
@@ -187,6 +194,7 @@ public class PostData extends AsyncTask<String, Void, String> {
     }
 
     public static String get_buffer_response() {
+        Log.d("continent_result", buffer_response);
         return buffer_response;
     }
 
