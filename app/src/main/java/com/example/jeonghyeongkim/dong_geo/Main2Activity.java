@@ -75,7 +75,6 @@ public class Main2Activity extends AppCompatActivity
 
     String kakaoNickName;
     String kakaoimage;
-    String result = "";
     Handler handler = new Handler();
 
     long kakao_id = KakaoSignupActivity.get_kakao_id();
@@ -187,10 +186,9 @@ public class Main2Activity extends AppCompatActivity
         if (id == R.id.nav_main) {
 
         } else if (id == R.id.nav_exchange) {
-            Log.d("kakao", String.valueOf(kakao_id));
             JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
-            Log.d("aaaaa","aaa");
             PostData postData = new PostData(Main2Activity.this, jsonObject);
+<<<<<<< HEAD
             Log.d("aaaaa","aaaaa");
             postData.execute("http://13.124.152.254/dong_geo/load_id.php");
             Log.d("aaaaa","aaaaaa");
@@ -211,6 +209,9 @@ public class Main2Activity extends AppCompatActivity
                 startActivity(intent);
             }
 
+=======
+            postData.execute("/load_id.php");
+>>>>>>> 73c3be4f9e3eedd4fec1157a61f7c8c561e29217
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
