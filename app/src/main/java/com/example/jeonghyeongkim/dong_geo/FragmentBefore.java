@@ -60,7 +60,7 @@ public class FragmentBefore extends Fragment {
                 continent_currency = jsonObject1.getString("currency");
                 continent_amount = jsonObject1.getString("amount");
                 continent_uni1 = jsonObject1.getString("uni1");
-                data.add(n`ew DonggeoData( continent_currency, Integer.parseInt(continent_amount), Integer.parseInt(continent_amount), continent_uni1));
+                data.add(new DonggeoData( continent_currency, Integer.parseInt(continent_amount), Integer.parseInt(continent_amount), continent_uni1));
                 i++;
             }
         } catch (JSONException e) {
