@@ -1,12 +1,19 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -17,7 +24,8 @@ public class Fragment1 extends Fragment {
     private CardviewAdapter mAdapter;
    // private LinearLayoutManager mLayoutManager;
     private  StaggeredGridLayoutManager mStaggeredGridLayoutManager;
-
+    public static Context context;
+    static public ArrayList<DonggeoData> data = new ArrayList<>();
     private int MAX_ITEM_COUNT = 50;
 
 
@@ -27,29 +35,69 @@ public class Fragment1 extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        post_data();
+    }
+
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
+        context = getActivity().getApplicationContext();
         View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
-
+        long kakao_id = KakaoSignupActivity.get_kakao_id();
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
         mCardview = (RecyclerView)view.findViewById(R.id.recyclerview);
 
-        ArrayList<DonggeoData> data = new ArrayList<>();
 
-        int i = 0;
-        while (i < MAX_ITEM_COUNT) {
-            data.add(new DonggeoData( "USD", i , i, "동덕여자대학교"));
-            i++;
-        }
-       // mLayoutManager = new LinearLayoutManager(getContext());
-        mCardview.setLayoutManager(mStaggeredGridLayoutManager);
-        mAdapter = new CardviewAdapter(getContext(), data);
-        mAdapter.setData(data);
-        mCardview.setAdapter(mAdapter);
+        JSONObject jsonObject = MakeJson("0", "5");
+        new PostData(null, jsonObject, new DonggeoDataCallback() {
+            @Override
+            public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+                data = donggeoData;
+
+                mCardview.setLayoutManager(mStaggeredGridLayoutManager);
+                mAdapter = new CardviewAdapter(getContext(), data); // 동거데이터 들어가는거 까진 성공!
+                mAdapter.setData(data);
+                mCardview.setAdapter(mAdapter);
+            }
+        }).execute("view_mypage_sale");
+
 
 
         return view;
 
     }
+
+
+
+
+    private JSONObject MakeJson(String request_state, String user_id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            jsonObject.put("request_state", request_state);
+            jsonObject.put("user_id", user_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
+    public void post_data() {
+        JSONObject jsonObject = MakeJson("0", "5");
+        new PostData(null, jsonObject, new DonggeoDataCallback() {
+            @Override
+            public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+                data = donggeoData;
+            }
+        }).execute("view_mypage_sale.php");
+    }
+
+
+
 }

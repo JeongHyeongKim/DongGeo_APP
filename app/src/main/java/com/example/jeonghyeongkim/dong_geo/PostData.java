@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,57 +21,76 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.Thread.sleep;
 
+
+
 public class PostData extends AsyncTask<String, Void, String> {
+    private DonggeoDataCallback donggeoDataCallback;
+
 
     String mJsonString;
     String errorString = null;
     ProgressDialog progressDialog;
     Context mcontext;
     JSONObject get_object;
-    public static String buffer_response = "";
 
-    public PostData(Context context, JSONObject object) {
-        this.mJsonString = mJsonString;
+
+    ArrayList<DonggeoData> donggeoData = new ArrayList<>();
+    public static String parsed_response = "";
+
+    public PostData(Context context, JSONObject object, DonggeoDataCallback donggeoDataCallback) {
+
         this.errorString = errorString;
-        this.progressDialog = progressDialog;
+        //this.progressDialog = progressDialog;
         this.mcontext = context;
         this.get_object = object;
+        this.donggeoDataCallback = donggeoDataCallback;
 
         //Log.d("continent_result", String.valueOf(this.get_object));
-    }
+    } // 콜백으로 인해서 바꿈...
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = ProgressDialog.show(mcontext,
-                "Please Wait", null, true, true);
+        //progressDialog = ProgressDialog.show(mcontext,
+        //        "Please Wait", null, true, true);
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        progressDialog.dismiss();
+        //progressDialog.dismiss();
+        //if (donggeoDataCallback!=null) donggeoDataCallback.onTaskDone(donggeoData);
 
-        Log.d("check", "response  - " + s);
+
+        Log.d("check", "response_post  - " + s);
 
         if (s == null) {
-
+            //Log.d("fai")
             Toast.makeText(mcontext, "Fail", Toast.LENGTH_LONG);
 
         } else {
 
             mJsonString = s;
+            Log.d("check", "response_post  - " + mJsonString);
             Log.d("kakao_load", "s" + s);
 
             if(mcontext == Main2Activity.getContext())
             {
-                showResult(Main2Activity.getContext());
+                showResult(Main2Activity.getContext(), mJsonString);
+            }
+            else if(mcontext == null){
+
+                Log.d("fragment","it work!");
+                showResult();
+                //return donggeoData;
             }
         }
 
@@ -113,12 +134,13 @@ public class PostData extends AsyncTask<String, Void, String> {
                 String line="";
 
                 while((line = in.readLine()) != null) {
-                    Log.e("input", line);
+                    Log.e("input_result", line);
                     sb.append(line);
                     break;
                 }
-
+                Log.e("input_result", line);
                 in.close();
+                Log.e("input_result", sb.toString());
                 return sb.toString();
 
             }
@@ -129,6 +151,7 @@ public class PostData extends AsyncTask<String, Void, String> {
         catch(Exception e){
             return new String("Exception: " + e.getMessage());
         }
+
 
 
     }
@@ -157,26 +180,73 @@ public class PostData extends AsyncTask<String, Void, String> {
         return result.toString();
     }
 
-    public void showResult(Context context){
+    public void showResult(Context context, String data_line){
         Log.d("continent_result", "showResult before try");
         try{
-            if(mcontext == Main2Activity.getContext()) {
-                JSONObject jsonObject = new JSONObject(mJsonString);
-                JSONObject jsonObject1 = jsonObject.getJSONObject("result");
+            if(context == Main2Activity.getContext()) {
+                JSONObject jsonObject = new JSONObject(data_line);
+                JSONObject parsed_Object = jsonObject.getJSONObject("result");
 
-                buffer_response = jsonObject1.getString("search_id");
-                Log.d("kakao_load", buffer_response);
-                if (!buffer_response.equals("null")) {
-                    Intent intent = new Intent(mcontext, ContinentActivity.class);
-                    mcontext.startActivity(intent);
+                parsed_response = parsed_Object.getString("search_id");
+                //Log.d("kakao_load", buffer_response);
+                if (!parsed_response.equals("null")) {
+                    Intent intent = new Intent(context, ContinentActivity.class);
+                    context.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(mcontext, KakaoInputActivity.class);
-                    mcontext.startActivity(intent);
+                    Intent intent = new Intent(context, KakaoInputActivity.class);
+                    context.startActivity(intent);
                 }
             }
+            else if (context==MypageActivity.getContext()){
+                JSONObject jsonObject = new JSONObject(data_line);
+                JSONObject parsed_Object = jsonObject.getJSONObject("result");
+
+                parsed_response = parsed_Object.getString("response");
+
+                if(parsed_response=="fail"){ //등록되지 않은 유저!!!!!!!
+                    Intent intent = new Intent(context, KakaoInputActivity.class); //   + 안내메시지
+                    context.startActivity(intent);
+                }
+            }
+
+
         } catch (JSONException e){
             e.printStackTrace();
         }
 
     }
+    public void showResult(){ // 컨텍스트 null일때 -> 마이페이지 띄우는거
+        Log.d("continent_result", "showResult before try");
+        try{
+                Log.d("jsonjson", mJsonString);
+                JSONObject jsonObject = new JSONObject(mJsonString);
+                JSONArray object_to_array = jsonObject.getJSONArray("result");
+                Log.d("jsonparsing is ready","ready");
+                Log.d("array_length", String.valueOf(object_to_array.length()));
+                for(int i=0;i<object_to_array.length();i++){
+                    JSONObject tmp= (JSONObject)object_to_array.get(i);
+
+                    //String id = (String) tmp.get("id");
+                    String state = (String) tmp.get("state"); //fragment -> GlobalApplication 취급이기 때문에 팝니다 삽니다 여기서 구분지어야하나?
+                    Log.d("parsing_state",state);
+                    //String continent = (String) tmp.get("continent");
+                    String currency = (String) tmp.get("currency");
+                    Log.d("parsing_currency",currency);
+                    String amount = (String) tmp.get("amount");
+                    Log.d("parsing_amount",amount);
+                    String uni1 = (String) tmp.get("uni1");
+                    Log.d("parsing_uni1",uni1);
+
+                    donggeoData.add(new DonggeoData( currency, parseInt(amount) , i, uni1)); //currency, amount, converted_amount, university1
+
+            }
+            Log.d("donggeoData", String.valueOf(donggeoData.get(0).getAmount()));
+            if (donggeoDataCallback!=null) donggeoDataCallback.onTaskDone(donggeoData);
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

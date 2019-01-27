@@ -2,23 +2,14 @@ package com.example.jeonghyeongkim.dong_geo;
 
 
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +18,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewManager;
 import android.view.Window;
@@ -48,19 +37,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
@@ -118,7 +100,7 @@ public class Main2Activity extends AppCompatActivity
         //네비게이션 헤더 kakao start
         final View headerView = navigationView.getHeaderView(0);
         TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
-
+        Log.d("kakao_id",String.valueOf(kakao_id));
         if(KakaoSignupActivity.get_kakao_nickname() != null) {
             kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
             Toast.makeText(this, KakaoSignupActivity.get_kakao_nickname() + "님 환영합니다.", Toast.LENGTH_LONG).show();
@@ -159,7 +141,7 @@ public class Main2Activity extends AppCompatActivity
         mapFragment.getMapAsync(this);
     //    if(isStart) {
             get_query();
-            post_query();
+            //post_query();
         //    isStart = false;
       //  }
         context = Main2Activity.this;
@@ -186,8 +168,15 @@ public class Main2Activity extends AppCompatActivity
 
         } else if (id == R.id.nav_exchange) {
             JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
-            PostData postData = new PostData(Main2Activity.this, jsonObject);
-            postData.execute("/load_id.php");
+            new PostData(Main2Activity.this, jsonObject, new DonggeoDataCallback() {
+                @Override
+                public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+
+                }
+
+
+            }).execute("/load_id.php");
+            //postData.execute("/load_id.php");
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);
@@ -368,7 +357,7 @@ public class Main2Activity extends AppCompatActivity
 
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this);
-        getData.execute("/overlay.php");
+        getData.execute("overlay.php");
     }
 
     public void post_query(){

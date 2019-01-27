@@ -5,21 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
-import com.kakao.usermgmt.response.model.User;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 public class KakaoSignupActivity extends Activity {
     private static Context context;
@@ -72,8 +69,15 @@ public class KakaoSignupActivity extends Activity {
 
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
 
-                PostData postData = new PostData(KakaoSignupActivity.this, jsonObject);
-                postData.execute("http://13.124.152.254/dong_geo/login2.php");
+                new PostData(KakaoSignupActivity.this, jsonObject, new DonggeoDataCallback() {
+                    @Override
+                    public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+
+                    }
+
+
+                }).execute("http://13.124.152.254/dong_geo/login2.php");
+                //postData.execute("http://13.124.152.254/dong_geo/login2.php");
                 startActivity(intent);
                 finish();
             }

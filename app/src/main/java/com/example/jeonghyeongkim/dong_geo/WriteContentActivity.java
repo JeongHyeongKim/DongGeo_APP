@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -27,14 +25,13 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kakao.usermgmt.response.model.UserProfile;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class WriteContentActivity extends AppCompatActivity
@@ -150,8 +147,15 @@ public class WriteContentActivity extends AppCompatActivity
                 long kakao_id=KakaoSignupActivity.get_kakao_id();
 
                 JSONObject jsonObject=MakeJson( exchange, continent ,amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
-                PostData postData = new PostData(WriteContentActivity.this, jsonObject);
-                postData.execute("/write_content.php");
+                new PostData(WriteContentActivity.this, jsonObject, new DonggeoDataCallback() {
+                    @Override
+                    public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+
+                    }
+
+
+                }).execute("/write_content.php");
+                //postData.execute("/write_content.php");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);

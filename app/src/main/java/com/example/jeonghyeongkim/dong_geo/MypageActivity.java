@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MypageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
@@ -233,9 +234,26 @@ public class MypageActivity extends AppCompatActivity
 
 
     //카카오 이메일 불러오기
-    public void post_query() {
-        PostData postData = new PostData(MypageActivity.this, MakeJson(kakao_id));
-        postData.execute("/load_id.php");
+    //public void post_query() {
+     //   PostData postData = new PostData(MypageActivity.this, MakeJson(kakao_id), new DonggeoDataCallback() {
+      //      @Override
+       //     public void onTaskDone() {
+        //    }
+        //});
+       // postData.execute("/load_id.php");
+    //}
+    public void check_permission(long id) {
+
+        if (String.valueOf(id) == null) {
+            Intent intent = new Intent(MypageActivity.this,KakaoSignupActivity.class); // 로그인 페이지 이동 이거였나...??
+        } else {
+            new PostData(MypageActivity.this, MakeJson(kakao_id), new DonggeoDataCallback() {
+                @Override
+                public void onTaskDone(ArrayList<DonggeoData> donggeoData) { //식별 아이디 만들지 않았을 때 동작!!!
+
+                }
+            }).execute("/load_id.php"); //php만든 후 입력 예정
+        } //
     }
 
     public static Context getContext() {

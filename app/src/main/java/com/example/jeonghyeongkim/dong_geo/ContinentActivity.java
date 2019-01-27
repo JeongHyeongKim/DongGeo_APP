@@ -147,7 +147,7 @@ public class ContinentActivity extends AppCompatActivity
 //                jsonObject.put("request_state", "0");
 //                jsonObject.put("request_continent", conti_num);
                 GetData getData = new GetData(ContinentActivity.this);
-                getData.execute("/search_continent.php?request_state=0&request_continent=" + String.valueOf(conti_num));
+                getData.execute("search_continent.php"); // 정상 작동함! 연결시켜주면 될듯함 이걸 띄우는걸 찾아보자
                 startActivity(intent);
         }
     }

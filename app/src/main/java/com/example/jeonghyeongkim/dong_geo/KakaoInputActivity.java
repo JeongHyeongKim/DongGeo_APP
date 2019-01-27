@@ -3,8 +3,6 @@ package com.example.jeonghyeongkim.dong_geo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,13 +10,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class KakaoInputActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -99,8 +98,14 @@ public class KakaoInputActivity extends AppCompatActivity
                 Toast.makeText(this, "카카오 아이디 : " + search_id, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(KakaoInputActivity.this, ContinentActivity.class);
-                PostData postData = new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id));
-                postData.execute("http://13.124.152.254/dong_geo/update_id.php");
+                new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id), new DonggeoDataCallback() {
+                    @Override
+                    public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+
+                    }
+
+                }).execute("http://13.124.152.254/dong_geo/update_id.php");
+                //postData.execute("http://13.124.152.254/dong_geo/update_id.php");
                 startActivity(intent);
                 break;
         }
