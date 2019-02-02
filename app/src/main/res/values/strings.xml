@@ -7,7 +7,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="Kakao_Key">aaaaaaawwwwww</string>
+    <string name="Kakao_Key"></string>
     <string name="Google_Map_Key"></string>
     <string name="title_activity_write_content"> </string>
     <string name="title_activity_mypage"></string>
