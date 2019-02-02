@@ -30,7 +30,7 @@ public class MypageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private static Context context;
-    long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
+    String kakao_id = String.valueOf(KakaoSignupActivity.get_kakao_id()); //세션에서 로그인 일련번호 가져오기.
     TextView search_id;
 
     private final int FRAGMENT1 = 1;
@@ -68,6 +68,7 @@ public class MypageActivity extends AppCompatActivity
 
         if(KakaoSignupActivity.get_kakao_nickname() != null) {
             kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+            kakaonic.setText(KakaoSignupActivity.get_kakao_nickname());
 
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -219,7 +220,7 @@ public class MypageActivity extends AppCompatActivity
 
     }
 
-    private JSONObject MakeJson(long kakao_id){
+    private JSONObject MakeJson(String kakao_id){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터
 
         try {

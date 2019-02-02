@@ -26,13 +26,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:id="@+id/kakao_nick"
-        android:text="장윤영"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/kakao_email"
+        android:id="@+id/kakao_search_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="jyy0325@naver.com" />
+        android:text="" />
 
 </LinearLayout>
