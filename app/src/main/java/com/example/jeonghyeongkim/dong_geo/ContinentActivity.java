@@ -152,18 +152,7 @@ public class ContinentActivity extends AppCompatActivity
         }
     }
 
-//    private JSONObject MakeJson(String continent){
-//        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
-//
-//        try {
-//            jsonObject.put("request_state", "0");
-//            jsonObject.put("request_continent", continent);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return jsonObject;
-//    }
+
 
     public static Context getContext() {
         return context;
