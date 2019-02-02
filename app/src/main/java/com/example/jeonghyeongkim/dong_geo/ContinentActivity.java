@@ -147,7 +147,7 @@ public class ContinentActivity extends AppCompatActivity
 //                jsonObject.put("request_state", "0");
 //                jsonObject.put("request_continent", conti_num);
                 GetData getData = new GetData(ContinentActivity.this);
-                getData.execute("https://13.124.152.254/dong_geo/search_continent.php?request_state=0&request_continent=" + conti_num);
+                getData.execute("search_continent");
 //                startActivity(intent);
         }
     }
