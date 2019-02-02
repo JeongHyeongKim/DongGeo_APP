@@ -147,8 +147,8 @@ public class ContinentActivity extends AppCompatActivity
 //                jsonObject.put("request_state", "0");
 //                jsonObject.put("request_continent", conti_num);
                 GetData getData = new GetData(ContinentActivity.this);
-                getData.execute("https://13.124.152.254/dong_geo/search_continent.php?request_state=0&request_continent=" + conti_num); // 정상 작동함! 연결시켜주면 될듯함 이걸 띄우는걸 찾아보자
-                startActivity(intent);
+                getData.execute("https://13.124.152.254/dong_geo/search_continent.php?request_state=0&request_continent=" + conti_num);
+//                startActivity(intent);
         }
     }
 
