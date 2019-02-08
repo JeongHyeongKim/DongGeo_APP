@@ -1,19 +1,22 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class Fragment2 extends Fragment {
+public class Fragment2 extends Fragment { //삽니다
 
     private RecyclerView mCardview;
     private CardviewAdapter mAdapter;
+    public static Context context;
     // private LinearLayoutManager mLayoutManager;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
@@ -29,6 +32,8 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment2, container, false);
+        context = getActivity();
+        Log.d("context!", String.valueOf(context));
 
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
         mCardview = (RecyclerView)view.findViewById(R.id.recyclerview2);

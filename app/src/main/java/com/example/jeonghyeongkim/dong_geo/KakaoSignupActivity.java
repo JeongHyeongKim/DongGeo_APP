@@ -76,8 +76,8 @@ public class KakaoSignupActivity extends Activity {
                     }
 
 
-                }).execute("http://13.124.152.254/dong_geo/login2.php");
-                //postData.execute("http://13.124.152.254/dong_geo/login2.php");
+                }).execute("login2");
+
                 startActivity(intent);
                 finish();
             }

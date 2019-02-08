@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +27,7 @@ public class Fragment1 extends Fragment {
     private  StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     public static Context context;
     static public ArrayList<DonggeoData> data = new ArrayList<>();
-    private int MAX_ITEM_COUNT = 50;
+    public JSONArray buffer;
 
 
     public Fragment1() {
@@ -37,7 +38,7 @@ public class Fragment1 extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        post_data();
+
     }
 
 
@@ -46,7 +47,8 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        context = getActivity().getApplicationContext();
+        context = getActivity();
+        Log.d("context!", String.valueOf(context));
         View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
         long kakao_id = KakaoSignupActivity.get_kakao_id();
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
@@ -54,13 +56,12 @@ public class Fragment1 extends Fragment {
 
 
         JSONObject jsonObject = MakeJson("0", "5");
-        new PostData(null, jsonObject, new DonggeoDataCallback() {
+        new PostData(context, jsonObject, new DonggeoDataCallback() {
             @Override
             public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
                 data = donggeoData;
-
                 mCardview.setLayoutManager(mStaggeredGridLayoutManager);
-                mAdapter = new CardviewAdapter(getContext(), data); // 동거데이터 들어가는거 까진 성공!
+                mAdapter = new CardviewAdapter(getContext(), data);
                 mAdapter.setData(data);
                 mCardview.setAdapter(mAdapter);
             }
@@ -95,7 +96,7 @@ public class Fragment1 extends Fragment {
             public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
                 data = donggeoData;
             }
-        }).execute("view_mypage_sale.php");
+        }).execute("http://13.124.152.254/dong_geo/view_mypage_sale.php");
     }
 
 

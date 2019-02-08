@@ -154,8 +154,7 @@ public class WriteContentActivity extends AppCompatActivity
                     }
 
 
-                }).execute("/write_content.php");
-                //postData.execute("/write_content.php");
+                }).execute("/write_content");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);

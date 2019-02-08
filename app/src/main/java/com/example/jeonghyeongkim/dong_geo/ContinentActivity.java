@@ -146,7 +146,7 @@ public class ContinentActivity extends AppCompatActivity
 //                JSONObject jsonObject = new JSONObject(); //파라미터 데이터
 //                jsonObject.put("request_state", "0");
 //                jsonObject.put("request_continent", conti_num);
-                GetData getData = new GetData(ContinentActivity.this);
+                GetData getData = new GetData(ContinentActivity.this,null);
                 getData.execute("search_continent");
 //                startActivity(intent);
         }

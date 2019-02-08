@@ -3,6 +3,7 @@ package com.example.jeonghyeongkim.dong_geo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class PostData extends AsyncTask<String, Void, String> {
     ProgressDialog progressDialog;
     Context mcontext;
     JSONObject get_object;
+    SharedPreferences sh;
 
 
     ArrayList<DonggeoData> donggeoData = new ArrayList<>();
@@ -50,6 +52,7 @@ public class PostData extends AsyncTask<String, Void, String> {
         this.errorString = errorString;
         //this.progressDialog = progressDialog;
         this.mcontext = context;
+        Log.d("Post_class_context", String.valueOf(this.mcontext));
         this.get_object = object;
         this.donggeoDataCallback = donggeoDataCallback;
 
@@ -86,7 +89,7 @@ public class PostData extends AsyncTask<String, Void, String> {
             {
                 showResult(Main2Activity.getContext(), mJsonString);
             }
-            else if(mcontext == null){
+            else if(mcontext == MypageActivity.getContext()){
 
                 Log.d("fragment","it work!");
                 showResult();
@@ -219,6 +222,11 @@ public class PostData extends AsyncTask<String, Void, String> {
         Log.d("continent_result", "showResult before try");
         try{
                 Log.d("jsonjson", mJsonString);
+
+
+
+                SaveExchangeRate saveExchangeRate = new SaveExchangeRate(sh,null,mcontext);
+
                 JSONObject jsonObject = new JSONObject(mJsonString);
                 JSONArray object_to_array = jsonObject.getJSONArray("result");
                 Log.d("jsonparsing is ready","ready");
@@ -226,18 +234,21 @@ public class PostData extends AsyncTask<String, Void, String> {
                 for(int i=0;i<object_to_array.length();i++){
                     JSONObject tmp= (JSONObject)object_to_array.get(i);
 
-                    //String id = (String) tmp.get("id");
+
                     String state = (String) tmp.get("state"); //fragment -> GlobalApplication 취급이기 때문에 팝니다 삽니다 여기서 구분지어야하나?
                     Log.d("parsing_state",state);
-                    //String continent = (String) tmp.get("continent");
+
                     String currency = (String) tmp.get("currency");
                     Log.d("parsing_currency",currency);
+
                     String amount = (String) tmp.get("amount");
                     Log.d("parsing_amount",amount);
+                    float rate = saveExchangeRate.get_rate(currency);
+                    rate=rate*Float.valueOf(amount);
                     String uni1 = (String) tmp.get("uni1");
                     Log.d("parsing_uni1",uni1);
 
-                    donggeoData.add(new DonggeoData( currency, parseInt(amount) , i, uni1)); //currency, amount, converted_amount, university1
+                    donggeoData.add(new DonggeoData( currency, parseInt(amount) , (int)rate, uni1)); //currency, amount, converted_amount, university1
 
             }
             Log.d("donggeoData", String.valueOf(donggeoData.get(0).getAmount()));

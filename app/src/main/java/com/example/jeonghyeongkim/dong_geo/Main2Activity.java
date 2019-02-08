@@ -65,6 +65,10 @@ public class Main2Activity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+
         Window win = getWindow();
         win.setContentView(R.layout.activity_main2);
 
@@ -139,11 +143,8 @@ public class Main2Activity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    //    if(isStart) {
-            get_query();
-            //post_query();
-        //    isStart = false;
-      //  }
+        get_query();
+
         context = Main2Activity.this;
     }
 
@@ -356,14 +357,10 @@ public class Main2Activity extends AppCompatActivity
     }
 
     public void get_query() {
-        GetData getData = new GetData(Main2Activity.this);
-        getData.execute("overlay.php");
+        GetData getData = new GetData(Main2Activity.this,null);
+        getData.execute("overlay");
     }
 
-    public void post_query(){
-       // PostData postData = new PostData(Main2Activity.this, null);
-       // postData.execute("http://beaconplus.co.kr/dong_geo/check_permission.php", "3");
-    }
 
 
     public static Context getContext() {

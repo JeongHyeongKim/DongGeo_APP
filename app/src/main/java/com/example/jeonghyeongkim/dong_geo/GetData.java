@@ -3,6 +3,7 @@ package com.example.jeonghyeongkim.dong_geo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import java.net.URL;
 
 public class GetData extends AsyncTask<String, Void, String> {
 
+    private ExchangeDataCallback exchangeDataCallback;
     String mJsonString;
     String errorString = null;
     ProgressDialog progressDialog;
@@ -28,24 +30,26 @@ public class GetData extends AsyncTask<String, Void, String> {
     public int length = 0;
     JSONArray jsonArray;
 
-    public GetData(Context context) {
+
+    public GetData(Context context, ExchangeDataCallback exchangeDataCallback) {
         this.mJsonString = mJsonString;
         this.errorString = errorString;
         this.progressDialog = progressDialog;
         this.mcontext = context;
+        this.exchangeDataCallback = exchangeDataCallback;
     }
 
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = ProgressDialog.show(mcontext,
-                "Please Wait", null, true, true);
+//        progressDialog = ProgressDialog.show(mcontext,
+  //              "Please Wait", null, true, true);
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        progressDialog.dismiss();
-        Log.d("overlay", "response  - " + s);
+//        progressDialog.dismiss();
+        Log.d("php_get", "response  - " + s);
 
         if (s == null) {
             Toast.makeText(mcontext, "Fail", Toast.LENGTH_LONG);
@@ -62,6 +66,13 @@ public class GetData extends AsyncTask<String, Void, String> {
             else if(mcontext == FragmentBefore.context){
                 Log.d("continent_result", "before_fragment");
                 showResult(FragmentBefore.context);
+            }
+            else if (mcontext==SplashActivity.getContext()){
+                try {
+                    exchange_rate();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -169,6 +180,14 @@ public class GetData extends AsyncTask<String, Void, String> {
         } catch (JSONException e){
             e.printStackTrace();
         }
+
+    }
+
+    public void exchange_rate() throws JSONException {
+        JSONArray jsonArray = new JSONArray(mJsonString);
+
+        exchangeDataCallback.onTaskDone(jsonArray);
+
 
     }
 

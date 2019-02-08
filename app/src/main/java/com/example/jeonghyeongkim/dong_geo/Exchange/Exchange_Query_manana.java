@@ -142,10 +142,6 @@ public class Exchange_Query_manana extends Activity { // 문제없음, 나라를
         }
     }
 
-    public void get_JPYrate(View v) {
-        GetData getData = new GetData();
-        getData.execute("http://api.manana.kr/exchange/rate/KRW/JPY.json");
-    }
 }
 
 
@@ -164,3 +160,4 @@ public class Exchange_Query_manana extends Activity { // 문제없음, 나라를
 브라질BRL,베트남VND,남아공ZAR,러시아RUB,헝가리HUF
 폴란드PLN
  */
+
