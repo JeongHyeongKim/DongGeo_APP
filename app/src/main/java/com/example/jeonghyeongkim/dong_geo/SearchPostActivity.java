@@ -221,7 +221,7 @@ public class SearchPostActivity extends AppCompatActivity
 //                startActivity(intent);
                 context = SearchPostActivity.this;
                 GetData getData = new GetData(SearchPostActivity.this,null);
-                getData.execute("http://13.124.152.254/dong_geo/search_detail.php?request_state='0'&request_currency='"+exchange+"'&request_min='"+minCost+"'&request_max="+maxCost+"&request_university1='"+school+"'");
+                getData.execute("search_detail.php?request_state='0'&request_currency='"+exchange+"'&request_min='"+minCost+"'&request_max="+maxCost+"&request_university1='"+school+"'");
 
                 }catch (Exception e){
                     Toast.makeText(this, "전부 입력해주세요.", Toast.LENGTH_LONG).show();
