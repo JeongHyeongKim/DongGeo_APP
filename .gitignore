@@ -5,7 +5,7 @@
 *.apk
 *.ap_
 .idea/
-app/src/main/res/values/string.xml
+app/src/main/res/values/strings.xml
 # Files for the ART/Dalvik VM
 *.dex
 

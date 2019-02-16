@@ -45,9 +45,12 @@ public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
         holder.converted.setText(String.valueOf(data.getConverted()));
         holder.univertisty.setText(data.getUnivertisty());
 
-        holder.cvItem.setOnClickListener(new View.OnClickListener() {
+        holder.cvItem.setOnClickListener(new View.OnClickListener() { // php서버에서 불러온 글 id가 필요할거같음. 그러므로 DonggeoData 클래스에 id값 필요할듯
             @Override
             public void onClick(View view) {
+
+
+
                 mContext.startActivity(new Intent(mContext, DetailActivity.class));
             }
         });
