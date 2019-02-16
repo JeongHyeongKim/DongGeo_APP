@@ -76,7 +76,7 @@ public class KakaoSignupActivity extends Activity {
                     }
 
 
-                }).execute("login2");
+                }).execute("login2.php");
 
                 startActivity(intent);
                 finish();

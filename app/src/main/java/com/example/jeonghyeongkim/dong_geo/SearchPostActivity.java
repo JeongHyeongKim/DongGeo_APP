@@ -1,5 +1,6 @@
 package com.example.jeonghyeongkim.dong_geo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,29 @@ import java.util.Date;
 
 public class SearchPostActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static Context context;
+    String[] exchangeRate = {
+            "유럽연합 EUR",  "영국 GBP",  "스위스 CHF", "스웨덴 SEK", "체코 CZK", "덴마크 DKK", "노르웨이 NOK", "러시아 RUB", "폴란드 PLN", //유럽 코드 1
+            "일본 JPY", "중국 CNY", "홍콩 HKD", "대만 TWD",  "몽골 MNT", "카자흐스탄 KZT", "인도 INR","파키스탄 PKR", // 동아시아 코드 2
+            "태국 THB", "싱가포르 SGD", "말레이시아 MYR", "인도네시아 IDR",  "브루나이 BND", "베트남 VND",// 동남 아시아 코드 3
+            "오만 OMR",  "터키 TRY", "이스라엘 ILS", "사우디아라비아 SAR", "쿠웨이트 KWD", "바레 BHD",  "아랍에미리트 AED", "요르단 JOD",  "카타르 QAR", //중동 코드 4
+            "호주 AUD", "뉴질랜드 NZD", //오세아니아 코드 5
+            "캐나다 CAD", "미국 USD", //북아메리카 코드 6
+            "칠레 CLP", "브라질 BRL",  // 남아메리카 코드 7
+            "이집트 EGP", "남아공 ZAR", // 아프리카 코드 8
+    };
+    String[] school_item = { "가톨릭대학교", "감리교신학대학교", "건국대학교", "경희대학교", "고려대학교", "광운대학교", "국민대학교",
+            "덕성여자대학교", "동국대학교", "동덕여자대학교", "명지대학교", "삼육대학교", "상명대학교", "서강대학교",
+            "서경대학교", "서울과학기술대학교", "서울교육대학교", "서울기독대학교", "서울대학교", "서울시립대학교",
+            "서울여자대학교", "서울한영대학교", "성공회대학교", "성균관대학교", "성신여자대학교", "세종대학교", "숙명여자대학교",
+            "숭실대학교", "연세대학교", "이화여자대학교", "장로회신학대학교", "중앙대학교", "총신대학교", "추계예술대학교",
+            "한국성서대학교", "한국외국어대학교", "한국체육대학교", "한성대학교", "한양대학교", "홍익대학교"};
+
+    EditText exchangeInput;
+    EditText schoolInput;
+    InputMethodManager im;
+
     Number minCost;
     Number maxCost;
     @Override
@@ -52,6 +80,11 @@ public class SearchPostActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        exchangeInput = (EditText)findViewById(R.id.search_exchangeInput);
+        schoolInput =  (EditText)findViewById(R.id.search_schoolInput);
+
 
 
 
@@ -81,6 +114,20 @@ public class SearchPostActivity extends AppCompatActivity
                 Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
             }
         });
+
+        AutoCompleteTextView exchangeView = (AutoCompleteTextView) findViewById(R.id.search_exchangeInput);
+
+        exchangeView.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, exchangeRate));
+
+        MultiAutoCompleteTextView schoolView =
+                (MultiAutoCompleteTextView) findViewById(R.id.search_schoolInput);
+        schoolView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        schoolView.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, school_item));
+
+        im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
     }
 
@@ -153,24 +200,38 @@ public class SearchPostActivity extends AppCompatActivity
 
 
     public void onClick(View v){
-        EditText exchangeInput = (EditText)findViewById(R.id.search_exchangeInput);
-        EditText schoolInput = (EditText)findViewById(R.id.search_schoolInput);
 
         switch (v.getId()){
             case R.id.seachButton:
-                String exchange = exchangeInput.getText().toString();
+                try {
+                    String exchange = exchangeInput.getText().toString().split(" ")[1];
 //                int price = Integer.parseInt(priceInput.getText().toString());
+                    String school = schoolInput.getText().toString().split(",")[0];
 
-                String school =  schoolInput.getText().toString();
-
-                long now = System.currentTimeMillis();
-                Date date = new Date(now);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                final String getTime = sdf.format(date); // 현재 날짜 가져오기
+//                long now = System.currentTimeMillis();
+//                Date date = new Date(now);
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                final String getTime = sdf.format(date); // 현재 날짜 가져오기
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + minCost +"~" + maxCost + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
+
+//                Intent intent = new Intent(SearchPostActivity.this,  SearchActivity.class);
+//                intent.putExtra("from", "searchPostActivity");
+//                startActivity(intent);
+                context = SearchPostActivity.this;
+                GetData getData = new GetData(SearchPostActivity.this,null);
+                getData.execute("search_detail.php?request_state='0'&request_currency='"+exchange+"'&request_min='"+minCost+"'&request_max="+maxCost+"&request_university1='"+school+"'");
+
+                }catch (Exception e){
+                    Toast.makeText(this, "전부 입력해주세요.", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
+    }
+
+
+    public static Context getContext() {
+        return context;
     }
 }
