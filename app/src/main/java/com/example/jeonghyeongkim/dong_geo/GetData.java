@@ -63,6 +63,10 @@ public class GetData extends AsyncTask<String, Void, String> {
                 Log.d("continent_result", "continent_onPost");
                 showResult(ContinentActivity.getContext());
             }
+            else if(mcontext == SearchPostActivity.getContext()){
+                Log.d("searchpost_result", "searchPost");
+                showResult(SearchPostActivity.getContext());
+            }
             else if(mcontext == FragmentBefore.context){
                 Log.d("continent_result", "before_fragment");
                 showResult(FragmentBefore.context);
@@ -175,8 +179,14 @@ public class GetData extends AsyncTask<String, Void, String> {
 //                    Log.d("continent_result", continent_uni1);
 //                }
 
+            } else if(context == SearchPostActivity.getContext()) {
+                jsonArray = jsonObject.getJSONArray("result");
+                setJsonArray(jsonArray);
+//                ((ContinentActivity) context).jsonArray = jsonArray;
+                Intent intent = new Intent(context, SearchActivity.class);
+                intent.putExtra("jsonArray", jsonArray.toString());
+                context.startActivity(intent);
             }
-
         } catch (JSONException e){
             e.printStackTrace();
         }
