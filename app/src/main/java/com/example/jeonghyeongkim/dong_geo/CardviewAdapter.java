@@ -9,11 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
     private ArrayList<DonggeoData> cardviewData;
     private Context mContext;
+    private String buffer;
 
     public void setData(ArrayList<DonggeoData> list){
         cardviewData = list;
@@ -38,7 +42,8 @@ public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
 
     @Override
     public void onBindViewHolder(CardviewViewHolder holder, int position) {
-        DonggeoData data = cardviewData.get(position);
+        final DonggeoData data = cardviewData.get(position);
+
 
         holder.currency.setText(data.getCurrency());
         holder.amount.setText(String.valueOf(data.getAmount()));
@@ -49,9 +54,18 @@ public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
             @Override
             public void onClick(View view) {
 
+                new PostData(null, MakeJson(data.getId()), null, new StringDataCallback() {
+                    @Override
+                    public void onTaskDone(String non_parsing_result) {
+                        buffer=non_parsing_result;
+                        Log.d("raw_data_adaapter", buffer);
+                        Intent intent = new Intent(mContext,DetailActivity.class);
+                        intent.putExtra("raw_data",buffer);
+                        mContext.startActivity(intent);
+                    }
+                }).execute("view_comment"); //php만든 후 입력 예정
+                //mContext.startActivity(new Intent(mContext, DetailActivity.class));
 
-
-                mContext.startActivity(new Intent(mContext, DetailActivity.class));
             }
         });
     }
@@ -61,4 +75,15 @@ public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
         return cardviewData.size();
     }
 
+    private JSONObject MakeJson(String request_id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            jsonObject.put("request_id", request_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
 }

@@ -49,7 +49,7 @@ public class Fragment4 extends Fragment { //끝이요
                 mAdapter.setData(data);
                 mCardview.setAdapter(mAdapter);
             }
-        }).execute("view_mypage_sale");
+        },null).execute("view_mypage_sale");
 
 
         return view;

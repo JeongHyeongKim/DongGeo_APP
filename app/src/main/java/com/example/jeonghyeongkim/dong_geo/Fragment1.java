@@ -65,15 +65,12 @@ public class Fragment1 extends Fragment {
                 mAdapter.setData(data);
                 mCardview.setAdapter(mAdapter);
             }
-        }).execute("view_mypage_sale");
-
+        },null).execute("/view_mypage_sale");
 
 
         return view;
 
     }
-
-
 
 
     private JSONObject MakeJson(String request_state, String user_id){
@@ -89,15 +86,6 @@ public class Fragment1 extends Fragment {
         return jsonObject;
     }
 
-    public void post_data() {
-        JSONObject jsonObject = MakeJson("0", "5");
-        new PostData(null, jsonObject, new DonggeoDataCallback() {
-            @Override
-            public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
-                data = donggeoData;
-            }
-        }).execute("http://13.124.152.254/dong_geo/view_mypage_sale.php");
-    }
 
 
 

@@ -169,15 +169,9 @@ public class Main2Activity extends AppCompatActivity
 
         } else if (id == R.id.nav_exchange) {
             JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
-            new PostData(Main2Activity.this, jsonObject, new DonggeoDataCallback() {
-                @Override
-                public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
 
-                }
+            new PostData(Main2Activity.this, jsonObject, null,null).execute("/load_id.php");
 
-
-            }).execute("/load_id.php");
-            //postData.execute("/load_id.php");
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
             startActivity(intent);

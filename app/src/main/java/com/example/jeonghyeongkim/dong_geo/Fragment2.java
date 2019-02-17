@@ -42,7 +42,7 @@ public class Fragment2 extends Fragment { //삽니다
 
         int i = 0;
         while (i < MAX_ITEM_COUNT) {
-            data.add(new DonggeoData( "USD", 1 , 1, "동덕여자대학교"));
+            data.add(new DonggeoData( "USD", 1 , 1, "동덕여자대학교","1"));
             i++;
         }
         // mLayoutManager = new LinearLayoutManager(getContext());

@@ -69,14 +69,7 @@ public class KakaoSignupActivity extends Activity {
 
                 JSONObject jsonObject = MakeJson(userProfile.getId(),userProfile.getNickname());
 
-                new PostData(KakaoSignupActivity.this, jsonObject, new DonggeoDataCallback() {
-                    @Override
-                    public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
-
-                    }
-
-
-                }).execute("login2.php");
+                new PostData(KakaoSignupActivity.this, jsonObject, null,null).execute("login2.php");
 
                 startActivity(intent);
                 finish();

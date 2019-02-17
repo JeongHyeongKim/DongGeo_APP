@@ -147,14 +147,7 @@ public class WriteContentActivity extends AppCompatActivity
                 long kakao_id=KakaoSignupActivity.get_kakao_id();
 
                 JSONObject jsonObject=MakeJson( exchange, continent ,amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
-                new PostData(WriteContentActivity.this, jsonObject, new DonggeoDataCallback() {
-                    @Override
-                    public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
-
-                    }
-
-
-                }).execute("/write_content");
+                new PostData(WriteContentActivity.this, jsonObject, null,null).execute("/write_content");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);

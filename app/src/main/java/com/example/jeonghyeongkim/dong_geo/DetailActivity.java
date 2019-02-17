@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,11 +16,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static java.lang.Integer.parseInt;
 
 public class DetailActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,18 +58,16 @@ public class DetailActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Intent intent = new Intent();
-        //intent.getStringExtra("currency");
+        Bundle data = getIntent().getExtras();
+        String raw_data = data.getString("raw_data");
+        Log.d("raw_data", raw_data);
+        try {
+            set_view(raw_data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        commentRecyclerView = findViewById(R.id.commentRecyclerview);
-        mLayoutManager = new LinearLayoutManager(DetailActivity.this);
-        commentRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CommentAdapter();
-        mAdapter.setData(mComments);
-        commentRecyclerView.setAdapter(mAdapter);
 
-
-        mComments.add(new CommentModel("고희경", 2 ," 거래할래요"));
     }
 
     @Override
@@ -167,5 +173,48 @@ public class DetailActivity extends AppCompatActivity
         public void setComment(String comment) {
             commentTextView.setText(comment);
         }
+    }
+
+    private void set_view(String raw_data) throws JSONException {
+
+        commentRecyclerView = findViewById(R.id.commentRecyclerview);
+        mLayoutManager = new LinearLayoutManager(DetailActivity.this);
+        commentRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new CommentAdapter();
+        mAdapter.setData(mComments);
+        commentRecyclerView.setAdapter(mAdapter);
+
+        JSONObject jsonObject = new JSONObject(raw_data);
+        JSONArray object_to_array = jsonObject.getJSONArray("result");
+
+        for(int i=0;i<object_to_array.length();i++){
+            JSONObject tmp= (JSONObject)object_to_array.get(i);
+
+            String comment_id = (String) tmp.get("comment_id");
+            Log.d("parsing_comment_id", String.valueOf(comment_id));
+
+            String user_id = (String) tmp.get("user_id");
+            Log.d("parsing_comment_user_id",String.valueOf(user_id));
+
+            String state = (String) tmp.get("state");
+            Log.d("parsing_comment_state", String.valueOf(state));
+
+            String comment = (String) tmp.get("text");
+            Log.d("parsing_comment_text", comment);
+
+            String date = (String) tmp.get("date");
+            Log.d("parsing_comment_date",date);
+
+            String user_nickname = (String) tmp.get("user_nickname");
+            Log.d("parsing_comment_nick",user_nickname);
+
+            mComments.add(new CommentModel(user_nickname,date,comment,user_id,comment_id,state));
+
+        }
+
+
+
+
+
     }
 }

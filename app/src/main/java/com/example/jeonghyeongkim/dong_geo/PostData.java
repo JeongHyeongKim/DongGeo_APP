@@ -34,7 +34,7 @@ import static java.lang.Thread.sleep;
 
 public class PostData extends AsyncTask<String, Void, String> {
     private DonggeoDataCallback donggeoDataCallback;
-
+    private StringDataCallback stringDataCallback;
 
     String mJsonString;
     String errorString = null;
@@ -47,7 +47,7 @@ public class PostData extends AsyncTask<String, Void, String> {
     ArrayList<DonggeoData> donggeoData = new ArrayList<>();
     public static String parsed_response = "";
 
-    public PostData(Context context, JSONObject object, DonggeoDataCallback donggeoDataCallback) {
+    public PostData(Context context, JSONObject object, DonggeoDataCallback donggeoDataCallback, StringDataCallback stringDataCallback) {
 
         this.errorString = errorString;
         //this.progressDialog = progressDialog;
@@ -55,6 +55,7 @@ public class PostData extends AsyncTask<String, Void, String> {
         Log.d("Post_class_context", String.valueOf(this.mcontext));
         this.get_object = object;
         this.donggeoDataCallback = donggeoDataCallback;
+        this.stringDataCallback = stringDataCallback;
 
         //Log.d("continent_result", String.valueOf(this.get_object));
     } // 콜백으로 인해서 바꿈...
@@ -85,15 +86,14 @@ public class PostData extends AsyncTask<String, Void, String> {
             Log.d("check", "response_post  - " + mJsonString);
             Log.d("kakao_load", "s" + s);
 
-            if(mcontext == Main2Activity.getContext())
-            {
+            if(mcontext == Main2Activity.getContext()){
                 showResult(Main2Activity.getContext(), mJsonString);
             }
             else if(mcontext == MypageActivity.getContext()){
-
-                Log.d("fragment","it work!");
-                showResult();
-                //return donggeoData;
+                Set_DonggeoData();
+            }
+            else if (mcontext==null){
+                CardView_Clicked();
             }
         }
 
@@ -183,7 +183,7 @@ public class PostData extends AsyncTask<String, Void, String> {
         return result.toString();
     }
 
-    public void showResult(Context context, String data_line){
+    private void showResult(Context context, String data_line){
         Log.d("continent_result", "showResult before try");
         try{
             if(context == Main2Activity.getContext()) {
@@ -218,22 +218,23 @@ public class PostData extends AsyncTask<String, Void, String> {
         }
 
     }
-    public void showResult(){ // 컨텍스트 null일때 -> 마이페이지 띄우는거
+    private void Set_DonggeoData(){
         Log.d("continent_result", "showResult before try");
         try{
                 Log.d("jsonjson", mJsonString);
 
-
-
-                SaveExchangeRate saveExchangeRate = new SaveExchangeRate(sh,null,mcontext);
+                SaveExchangeRate saveExchangeRate = new SaveExchangeRate(sh,null,mcontext); //환율 불러오는거임!
 
                 JSONObject jsonObject = new JSONObject(mJsonString);
                 JSONArray object_to_array = jsonObject.getJSONArray("result");
-                Log.d("jsonparsing is ready","ready");
+
                 Log.d("array_length", String.valueOf(object_to_array.length()));
+
                 for(int i=0;i<object_to_array.length();i++){
                     JSONObject tmp= (JSONObject)object_to_array.get(i);
 
+                    String id = (String) tmp.get("id");
+                    Log.d("parsing_request_id", String.valueOf(id));
 
                     String state = (String) tmp.get("state"); //fragment -> GlobalApplication 취급이기 때문에 팝니다 삽니다 여기서 구분지어야하나?
                     Log.d("parsing_state",state);
@@ -248,7 +249,7 @@ public class PostData extends AsyncTask<String, Void, String> {
                     String uni1 = (String) tmp.get("uni1");
                     Log.d("parsing_uni1",uni1);
 
-                    donggeoData.add(new DonggeoData( currency, parseInt(amount) , (int)rate, uni1)); //currency, amount, converted_amount, university1
+                    donggeoData.add(new DonggeoData( currency, parseInt(amount) , (int)rate, uni1, id)); //currency, amount, converted_amount, university1
 
             }
             Log.d("donggeoData", String.valueOf(donggeoData.get(0).getAmount()));
@@ -256,7 +257,10 @@ public class PostData extends AsyncTask<String, Void, String> {
         } catch (JSONException e){
             e.printStackTrace();
         }
+    }
 
+    private void CardView_Clicked(){
+        stringDataCallback.onTaskDone(mJsonString);
     }
 
 

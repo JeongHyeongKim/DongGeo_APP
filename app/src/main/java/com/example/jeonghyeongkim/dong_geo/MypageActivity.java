@@ -254,7 +254,7 @@ public class MypageActivity extends AppCompatActivity
                 public void onTaskDone(ArrayList<DonggeoData> donggeoData) { //식별 아이디 만들지 않았을 때 동작!!!
 
                 }
-            }).execute("load_id2"); //php만든 후 입력 예정
+            },null).execute("load_id2"); //php만든 후 입력 예정
         } //
     }
 

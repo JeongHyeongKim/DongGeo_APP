@@ -7,9 +7,10 @@ import java.io.Serializable;
  */
 
 public class CommentModel implements Serializable {
-    private String useruid;
+    private String userid;
     private String commentId;
-    private long timeCreated;
+    private String timeCreated;
+    private String state;
     private String comment;
     private String username;
 
@@ -26,19 +27,22 @@ public class CommentModel implements Serializable {
     }
 
 
-    public CommentModel(String username, long timeCreated, String comment) {
+    public CommentModel(String username, String timeCreated, String comment, String userid, String commentId, String state) {
 
+        this.userid=userid;
+        this.commentId=commentId;
         this.username = username;
         this.timeCreated = timeCreated;
         this.comment = comment;
+        this.state = state;
     }
 
     public String getUseruid() {
-        return useruid;
+        return userid;
     }
 
-    public void setUseruid(String useruid) {
-        this.useruid = useruid;
+    public void setUseruid(String userid) {
+        this.userid = userid;
     }
 
 
@@ -50,11 +54,11 @@ public class CommentModel implements Serializable {
         this.commentId = commentId;
     }
 
-    public long getTimeCreated() {
+    public String getTimeCreated() {
         return timeCreated;
     }
 
-    public void setTimeCreated(long timeCreated) {
+    public void setTimeCreated(String timeCreated) {
         this.timeCreated = timeCreated;
     }
 
@@ -65,4 +69,8 @@ public class CommentModel implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getState() { return state; }
+
+    public void setState(String state) { this.state = state; }
 }

@@ -33,7 +33,7 @@ public class FragmentEnd extends Fragment {
 
         int i = 0;
         while (i < MAX_ITEM_COUNT) {
-            data.add(new DonggeoData( "USD", i , i, "동덕여자대학교"));
+            data.add(new DonggeoData( "USD", i , i, "동덕여자대학교","1"));
             i++;
         }
 

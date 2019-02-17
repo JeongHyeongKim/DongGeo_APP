@@ -50,7 +50,7 @@ public class Fragment3 extends Fragment { //진행중
                 mAdapter.setData(data);
                 mCardview.setAdapter(mAdapter);
             }
-        }).execute("view_mypage_sale");
+        },null).execute("view_mypage_sale");
 
 
 
