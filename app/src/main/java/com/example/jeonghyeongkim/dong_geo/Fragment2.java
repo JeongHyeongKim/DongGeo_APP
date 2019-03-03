@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Fragment2 extends Fragment { //삽니다
@@ -17,6 +20,7 @@ public class Fragment2 extends Fragment { //삽니다
     private RecyclerView mCardview;
     private CardviewAdapter mAdapter;
     public static Context context;
+    static public ArrayList<DonggeoData> data = new ArrayList<>();
     // private LinearLayoutManager mLayoutManager;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
@@ -38,22 +42,38 @@ public class Fragment2 extends Fragment { //삽니다
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
         mCardview = (RecyclerView)view.findViewById(R.id.recyclerview2);
 
-        ArrayList<DonggeoData> data = new ArrayList<>();
 
-        int i = 0;
-        while (i < MAX_ITEM_COUNT) {
-            data.add(new DonggeoData( "USD", 1 , 1, "동덕여자대학교","1"));
-            i++;
-        }
-        // mLayoutManager = new LinearLayoutManager(getContext());
-        mCardview.setLayoutManager(mStaggeredGridLayoutManager);
-        mAdapter = new CardviewAdapter(getContext(), data);
-        mAdapter.setData(data);
-        mCardview.setAdapter(mAdapter);
+
+        JSONObject jsonObject = MakeJson("0", "7");
+        new PostData(context, jsonObject, new DonggeoDataCallback() {
+            @Override
+            public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
+                data = donggeoData;
+                mCardview.setLayoutManager(mStaggeredGridLayoutManager);
+                mAdapter = new CardviewAdapter(getContext(), data);
+                mAdapter.setData(data);
+                mCardview.setAdapter(mAdapter);
+            }
+        },null).execute("copy_view_mypage_buy");
+
 
 
         return view;
     }
+
+    private JSONObject MakeJson(String request_state, String user_id){
+        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
+
+        try {
+            jsonObject.put("request_state", request_state);
+            jsonObject.put("user_id", user_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
+
 
 
 }

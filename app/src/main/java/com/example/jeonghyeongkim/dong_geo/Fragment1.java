@@ -65,7 +65,7 @@ public class Fragment1 extends Fragment {
                 mAdapter.setData(data);
                 mCardview.setAdapter(mAdapter);
             }
-        },null).execute("/view_mypage_sale");
+        },null).execute("view_mypage_sale");
 
 
         return view;
