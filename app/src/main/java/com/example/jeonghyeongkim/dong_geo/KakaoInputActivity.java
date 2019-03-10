@@ -19,12 +19,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class KakaoInputActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class KakaoInputActivity extends AppCompatActivity {
 
 
     private static Context context;
     long kakao_id = KakaoSignupActivity.get_kakao_id(); //세션에서 로그인 일련번호 가져오기.
+    MenuIntent menuIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,8 @@ public class KakaoInputActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        menuIntent = new MenuIntent(this);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -40,7 +42,7 @@ public class KakaoInputActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
     }
 
     @Override
@@ -51,42 +53,6 @@ public class KakaoInputActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        //햄버거바 메뉴 아이디 수정
-        if (id == R.id.nav_main) {
-            Intent intent = new Intent(KakaoInputActivity.this, Main2Activity.class);
-            startActivity(intent);
-            // Handle the camera action
-        } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(KakaoInputActivity.this, KakaoInputActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(KakaoInputActivity.this, WriteContentActivity.class);
-            startActivity(intent);
-        } else if (id ==  R.id.nav_search_content){
-                Intent intent = new Intent(KakaoInputActivity.this, SearchPostActivity.class);
-                startActivity(intent);
-
-        } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(KakaoInputActivity.this, MypageActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(KakaoInputActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public void onClick(View v){

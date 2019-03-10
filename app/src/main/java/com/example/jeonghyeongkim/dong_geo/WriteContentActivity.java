@@ -34,9 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class WriteContentActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class WriteContentActivity extends AppCompatActivity{
     private static Context context;
+    MenuIntent menuIntent;
+
     String[] exchangeRate = {
             "유럽연합 EUR",  "영국 GBP",  "스위스 CHF", "스웨덴 SEK", "체코 CZK", "덴마크 DKK", "노르웨이 NOK", "러시아 RUB", "폴란드 PLN", //유럽 코드 1
             "일본 JPY", "중국 CNY", "홍콩 HKD", "대만 TWD",  "몽골 MNT", "카자흐스탄 KZT", "인도 INR","파키스탄 PKR", // 동아시아 코드 2
@@ -67,6 +68,7 @@ public class WriteContentActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        menuIntent = new MenuIntent(this);
 
         exchangeInput = (EditText)findViewById(R.id.exchangeInput);
         priceInput = (EditText)findViewById(R.id.priceInput);
@@ -80,7 +82,7 @@ public class WriteContentActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
 
         //네비게이션 헤더 kakao start
         kakaonic=(TextView) findViewById(R.id.kakao_nick);
@@ -209,40 +211,6 @@ public class WriteContentActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_main) {
-            Intent intent = new Intent(WriteContentActivity.this, Main2Activity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(WriteContentActivity.this, KakaoInputActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_write_content) {
-//            Intent intent = new Intent(WriteContentActivity.this, WriteContentActivity.class);
-//            startActivity(intent);
-        } else if (id ==  R.id.nav_search_content){
-            Intent intent = new Intent(WriteContentActivity.this, SearchPostActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(WriteContentActivity.this, MypageActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(WriteContentActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    } //
 
     private JSONObject MakeJson(String exchange, int continent, int amount,  String school, String kakao_id){
         JSONObject jsonObject = new JSONObject(); //파라미터 데이터

@@ -45,7 +45,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
+        implements OnMapReadyCallback{
     private static Context context;
     String mJsonString;
     TextView user_count;
@@ -55,12 +55,9 @@ public class Main2Activity extends AppCompatActivity
     android.support.v7.widget.Toolbar toolbar;
     LinearLayout linear;
 
-    String kakaoNickName;
-    String kakaoimage;
     Handler handler = new Handler();
 
-    long kakao_id = KakaoSignupActivity.get_kakao_id();
-    String search_id;
+    MenuIntent menuIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +65,8 @@ public class Main2Activity extends AppCompatActivity
 
         Intent intent = new Intent(this, SplashActivity.class);
         startActivity(intent);
+
+        menuIntent = new MenuIntent(this);
 
         Window win = getWindow();
         win.setContentView(R.layout.activity_main2);
@@ -99,12 +98,11 @@ public class Main2Activity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
 
         //네비게이션 헤더 kakao start
         final View headerView = navigationView.getHeaderView(0);
         TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
-        Log.d("kakao_id",String.valueOf(kakao_id));
         if(KakaoSignupActivity.get_kakao_nickname() != null) {
             kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
             Toast.makeText(this, KakaoSignupActivity.get_kakao_nickname() + "님 환영합니다.", Toast.LENGTH_LONG).show();
@@ -159,40 +157,6 @@ public class Main2Activity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        //햄버거바 메뉴 아이디 수정
-        if (id == R.id.nav_main) {
-
-        } else if (id == R.id.nav_exchange) {
-            JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
-
-            new PostData(Main2Activity.this, jsonObject, false, null,null).execute("load_id");
-
-        } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);
-            startActivity(intent);
-        }else if (id ==  R.id.nav_search_content){
-                Intent intent = new Intent(Main2Activity.this, SearchPostActivity.class);
-                startActivity(intent);
-        } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(Main2Activity.this, MypageActivity.class);
-            intent.putExtra("nickname", kakaoNickName);
-            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(Main2Activity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     @Override
     public void onMapReady(GoogleMap map) {
@@ -337,18 +301,6 @@ public class Main2Activity extends AppCompatActivity
 //        view.setVisibility(View.GONE);
 //    }
 
-
-    private JSONObject MakeJson(String kakao_id){
-        JSONObject jsonObject = new JSONObject(); //파라미터 데이터
-
-        try {
-            jsonObject.put("kakao_id", kakao_id); //대학 2,3은 현재 NULL로 테스트,
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return jsonObject;
-    }
 
     public void get_query() {
         GetData getData = new GetData(Main2Activity.this,null);

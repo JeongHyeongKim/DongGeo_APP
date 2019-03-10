@@ -29,8 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static java.lang.Integer.parseInt;
 
-public class DetailActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class DetailActivity extends AppCompatActivity{
 
     //comment 리스트
     private RecyclerView commentRecyclerView;
@@ -41,6 +40,8 @@ public class DetailActivity extends AppCompatActivity
     private ArrayList<String> commentUsers = new ArrayList<>();
 
     private int MAX_ITEM_COUNT = 10;
+
+    MenuIntent menuIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class DetailActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
 
         Bundle data = getIntent().getExtras();
         String raw_data = data.getString("raw_data");
@@ -79,36 +80,6 @@ public class DetailActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_main) {
-            // Handle the camera action
-        } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(DetailActivity.this, KakaoInputActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(DetailActivity.this, WriteContentActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(DetailActivity.this, MypageActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(DetailActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
 
     public class CommentAdapter extends RecyclerView.Adapter<CommentHolder> {
         private ArrayList<CommentModel> commentData;

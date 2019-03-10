@@ -36,7 +36,7 @@ public class SplashActivity extends Activity {
                 buffer=jsonArray; //총 42개국, 저장할 정보 -> 저장하는 현재 시간과 파싱한 name 정보의 3~5인덱스 값!!
                 save_exchange_rate=new SaveExchangeRate(exchange_rate,editor,SplashActivity.this);
                 save_exchange_rate.save_rate(buffer);
-                //save_exchange_rate.get_rate("USD");
+//                save_exchange_rate.get_rate("USD");
             }
         }).execute("");
         startLoading();

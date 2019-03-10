@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MypageActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+        implements View.OnClickListener{
 
     private static Context context;
     String kakao_id = String.valueOf(KakaoSignupActivity.get_kakao_id()); //세션에서 로그인 일련번호 가져오기.
@@ -45,6 +45,8 @@ public class MypageActivity extends AppCompatActivity
     TextView kakaonic;
     Handler handler = new Handler();
 
+    MenuIntent menuIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,8 @@ public class MypageActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         context=MypageActivity.this;
 
+        menuIntent = new MenuIntent(this);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +64,7 @@ public class MypageActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
 
         //네비게이션 헤더 kakao start
         kakaonic=(TextView) findViewById(R.id.kakao_nick);
@@ -125,39 +129,6 @@ public class MypageActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        //햄버거바 메뉴 아이디 수정
-        if (id == R.id.nav_main) {
-            Intent intent = new Intent(MypageActivity.this, Main2Activity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(MypageActivity.this, KakaoInputActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(MypageActivity.this, WriteContentActivity.class);
-            startActivity(intent);
-        } else if (id ==  R.id.nav_search_content){
-                Intent intent = new Intent(MypageActivity.this, SearchPostActivity.class);
-                startActivity(intent);
-
-        } else if (id == R.id.nav_mypage) {
-//            Intent intent = new Intent(MypageActivity.this, MypageActivity.class);
-//            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(MypageActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public void onTerm(View view) {

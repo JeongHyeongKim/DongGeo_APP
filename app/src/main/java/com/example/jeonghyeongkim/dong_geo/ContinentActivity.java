@@ -28,14 +28,14 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class ContinentActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class ContinentActivity extends AppCompatActivity{
 
     private static Context context;
     RadioGroup radioGroup;
     String conti_num = "0";
     String result = "";
     public JSONArray jsonArray;
+    MenuIntent menuIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,8 @@ public class ContinentActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        menuIntent = new MenuIntent(this);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,7 +53,7 @@ public class ContinentActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -105,38 +107,6 @@ public class ContinentActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_main) {
-            // Handle the camera action
-        } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(ContinentActivity.this, KakaoInputActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(ContinentActivity.this, WriteContentActivity.class);
-            startActivity(intent);
-        }else if (id ==  R.id.nav_search_content){
-            Intent intent = new Intent(ContinentActivity.this, SearchPostActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(ContinentActivity.this, MypageActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(ContinentActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     public void onClick(View v) throws JSONException {
         switch (v.getId()) {
             case R.id.select_conti:
@@ -151,8 +121,6 @@ public class ContinentActivity extends AppCompatActivity
 //                startActivity(intent);
         }
     }
-
-
 
     public static Context getContext() {
         return context;
