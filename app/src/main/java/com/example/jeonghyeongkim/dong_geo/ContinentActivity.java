@@ -54,6 +54,7 @@ public class ContinentActivity extends AppCompatActivity{
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuIntent);
+        menuIntent.setKakaoNickView(navigationView);
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);

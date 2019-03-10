@@ -99,44 +99,7 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuIntent);
-
-        //네비게이션 헤더 kakao start
-        final View headerView = navigationView.getHeaderView(0);
-        TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
-        if(KakaoSignupActivity.get_kakao_nickname() != null) {
-            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
-            Toast.makeText(this, KakaoSignupActivity.get_kakao_nickname() + "님 환영합니다.", Toast.LENGTH_LONG).show();
-
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
-                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
-                        InputStream is = url.openStream();
-                        final Bitmap bm = BitmapFactory.decodeStream(is);
-                        handler.post(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(bm);
-                            }
-                        });
-                        imageView.setImageBitmap(bm);
-                    } catch(Exception e){
-
-                    }
-
-                }
-            });
-
-            t.start();
-        }
-        else{
-            kakaoNickView.setText("로그인을 해주세요");
-        }
-        //네비게이션 헤더 kakao end
-
+        menuIntent.setKakaoNickView(navigationView);
 
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);

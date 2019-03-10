@@ -58,6 +58,7 @@ public class DetailActivity extends AppCompatActivity{
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuIntent);
+        menuIntent.setKakaoNickView(navigationView);
 
         Bundle data = getIntent().getExtras();
         String raw_data = data.getString("raw_data");
@@ -115,8 +116,6 @@ public class DetailActivity extends AppCompatActivity{
         }
 
     }
-
-
 
     public static class CommentHolder extends RecyclerView.ViewHolder {
         ImageView commentOwnerDisplay;
@@ -182,10 +181,5 @@ public class DetailActivity extends AppCompatActivity{
             mComments.add(new CommentModel(user_nickname,date,comment,user_id,comment_id,state));
 
         }
-
-
-
-
-
     }
 }

@@ -79,6 +79,7 @@ public class SearchPostActivity extends AppCompatActivity{
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuIntent);
+        menuIntent.setKakaoNickView(navigationView);
 
         exchangeInput = (EditText)findViewById(R.id.search_exchangeInput);
         schoolInput =  (EditText)findViewById(R.id.search_schoolInput);

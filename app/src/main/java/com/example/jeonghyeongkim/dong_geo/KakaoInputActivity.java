@@ -43,6 +43,7 @@ public class KakaoInputActivity extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuIntent);
+        menuIntent.setKakaoNickView(navigationView);
     }
 
     @Override

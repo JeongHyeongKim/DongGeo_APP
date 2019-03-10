@@ -3,21 +3,30 @@ package com.example.jeonghyeongkim.dong_geo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
+
 public class MenuIntent implements NavigationView.OnNavigationItemSelectedListener {
 
     public Context context;
     long kakao_id = KakaoSignupActivity.get_kakao_id();
-
+    Handler handler = new Handler();
 
     public MenuIntent(Context context){
         this.context = context;
@@ -33,6 +42,40 @@ public class MenuIntent implements NavigationView.OnNavigationItemSelectedListen
         }
 
         return jsonObject;
+    }
+
+    public void setKakaoNickView(NavigationView navigationView) {
+        final View headerView = navigationView.getHeaderView(0);
+        TextView kakaoNickView = (TextView) headerView.findViewById(R.id.kakao_nick);
+        if (KakaoSignupActivity.get_kakao_nickname() != null) {
+            kakaoNickView.setText(KakaoSignupActivity.get_kakao_nickname());
+
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        final ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+                        URL url = new URL(KakaoSignupActivity.get_kakao_image());
+                        InputStream is = url.openStream();
+                        final Bitmap bm = BitmapFactory.decodeStream(is);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bm);
+                            }
+                        });
+                        imageView.setImageBitmap(bm);
+                    } catch (Exception e) {
+
+                    }
+                }
+            });
+
+            t.start();
+        } else {
+            kakaoNickView.setText("로그인을 해주세요");
+        }
     }
 
     @Override
