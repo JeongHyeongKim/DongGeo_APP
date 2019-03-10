@@ -193,9 +193,9 @@ public class PostData extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(data_line);
                 JSONObject parsed_Object = jsonObject.getJSONObject("result");
 
-                parsed_response = parsed_Object.getString("search_id");
+                parsed_response = parsed_Object.getString("response");
                 //Log.d("kakao_load", buffer_response);
-                if (!parsed_response.equals("null")) {
+                if (!parsed_response.equals("fail")) {
                     Intent intent = new Intent(context, ContinentActivity.class);
                     context.startActivity(intent);
                 } else {
