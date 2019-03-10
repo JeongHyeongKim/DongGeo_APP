@@ -35,8 +35,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class SearchActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -50,12 +49,16 @@ public class SearchActivity extends AppCompatActivity
     TabPagerAdapter pagerAdapter;
     static Context context;
 
+    MenuIntent menuIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        menuIntent = new MenuIntent(this);
 
         context = SearchActivity.this;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -65,7 +68,7 @@ public class SearchActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(menuIntent);
 
         //네비게이션 헤더 kakao start
         kakaonic=(TextView) findViewById(R.id.kakao_nick);
@@ -167,38 +170,6 @@ public class SearchActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_main) {
-            // Handle the camera action
-        } else if (id == R.id.nav_exchange) {
-            Intent intent = new Intent(SearchActivity.this, KakaoInputActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(SearchActivity.this, WriteContentActivity.class);
-            startActivity(intent);
-        } else if (id ==  R.id.nav_search_content){
-                Intent intent = new Intent(SearchActivity.this, SearchPostActivity.class);
-                startActivity(intent);
-        } else if (id == R.id.nav_mypage) {
-            Intent intent = new Intent(SearchActivity.this, MypageActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(SearchActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public void setJsonArray(JSONArray jsonArray){
