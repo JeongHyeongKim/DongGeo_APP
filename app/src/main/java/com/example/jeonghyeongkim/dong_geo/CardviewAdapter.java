@@ -54,7 +54,7 @@ public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
             @Override
             public void onClick(View view) {
 
-                new PostData(null, MakeJson(data.getId()), null, new StringDataCallback() {
+                new PostData(mContext, MakeJson(data.getId()), true,null, new StringDataCallback() {
                     @Override
                     public void onTaskDone(String non_parsing_result) {
                         buffer=non_parsing_result;

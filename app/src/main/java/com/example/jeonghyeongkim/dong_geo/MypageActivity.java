@@ -249,7 +249,7 @@ public class MypageActivity extends AppCompatActivity
         if (String.valueOf(id) == null) {
             Intent intent = new Intent(MypageActivity.this,KakaoSignupActivity.class); // 로그인 페이지 이동 이거였나...??
         } else {
-            new PostData(MypageActivity.this, MakeJson(kakao_id), new DonggeoDataCallback() {
+            new PostData(MypageActivity.this, MakeJson(kakao_id), false, new DonggeoDataCallback() {
                 @Override
                 public void onTaskDone(ArrayList<DonggeoData> donggeoData) { //식별 아이디 만들지 않았을 때 동작!!!
 

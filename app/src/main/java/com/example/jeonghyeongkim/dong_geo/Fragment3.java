@@ -41,7 +41,7 @@ public class Fragment3 extends Fragment { //진행중
 
 
         JSONObject jsonObject = MakeJson("0", "2");
-        new PostData(context, jsonObject, new DonggeoDataCallback() {
+        new PostData(context, jsonObject, false, new DonggeoDataCallback() {
             @Override
             public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
                 data = donggeoData;

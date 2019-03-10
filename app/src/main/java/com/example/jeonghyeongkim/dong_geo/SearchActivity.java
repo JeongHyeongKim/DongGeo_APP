@@ -48,6 +48,7 @@ public class SearchActivity extends AppCompatActivity
     public String continent = "";
     public JSONArray jsonArray;
     TabPagerAdapter pagerAdapter;
+    static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class SearchActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        context = SearchActivity.this;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -205,5 +207,9 @@ public class SearchActivity extends AppCompatActivity
 
     public JSONArray getJsonArray() {
         return jsonArray;
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

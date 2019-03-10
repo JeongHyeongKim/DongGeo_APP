@@ -98,7 +98,7 @@ public class KakaoInputActivity extends AppCompatActivity
                 Toast.makeText(this, "카카오 아이디 : " + search_id, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(KakaoInputActivity.this, ContinentActivity.class);
-                new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id), null,null).execute("http://13.124.152.254/dong_geo/update_id.php");
+                new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id), false, null,null).execute("http://13.124.152.254/dong_geo/update_id.php");
                 //postData.execute("http://13.124.152.254/dong_geo/update_id.php");
                 startActivity(intent);
                 break;

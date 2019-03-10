@@ -49,6 +49,7 @@ public class Fragment1 extends Fragment {
 
         context = getActivity();
         Log.d("context!", String.valueOf(context));
+        Log.d("context!", String.valueOf(getContext()));
         View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
         long kakao_id = KakaoSignupActivity.get_kakao_id();
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
@@ -56,12 +57,12 @@ public class Fragment1 extends Fragment {
 
 
         JSONObject jsonObject = MakeJson("0", "5");
-        new PostData(context, jsonObject, new DonggeoDataCallback() {
+        new PostData(context, jsonObject, false,new DonggeoDataCallback() {
             @Override
             public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
                 data = donggeoData;
                 mCardview.setLayoutManager(mStaggeredGridLayoutManager);
-                mAdapter = new CardviewAdapter(getContext(), data);
+                mAdapter = new CardviewAdapter(context, data);
                 mAdapter.setData(data);
                 mCardview.setAdapter(mAdapter);
             }

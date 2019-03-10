@@ -38,6 +38,7 @@ public class PostData extends AsyncTask<String, Void, String> {
 
     String mJsonString;
     String errorString = null;
+    boolean cardview_clicked;
     ProgressDialog progressDialog;
     Context mcontext;
     JSONObject get_object;
@@ -47,12 +48,13 @@ public class PostData extends AsyncTask<String, Void, String> {
     ArrayList<DonggeoData> donggeoData = new ArrayList<>();
     public static String parsed_response = "";
 
-    public PostData(Context context, JSONObject object, DonggeoDataCallback donggeoDataCallback, StringDataCallback stringDataCallback) {
+    public PostData(Context context, JSONObject object, boolean cardview_clicked, DonggeoDataCallback donggeoDataCallback, StringDataCallback stringDataCallback) {
 
         this.errorString = errorString;
         //this.progressDialog = progressDialog;
         this.mcontext = context;
         Log.d("Post_class_context", String.valueOf(this.mcontext));
+        this.cardview_clicked = cardview_clicked;
         this.get_object = object;
         this.donggeoDataCallback = donggeoDataCallback;
         this.stringDataCallback = stringDataCallback;
@@ -89,11 +91,12 @@ public class PostData extends AsyncTask<String, Void, String> {
             if(mcontext == Main2Activity.getContext()){
                 showResult(Main2Activity.getContext(), mJsonString);
             }
-            else if(mcontext == MypageActivity.getContext()){
-                Set_DonggeoData();
-            }
-            else if (mcontext==null){
-                CardView_Clicked();
+            else if(mcontext == MypageActivity.getContext() || mcontext == SearchActivity.getContext()){
+                if(cardview_clicked==false)
+                    Set_DonggeoData();
+                else
+                    CardView_Clicked();
+
             }
         }
 

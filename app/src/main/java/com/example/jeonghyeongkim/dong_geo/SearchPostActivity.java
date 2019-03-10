@@ -23,11 +23,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jeonghyeongkim.dong_geo.OnRangeSeekbarChangeListener;
-import com.example.jeonghyeongkim.dong_geo.OnRangeSeekbarFinalValueListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class SearchPostActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

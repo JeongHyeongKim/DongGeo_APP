@@ -38,7 +38,7 @@ public class SplashActivity extends Activity {
                 save_exchange_rate.save_rate(buffer);
                 //save_exchange_rate.get_rate("USD");
             }
-        }).execute("");
+        }).execute("json");
         startLoading();
     }
 
