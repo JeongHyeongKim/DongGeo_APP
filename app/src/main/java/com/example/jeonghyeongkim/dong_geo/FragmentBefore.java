@@ -7,16 +7,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import cn.nekocode.badge.BadgeDrawable;
 
 public class FragmentBefore extends Fragment {
 
@@ -29,6 +34,7 @@ public class FragmentBefore extends Fragment {
     String continent_amount;
     String continent_uni1;
     String id;
+    TextView textView;
     JSONArray jsonArray;
 
     public FragmentBefore(){
@@ -49,6 +55,19 @@ public class FragmentBefore extends Fragment {
 
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
         mCardview = (RecyclerView)view.findViewById(R.id.recyclerview);
+        textView = (TextView)view.findViewById(R.id.textView6);
+
+        final BadgeDrawable drawable2 =
+                new BadgeDrawable.Builder()
+                        .type(BadgeDrawable.TYPE_ONLY_ONE_TEXT)
+                        .badgeColor(0xff336699)
+                        .text1("거래전")
+                        .build();
+
+        //SpannableString spannableString =
+        //        new SpannableString(TextUtils.concat(drawable2.toSpannable()));
+        //Log.d("aaaaaaa", String.valueOf(spannableString));
+       // textView.setText(spannableString);
 
         ArrayList<DonggeoData> data = new ArrayList<>();
 

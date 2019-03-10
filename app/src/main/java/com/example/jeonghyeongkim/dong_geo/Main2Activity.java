@@ -170,7 +170,7 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_exchange) {
             JSONObject jsonObject=MakeJson(String.valueOf(kakao_id));
 
-            new PostData(Main2Activity.this, jsonObject, false, null,null).execute("/load_id.php");
+            new PostData(Main2Activity.this, jsonObject, false, null,null).execute("load_id");
 
         } else if (id == R.id.nav_write_content) {
             Intent intent = new Intent(Main2Activity.this, WriteContentActivity.class);

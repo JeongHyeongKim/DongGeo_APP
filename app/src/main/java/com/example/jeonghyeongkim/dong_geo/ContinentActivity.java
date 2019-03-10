@@ -147,7 +147,7 @@ public class ContinentActivity extends AppCompatActivity
 //                jsonObject.put("request_state", "0");
 //                jsonObject.put("request_continent", conti_num);
                 GetData getData = new GetData(ContinentActivity.this,null);
-                getData.execute("search_continent.php");
+                getData.execute("search_continent.php?request_continent="+conti_num+"&request_state=0");
 //                startActivity(intent);
         }
     }
