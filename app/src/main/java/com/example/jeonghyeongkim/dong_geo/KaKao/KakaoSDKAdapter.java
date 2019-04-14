@@ -1,8 +1,9 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.KaKao;
 
 import android.app.Activity;
 import android.content.Context;
 
+import com.example.jeonghyeongkim.dong_geo.GlobalApplication;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;

@@ -1,9 +1,7 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -13,17 +11,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.jeonghyeongkim.dong_geo.Callback.DonggeoDataCallback;
+import com.example.jeonghyeongkim.dong_geo.DonggeoData;
+import com.example.jeonghyeongkim.dong_geo.KaKao.KakaoSignupActivity;
+import com.example.jeonghyeongkim.dong_geo.MenuIntent;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
+import com.example.jeonghyeongkim.dong_geo.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MypageActivity extends AppCompatActivity
@@ -127,27 +128,27 @@ public class MypageActivity extends AppCompatActivity
         switch (frament_no){
             case 1:
                 // '프래그먼트1' 호출
-                Fragment1 fragment1 = new Fragment1();
-                transaction.replace(R.id.fragment_container, fragment1);
+                MypageBuyFragment mypageBuyFragment = new MypageBuyFragment();
+                transaction.replace(R.id.fragment_container, mypageBuyFragment);
                 transaction.commit();
                 break;
 
             case 2:
                 // '프래그먼트2' 호출
-                Fragment2 fragment2 = new Fragment2();
-                transaction.replace(R.id.fragment_container, fragment2);
+                MypageSellFragment mypageSellFragment = new MypageSellFragment();
+                transaction.replace(R.id.fragment_container, mypageSellFragment);
                 transaction.commit();
                 break;
             case 3:
                 // '프래그먼트2' 호출
-                Fragment3 fragment3 = new Fragment3();
-                transaction.replace(R.id.fragment_container, fragment3);
+                MypageDealFragment mypageDealFragment = new MypageDealFragment();
+                transaction.replace(R.id.fragment_container, mypageDealFragment);
                 transaction.commit();
                 break;
             case 4:
                 // '프래그먼트2' 호출
-                Fragment4 fragment4 = new Fragment4();
-                transaction.replace(R.id.fragment_container, fragment4);
+                MypageEndFragment mypageEndFragment = new MypageEndFragment();
+                transaction.replace(R.id.fragment_container, mypageEndFragment);
                 transaction.commit();
                 break;
         }

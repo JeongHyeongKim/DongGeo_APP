@@ -1,12 +1,19 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.HttpRequest;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.jeonghyeongkim.dong_geo.Activity.MainActivity;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchBuyFragment;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchByContinent;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchByValue;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchResult;
+import com.example.jeonghyeongkim.dong_geo.Activity.SplashActivity;
+import com.example.jeonghyeongkim.dong_geo.Callback.ExchangeDataCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,20 +63,20 @@ public class GetData extends AsyncTask<String, Void, String> {
         } else {
             mJsonString = s;
             Log.d("continent_result", "s" + s);
-            if(mcontext == Main2Activity.getContext()){
-               showResult(Main2Activity.getContext());
+            if(mcontext == MainActivity.getContext()){
+               showResult(MainActivity.getContext());
             }
-            else if(mcontext == ContinentActivity.getContext()){
+            else if(mcontext == SearchByContinent.getContext()){
                 Log.d("continent_result", "continent_onPost");
-                showResult(ContinentActivity.getContext());
+                showResult(SearchByContinent.getContext());
             }
-            else if(mcontext == SearchPostActivity.getContext()){
+            else if(mcontext == SearchByValue.getContext()){
                 Log.d("searchpost_result", "searchPost");
-                showResult(SearchPostActivity.getContext());
+                showResult(SearchByValue.getContext());
             }
-            else if(mcontext == FragmentBefore.context){
+            else if(mcontext == SearchBuyFragment.context){
                 Log.d("continent_result", "before_fragment");
-                showResult(FragmentBefore.context);
+                showResult(SearchBuyFragment.context);
             }
             else if (mcontext==SplashActivity.getContext()){
                 try {
@@ -138,20 +145,20 @@ public class GetData extends AsyncTask<String, Void, String> {
     private void showResult(Context context){
         try{
             JSONObject jsonObject = new JSONObject(mJsonString);
-            if(context == Main2Activity.getContext()) {
+            if(context == MainActivity.getContext()) {
                 JSONObject jsonObject1 = jsonObject.getJSONObject("result");
                 String buffer_world_count = jsonObject1.getString("world");
                 String buffer_user_count = jsonObject1.getString("user");
                 String buffer_request_count = jsonObject1.getString("request"); //json파싱 결과를 각 임시 변수에 삽입
 
-                ((Main2Activity) context).user_count.setText(buffer_user_count + "명의 사용자");
-                ((Main2Activity) context).world_count.setText(buffer_world_count + "개국");
-                ((Main2Activity) context).request_count.setText(buffer_request_count + "개의 게시글");
-            }else if(context == ContinentActivity.getContext()){
+                ((MainActivity) context).user_count.setText(buffer_user_count + "명의 사용자");
+                ((MainActivity) context).world_count.setText(buffer_world_count + "개국");
+                ((MainActivity) context).request_count.setText(buffer_request_count + "개의 게시글");
+            }else if(context == SearchByContinent.getContext()){
                 jsonArray = jsonObject.getJSONArray("result");
                 setJsonArray(jsonArray);
 //                ((ContinentActivity) context).jsonArray = jsonArray;
-                Intent intent = new Intent(context, SearchActivity.class);
+                Intent intent = new Intent(context, SearchResult.class);
                 intent.putExtra("jsonArray", jsonArray.toString());
                 context.startActivity(intent);
 //                length = jsonArray.length();
@@ -179,11 +186,11 @@ public class GetData extends AsyncTask<String, Void, String> {
 //                    Log.d("continent_result", continent_uni1);
 //                }
 
-            } else if(context == SearchPostActivity.getContext()) {
+            } else if(context == SearchByValue.getContext()) {
                 jsonArray = jsonObject.getJSONArray("result");
                 setJsonArray(jsonArray);
 //                ((ContinentActivity) context).jsonArray = jsonArray;
-                Intent intent = new Intent(context, SearchActivity.class);
+                Intent intent = new Intent(context, SearchResult.class);
                 intent.putExtra("jsonArray", jsonArray.toString());
                 context.startActivity(intent);
             }

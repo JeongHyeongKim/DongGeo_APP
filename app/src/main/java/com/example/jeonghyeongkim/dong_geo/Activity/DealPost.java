@@ -1,6 +1,5 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +12,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.jeonghyeongkim.dong_geo.CommentModel;
+import com.example.jeonghyeongkim.dong_geo.MenuIntent;
+import com.example.jeonghyeongkim.dong_geo.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static java.lang.Integer.parseInt;
 
-public class DetailActivity extends AppCompatActivity{
+public class DealPost extends AppCompatActivity{
 
     //comment 리스트
     private RecyclerView commentRecyclerView;
@@ -148,7 +149,7 @@ public class DetailActivity extends AppCompatActivity{
     private void set_view(String raw_data) throws JSONException {
 
         commentRecyclerView = findViewById(R.id.commentRecyclerview);
-        mLayoutManager = new LinearLayoutManager(DetailActivity.this);
+        mLayoutManager = new LinearLayoutManager(DealPost.this);
         commentRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CommentAdapter();
         mAdapter.setData(mComments);

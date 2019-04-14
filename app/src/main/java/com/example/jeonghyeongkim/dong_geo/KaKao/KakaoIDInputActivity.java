@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.KaKao;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,16 +10,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchByContinent;
+import com.example.jeonghyeongkim.dong_geo.MenuIntent;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
+import com.example.jeonghyeongkim.dong_geo.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class KakaoInputActivity extends AppCompatActivity {
+public class KakaoIDInputActivity extends AppCompatActivity {
 
 
     private static Context context;
@@ -64,8 +66,8 @@ public class KakaoInputActivity extends AppCompatActivity {
                 String search_id = kakaoInput.getText().toString();
                 Toast.makeText(this, "카카오 아이디 : " + search_id, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(KakaoInputActivity.this, ContinentActivity.class);
-                new PostData(KakaoInputActivity.this, MakeJson(kakao_id, search_id), false, null,null).execute("http://13.124.152.254/dong_geo/update_id.php");
+                Intent intent = new Intent(KakaoIDInputActivity.this, SearchByContinent.class);
+                new PostData(KakaoIDInputActivity.this, MakeJson(kakao_id, search_id), false, null,null).execute("http://13.124.152.254/dong_geo/update_id.php");
                 //postData.execute("http://13.124.152.254/dong_geo/update_id.php");
                 startActivity(intent);
                 break;

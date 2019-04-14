@@ -1,4 +1,6 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Callback;
+
+import com.example.jeonghyeongkim.dong_geo.DonggeoData;
 
 import java.util.ArrayList;
 

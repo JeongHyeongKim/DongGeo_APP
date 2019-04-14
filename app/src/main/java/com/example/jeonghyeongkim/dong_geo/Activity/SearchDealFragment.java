@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,15 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jeonghyeongkim.dong_geo.CardviewAdapter;
+import com.example.jeonghyeongkim.dong_geo.DonggeoData;
+import com.example.jeonghyeongkim.dong_geo.R;
+
 import java.util.ArrayList;
 
-public class FragmentIng extends Fragment {
+public class SearchDealFragment extends Fragment {
     private RecyclerView mCardview;
     private CardviewAdapter mAdapter;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private int MAX_ITEM_COUNT = 10;
 
-    public FragmentIng() {
+    public SearchDealFragment() {
         super();
     }
 

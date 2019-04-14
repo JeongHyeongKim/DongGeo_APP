@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.HttpRequest;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,7 +8,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import com.example.jeonghyeongkim.dong_geo.Activity.MainActivity;
+import com.example.jeonghyeongkim.dong_geo.Activity.MypageActivity;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchByContinent;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchResult;
+import com.example.jeonghyeongkim.dong_geo.Callback.DonggeoDataCallback;
+import com.example.jeonghyeongkim.dong_geo.Callback.StringDataCallback;
+import com.example.jeonghyeongkim.dong_geo.DonggeoData;
+import com.example.jeonghyeongkim.dong_geo.ExchangeRate;
+import com.example.jeonghyeongkim.dong_geo.KaKao.KakaoIDInputActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,10 +96,10 @@ public class PostData extends AsyncTask<String, Void, String> {
             Log.d("check", "response_post  - " + mJsonString);
             Log.d("kakao_load", "s" + s);
 
-            if(mcontext == Main2Activity.getContext()){
-                showResult(Main2Activity.getContext(), mJsonString);
+            if(mcontext == MainActivity.getContext()){
+                showResult(MainActivity.getContext(), mJsonString);
             }
-            else if(mcontext == MypageActivity.getContext() || mcontext == SearchActivity.getContext()){
+            else if(mcontext == MypageActivity.getContext() || mcontext == SearchResult.getContext()){
                 if(cardview_clicked==false)
                     Set_DonggeoData();
                 else
@@ -189,17 +197,17 @@ public class PostData extends AsyncTask<String, Void, String> {
     private void showResult(Context context, String data_line){
         Log.d("continent_result", "showResult before try");
         try{
-            if(context == Main2Activity.getContext()) {
+            if(context == MainActivity.getContext()) {
                 JSONObject jsonObject = new JSONObject(data_line);
                 JSONObject parsed_Object = jsonObject.getJSONObject("result");
 
                 parsed_response = parsed_Object.getString("response");
                 //Log.d("kakao_load", buffer_response);
                 if (!parsed_response.equals("fail")) {
-                    Intent intent = new Intent(context, ContinentActivity.class);
+                    Intent intent = new Intent(context, SearchByContinent.class);
                     context.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(context, KakaoInputActivity.class);
+                    Intent intent = new Intent(context, KakaoIDInputActivity.class);
                     context.startActivity(intent);
                 }
             }
@@ -210,7 +218,7 @@ public class PostData extends AsyncTask<String, Void, String> {
                 parsed_response = parsed_Object.getString("response");
 
                 if(parsed_response=="fail"){ //등록되지 않은 유저!!!!!!!
-                    Intent intent = new Intent(context, KakaoInputActivity.class); //   + 안내메시지
+                    Intent intent = new Intent(context, KakaoIDInputActivity.class); //   + 안내메시지
                     context.startActivity(intent);
                 }
             }
@@ -226,7 +234,7 @@ public class PostData extends AsyncTask<String, Void, String> {
         try{
                 Log.d("jsonjson", mJsonString);
 
-                SaveExchangeRate saveExchangeRate = new SaveExchangeRate(sh,null,mcontext); //환율 불러오는거임!
+                ExchangeRate exchangeRate = new ExchangeRate(sh,null,mcontext); //환율 불러오는거임!
 
                 JSONObject jsonObject = new JSONObject(mJsonString);
                 JSONArray object_to_array = jsonObject.getJSONArray("result");
@@ -247,7 +255,7 @@ public class PostData extends AsyncTask<String, Void, String> {
 
                     String amount = (String) tmp.get("amount");
                     Log.d("parsing_amount",amount);
-                    float rate = saveExchangeRate.get_rate(currency);
+                    float rate = exchangeRate.get_rate(currency);
                     rate=rate*Float.valueOf(amount);
                     String uni1 = (String) tmp.get("uni1");
                     Log.d("parsing_uni1",uni1);

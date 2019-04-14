@@ -1,17 +1,17 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.KaKao;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.example.jeonghyeongkim.dong_geo.R;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
-public class LoginActivity extends Activity {
+public class KakaoLoginActivity extends Activity {
     private ISessionCallback callback;
 
     @Override
