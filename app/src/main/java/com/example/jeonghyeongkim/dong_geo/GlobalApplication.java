@@ -3,6 +3,7 @@ package com.example.jeonghyeongkim.dong_geo;
 import android.app.Activity;
 import android.app.Application;
 
+import com.example.jeonghyeongkim.dong_geo.KaKao.KakaoSDKAdapter;
 import com.kakao.auth.KakaoSDK;
 
 public class GlobalApplication extends Application {

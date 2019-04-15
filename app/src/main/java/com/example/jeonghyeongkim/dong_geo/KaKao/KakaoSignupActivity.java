@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.KaKao;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.jeonghyeongkim.dong_geo.Activity.MainActivity;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
 import com.kakao.auth.ErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -15,8 +17,6 @@ import com.kakao.util.helper.log.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class KakaoSignupActivity extends Activity {
     private static Context context;
@@ -62,7 +62,7 @@ public class KakaoSignupActivity extends Activity {
                 buffer = userProfile;
                 id = userProfile.getId();
 
-                Intent intent = new Intent(KakaoSignupActivity.this, Main2Activity.class);
+                Intent intent = new Intent(KakaoSignupActivity.this, MainActivity.class);
                 intent.putExtra("id", userProfile.getId()); //세션 id
                 intent.putExtra("nickname", userProfile.getNickname());
                 intent.putExtra("kakaoimage", userProfile.getThumbnailImagePath());
@@ -78,7 +78,7 @@ public class KakaoSignupActivity extends Activity {
     }
 
     protected void redirectLoginActivity() {
-        final Intent intent = new Intent(this, LoginActivity.class);
+        final Intent intent = new Intent(this, KakaoLoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();

@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.example.jeonghyeongkim.dong_geo.Activity.DealPost;
+import com.example.jeonghyeongkim.dong_geo.Callback.StringDataCallback;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +62,7 @@ public class CardviewAdapter extends RecyclerView.Adapter<CardviewViewHolder> {
                     public void onTaskDone(String non_parsing_result) {
                         buffer=non_parsing_result;
                         Log.d("raw_data_adaapter", buffer);
-                        Intent intent = new Intent(mContext,DetailActivity.class);
+                        Intent intent = new Intent(mContext,DealPost.class);
                         intent.putExtra("raw_data",buffer);
                         mContext.startActivity(intent);
                     }

@@ -1,7 +1,6 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,9 +22,15 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jeonghyeongkim.dong_geo.CrystalRangeSeekbar;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.GetData;
+import com.example.jeonghyeongkim.dong_geo.MenuIntent;
+import com.example.jeonghyeongkim.dong_geo.OnRangeSeekbarChangeListener;
+import com.example.jeonghyeongkim.dong_geo.OnRangeSeekbarFinalValueListener;
+import com.example.jeonghyeongkim.dong_geo.R;
 
 
-public class SearchPostActivity extends AppCompatActivity{
+public class SearchByValue extends AppCompatActivity{
 
     private static Context context;
     MenuIntent menuIntent;
@@ -175,11 +180,9 @@ public class SearchPostActivity extends AppCompatActivity{
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + minCost +"~" + maxCost + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
 
-//                Intent intent = new Intent(SearchPostActivity.this,  SearchActivity.class);
-//                intent.putExtra("from", "searchPostActivity");
-//                startActivity(intent);
-                context = SearchPostActivity.this;
-                GetData getData = new GetData(SearchPostActivity.this,null);
+
+                context = SearchByValue.this;
+                GetData getData = new GetData(SearchByValue.this,null);
                 getData.execute("search_detail.php?request_state='0'&request_currency='"+exchange+"'&request_min='"+minCost+"'&request_max="+maxCost+"&request_university1='"+school+"'");
 
                 }catch (Exception e){

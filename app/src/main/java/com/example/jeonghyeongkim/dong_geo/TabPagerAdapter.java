@@ -1,14 +1,17 @@
 package com.example.jeonghyeongkim.dong_geo;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.core.JsonParser;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchBuyFragment;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchDealFragment;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchEndFragment;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.GetData;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,19 +39,19 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position){
             case 0:
-                FragmentBefore before = new FragmentBefore(jsonArray);
+                SearchBuyFragment before = new SearchBuyFragment(jsonArray);
 //                getData = new GetData(context);
 //                state = ((SearchActivity) context).state;
 //                continent = ((SearchActivity) context).continent;
 //                getData.execute("http://13.124.152.254/dong_geo/search_continent.php?request_state=" + state + "&request_continent=" + continent);
                 return before;
             case 1:
-                FragmentIng ing = new FragmentIng();
+                SearchDealFragment ing = new SearchDealFragment();
 //                postData = new PostData(context, MakeJson());
 //                postData.execute("http://13.124.152.254/dong_geo/search_continent.php");
                 return ing;
             case 2:
-                FragmentEnd end = new FragmentEnd();
+                SearchEndFragment end = new SearchEndFragment();
 //                postData = new PostData(context, MakeJson());
 //                postData.execute("http://13.124.152.254/dong_geo/search_continent.php");
                 return end;

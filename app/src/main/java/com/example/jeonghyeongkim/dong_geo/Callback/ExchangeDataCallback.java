@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Callback;
 
 import org.json.JSONArray;
 

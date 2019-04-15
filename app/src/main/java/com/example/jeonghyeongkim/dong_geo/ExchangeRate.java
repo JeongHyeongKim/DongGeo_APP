@@ -11,13 +11,13 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class SaveExchangeRate {
+public class ExchangeRate {
     SharedPreferences sh;
     SharedPreferences.Editor editor;
     private Context context;
     private JSONArray raw_data;
 
-    public SaveExchangeRate(SharedPreferences sh, SharedPreferences.Editor editor, Context context) {
+    public ExchangeRate(SharedPreferences sh, SharedPreferences.Editor editor, Context context) {
         this.sh = sh;
         this.editor = editor;
         this.context = context;

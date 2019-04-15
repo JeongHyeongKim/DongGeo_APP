@@ -14,7 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.jeonghyeongkim.dong_geo.Activity.MainActivity;
+import com.example.jeonghyeongkim.dong_geo.Activity.MypageActivity;
+import com.example.jeonghyeongkim.dong_geo.Activity.SearchByValue;
+import com.example.jeonghyeongkim.dong_geo.Activity.WritePostActivity;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
+import com.example.jeonghyeongkim.dong_geo.KaKao.KakaoLoginActivity;
+import com.example.jeonghyeongkim.dong_geo.KaKao.KakaoSignupActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,16 +91,16 @@ public class MenuIntent implements NavigationView.OnNavigationItemSelectedListen
         int id = item.getItemId();
         //햄버거바 메뉴 아이디 수정
         if (id == R.id.nav_main) {
-            Intent intent = new Intent(context, Main2Activity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         } else if (id == R.id.nav_exchange) {
             JSONObject jsonObject = MakeJson(String.valueOf(kakao_id));
             new PostData(context, jsonObject, false, null,null).execute("/load_id.php");
         } else if (id == R.id.nav_write_content) {
-            Intent intent = new Intent(context, WriteContentActivity.class);
+            Intent intent = new Intent(context, WritePostActivity.class);
             context.startActivity(intent);
         }else if (id ==  R.id.nav_search_content){
-            Intent intent = new Intent(context, SearchPostActivity.class);
+            Intent intent = new Intent(context, SearchByValue.class);
             context.startActivity(intent);
         } else if (id == R.id.nav_mypage) {
             Intent intent = new Intent(context, MypageActivity.class);
@@ -101,7 +108,7 @@ public class MenuIntent implements NavigationView.OnNavigationItemSelectedListen
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-            Intent intent = new Intent(context, LoginActivity.class);
+            Intent intent = new Intent(context, KakaoLoginActivity.class);
             context.startActivity(intent);
         }
 

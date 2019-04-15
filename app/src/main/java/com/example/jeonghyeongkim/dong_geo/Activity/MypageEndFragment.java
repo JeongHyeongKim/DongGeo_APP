@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,22 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jeonghyeongkim.dong_geo.Callback.DonggeoDataCallback;
+import com.example.jeonghyeongkim.dong_geo.CardviewAdapter;
+import com.example.jeonghyeongkim.dong_geo.DonggeoData;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
+import com.example.jeonghyeongkim.dong_geo.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.jeonghyeongkim.dong_geo.Fragment1.context;
+import static com.example.jeonghyeongkim.dong_geo.Activity.MypageBuyFragment.context;
 
-public class Fragment3 extends Fragment { //진행중
+public class MypageEndFragment extends Fragment { //끝이요
 
     private RecyclerView mCardview;
     private CardviewAdapter mAdapter;
-    // private LinearLayoutManager mLayoutManager;
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     static public ArrayList<DonggeoData> data = new ArrayList<>();
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
-    public Fragment3() {
+
+
+    public MypageEndFragment() {
         // Required empty public constructor
         super();
     }
@@ -32,15 +39,13 @@ public class Fragment3 extends Fragment { //진행중
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fragment3, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment4, container, false);
 
-
-        context = getActivity();
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2,1);
-        mCardview = (RecyclerView)view.findViewById(R.id.recyclerview3);
+        mCardview = (RecyclerView)view.findViewById(R.id.recyclerview4);
 
 
-        JSONObject jsonObject = MakeJson("0", "2");
+        JSONObject jsonObject = MakeJson("0", "12");
         new PostData(context, jsonObject, false, new DonggeoDataCallback() {
             @Override
             public void onTaskDone(ArrayList<DonggeoData> donggeoData) {
@@ -53,8 +58,8 @@ public class Fragment3 extends Fragment { //진행중
         },null).execute("view_mypage_sale");
 
 
-
         return view;
+
     }
 
     private JSONObject MakeJson(String request_state, String user_id){
@@ -69,4 +74,5 @@ public class Fragment3 extends Fragment { //진행중
 
         return jsonObject;
     }
+
 }

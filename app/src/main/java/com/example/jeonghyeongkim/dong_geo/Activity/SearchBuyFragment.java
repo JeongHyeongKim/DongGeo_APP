@@ -1,4 +1,4 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.jeonghyeongkim.dong_geo.CardviewAdapter;
+import com.example.jeonghyeongkim.dong_geo.DonggeoData;
+import com.example.jeonghyeongkim.dong_geo.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +27,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import cn.nekocode.badge.BadgeDrawable;
 
-public class FragmentBefore extends Fragment {
+public class SearchBuyFragment extends Fragment {
 
     private RecyclerView mCardview;
     private CardviewAdapter mAdapter;
@@ -37,11 +41,11 @@ public class FragmentBefore extends Fragment {
     TextView textView;
     JSONArray jsonArray;
 
-    public FragmentBefore(){
+    public SearchBuyFragment(){
         super();
     }
     @SuppressLint("ValidFragment")
-    public FragmentBefore(JSONArray jsonArray) {
+    public SearchBuyFragment(JSONArray jsonArray) {
         super();
         this.jsonArray = jsonArray;
         Log.d("Tab5", String.valueOf(jsonArray));

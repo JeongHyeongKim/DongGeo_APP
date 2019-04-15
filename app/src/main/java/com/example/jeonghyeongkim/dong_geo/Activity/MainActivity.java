@@ -1,16 +1,13 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,16 +15,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.ViewManager;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.GetData;
+import com.example.jeonghyeongkim.dong_geo.MenuIntent;
+import com.example.jeonghyeongkim.dong_geo.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -37,20 +34,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-
-public class Main2Activity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements OnMapReadyCallback{
     private static Context context;
     String mJsonString;
-    TextView user_count;
-    TextView world_count;
-    TextView request_count;
+    public TextView user_count;
+    public TextView world_count;
+    public TextView request_count;
     TextView kakaonic;
     android.support.v7.widget.Toolbar toolbar;
     LinearLayout linear;
@@ -106,7 +96,7 @@ public class Main2Activity extends AppCompatActivity
         mapFragment.getMapAsync(this);
         get_query();
 
-        context = Main2Activity.this;
+        context = MainActivity.this;
     }
 
     @Override
@@ -231,7 +221,7 @@ public class Main2Activity extends AppCompatActivity
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Intent intent = new Intent(Main2Activity.this, MypageActivity.class);
+                Intent intent = new Intent(MainActivity.this, MypageActivity.class);
                 startActivity(intent);
             }
         });
@@ -249,7 +239,7 @@ public class Main2Activity extends AppCompatActivity
                 break;
             case R.id.detailSearch:
                 //검색 페이지로 이동
-                Intent intent = new Intent(Main2Activity.this, SearchActivity.class);
+                Intent intent = new Intent(MainActivity.this, SearchResult.class);
                 startActivity(intent);
         }
     }
@@ -266,7 +256,7 @@ public class Main2Activity extends AppCompatActivity
 
 
     public void get_query() {
-        GetData getData = new GetData(Main2Activity.this,null);
+        GetData getData = new GetData(MainActivity.this,null);
         getData.execute("overlay");
     }
 

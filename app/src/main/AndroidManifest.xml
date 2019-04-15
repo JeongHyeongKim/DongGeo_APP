@@ -22,7 +22,7 @@
 
         <activity android:name=".Exchange.Exchange_Query_manana" />
         <activity
-            android:name=".Main2Activity"
+            android:name=".Activity.MainActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -31,43 +31,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".KakaoSignupActivity" />
+        <activity android:name=".KaKao.KakaoLoginActivity" />
+        <activity android:name=".KaKao.KakaoSignupActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/Kakao_Key" />
 
         <activity
-            android:name=".WriteContentActivity"
+            android:name=".Activity.WritePostActivity"
             android:label="@string/title_activity_write_content"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".MypageActivity"
+            android:name=".Activity.MypageActivity"
             android:label="@string/title_activity_mypage"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".KakaoInputActivity"
+            android:name=".KaKao.KakaoIDInputActivity"
             android:label=""
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".Activity.SearchResult"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".Activity.DealPost"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SearchPostActivity"
+            android:name=".Activity.SearchByValue"
             android:label="@string/title_activity_search_post_actitity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ContinentActivity"
+            android:name=".Activity.SearchByContinent"
             android:label="@string/title_activity_continent"
             android:theme="@style/AppTheme"></activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:label=""
              />
     </application>

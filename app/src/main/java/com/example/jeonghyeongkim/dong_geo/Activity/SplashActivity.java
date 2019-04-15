@@ -1,25 +1,24 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+
+import com.example.jeonghyeongkim.dong_geo.Callback.ExchangeDataCallback;
+import com.example.jeonghyeongkim.dong_geo.ExchangeRate;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.GetData;
+import com.example.jeonghyeongkim.dong_geo.R;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class SplashActivity extends Activity {
     private static Context context;
     SharedPreferences exchange_rate;
     SharedPreferences.Editor editor;
     JSONArray buffer;
-    SaveExchangeRate save_exchange_rate;
+    ExchangeRate save_exchange_rate;
 
 
 
@@ -34,7 +33,7 @@ public class SplashActivity extends Activity {
             @Override
             public void onTaskDone(JSONArray jsonArray) {
                 buffer=jsonArray; //총 42개국, 저장할 정보 -> 저장하는 현재 시간과 파싱한 name 정보의 3~5인덱스 값!!
-                save_exchange_rate=new SaveExchangeRate(exchange_rate,editor,SplashActivity.this);
+                save_exchange_rate=new ExchangeRate(exchange_rate,editor,SplashActivity.this);
                 save_exchange_rate.save_rate(buffer);
 //                save_exchange_rate.get_rate("USD");
             }

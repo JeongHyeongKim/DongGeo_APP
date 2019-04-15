@@ -1,9 +1,6 @@
-package com.example.jeonghyeongkim.dong_geo;
+package com.example.jeonghyeongkim.dong_geo.Activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,21 +17,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jeonghyeongkim.dong_geo.KaKao.KakaoSignupActivity;
+import com.example.jeonghyeongkim.dong_geo.MenuIntent;
+import com.example.jeonghyeongkim.dong_geo.HttpRequest.PostData;
+import com.example.jeonghyeongkim.dong_geo.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class WriteContentActivity extends AppCompatActivity{
+public class WritePostActivity extends AppCompatActivity{
     private static Context context;
     MenuIntent menuIntent;
 
@@ -95,7 +93,7 @@ public class WriteContentActivity extends AppCompatActivity{
         schoolView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         schoolView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, school_item));
-        context = WriteContentActivity.this;
+        context = WritePostActivity.this;
         im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
@@ -113,7 +111,7 @@ public class WriteContentActivity extends AppCompatActivity{
                 long kakao_id=KakaoSignupActivity.get_kakao_id();
 
                 JSONObject jsonObject=MakeJson( exchange, continent ,amount, school, String.valueOf(kakao_id)); // 인증값은 0으로 테스트함
-                new PostData(WriteContentActivity.this, jsonObject,false, null,null).execute("/write_content");
+                new PostData(WritePostActivity.this, jsonObject,false, null,null).execute("/write_content");
 
                 Toast.makeText(this, "통화 " + exchange + " 금액 " + amount + " 학교 " + school, Toast.LENGTH_LONG).show();
 //                Log.i("write", "price" + price + "exchange" + exchange);
