@@ -36,7 +36,8 @@ public class SearchByValue extends AppCompatActivity{
     MenuIntent menuIntent;
 
     String[] exchangeRate = {
-            "유럽연합 EUR",  "영국 GBP",  "스위스 CHF", "스웨덴 SEK", "체코 CZK", "덴마크 DKK", "노르웨이 NOK", "러시아 RUB", "폴란드 PLN", //유럽 코드 1
+            "유럽연합 EUR",  "독익 EUR", "프랑스 EUR", "이탈리아 EUR", "스페인 EUR", "포르투갈 EUR", "그리스 EUR", "네덜란드 EUR", "오스트리아 EUR", "벨기에 EUR", "아일랜드 EUR", "슬로바키아 EUR", "리투아니아 EUR", "핀란드 EUR", //유럽 코드 1
+            "영국 GBP",  "스위스 CHF", "스웨덴 SEK", "체코 CZK", "덴마크 DKK", "노르웨이 NOK", "러시아 RUB", "폴란드 PLN", //유럽 코드 1
             "일본 JPY", "중국 CNY", "홍콩 HKD", "대만 TWD",  "몽골 MNT", "카자흐스탄 KZT", "인도 INR","파키스탄 PKR", // 동아시아 코드 2
             "태국 THB", "싱가포르 SGD", "말레이시아 MYR", "인도네시아 IDR",  "브루나이 BND", "베트남 VND",// 동남 아시아 코드 3
             "오만 OMR",  "터키 TRY", "이스라엘 ILS", "사우디아라비아 SAR", "쿠웨이트 KWD", "바레 BHD",  "아랍에미리트 AED", "요르단 JOD",  "카타르 QAR", //중동 코드 4

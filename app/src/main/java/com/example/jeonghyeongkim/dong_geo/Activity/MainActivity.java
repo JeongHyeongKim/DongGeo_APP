@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.detailSearch:
                 //검색 페이지로 이동
-                Intent intent = new Intent(MainActivity.this, SearchResult.class);
+                Intent intent = new Intent(MainActivity.this, SearchByValue.class);
                 startActivity(intent);
         }
     }
